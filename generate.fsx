@@ -15,5 +15,5 @@ open FsReveal
 
 let outDir = Path.Combine(__SOURCE_DIRECTORY__, "output")
 let inputFsx = Path.Combine( __SOURCE_DIRECTORY__, "slides.fsx")
-FsReveal.GenerateOutputFromScriptFile outDir "index.html" inputFsx
+FsReveal.GenerateOutputFromScriptFile(inputFsx, outDir, "index.html")
 copyFiles()

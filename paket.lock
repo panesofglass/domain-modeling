@@ -34,7 +34,7 @@ NUGET
       Aether (>= 6.0.0)
       FParsec (>= 1.0.1)
       FSharp.Core (>= 3.1.2.1)
-    FAKE (3.35.5)
+    FAKE (3.31.2)
     FParsec (1.0.1)
     Freya (1.0.185)
       Freya.Core (>= 1.0.185)

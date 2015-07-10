@@ -1,6 +1,6 @@
 (**
-- title : Domain Modeling with F#
-- description : Domain Modeling with F#
+- title : Domain Modeling with Types
+- description : Domain Modeling with Types (using F#)
 - author : Ryan Riley (@panesofglass)
 - theme : night
 - transition : default
@@ -118,14 +118,13 @@ type City = string
 
 *)
 
-(*** include: city ***)
-(*** include: city-example ***)
+type City = City of string
 
 (** Extract the value via pattern matching: *)
-(*** include: magic ***)
+let cityName (City name) = name
 
-(*** include: magic-city ***)
-(*** include-output:magic-city ***)
+(*** define-output:city-name ***)
+cityName (City "Houston, TX")
 
 (**
 ***
@@ -171,6 +170,72 @@ type Place = {
 (**
 ***
 
+## What could go wrong?
+
+1. Latitude or longitude not provided
+2. Latitude and longitude mixed up
+3. Invalid city and location values
+
+***
+
+## 1. Handling missing values
+
+Examples:
+
+* Atlantis
+* Camelot
+
+***
+
+## C# version:
+
+    [lang=cs]
+    class Locatable : ILocatable {
+        public float Latitude { get; set; }
+        public float Longitude { get; set; }
+    }
+
+    public class Place {
+        public string Name { get; set; }
+        public float? Latitude { get; set; }
+        public float? Longitude { get; set; }
+        public ILocatable GetLocation() {
+            if (Latitude.HasValue && Longitude.HasValue) {
+                return new Locatable {
+                    Latitude = Latitude.Value,
+                    Longitude = Longitude.Value
+                };
+            } else {
+                return null; // Oh noes!
+            }
+        }
+    }
+
+***
+
+## F# `Place` with optional `ILocatable`
+
+*)
+
+type Place = { 
+    Name : string
+    Latitude : float option
+    Longitude : float option }
+    member this.GetLocation() : ILocatable option =
+        match this.Latitude, this.Longitude with
+        | Some lat, Some lng ->
+            { interface ILocation with
+                member this.Latitude = lat
+                member this.Longitude = lng } |> Some
+        | _ -> None
+
+(**
+***
+
+## Yuck, right?
+
+***
+
 ## Can we do better?
 
 ***
@@ -206,23 +271,6 @@ type Place = {
 
 type Location = { Latitude : float; Longitude : float }
 
-type Place = { Name : string; Location : Location }
-
-(**
-***
-
-## What did we gain?
-
-Consider: an invalid city name
-
-***
-
-## F# `Place` with optional `Location`
-
-*)
-
-type Location = { Latitude : float; Longitude : float }
-
 type Place = { Name : string; Location : Location option }
 
 (**
@@ -232,60 +280,185 @@ type Place = { Name : string; Location : Location option }
 
 ***
 
-## F# `Place` with optional `ILocatable`
+## Has-a preferred to Is-a
+
+### "Composition over inheritance"
+
+***
+
+## 2. Mixing up latitude and longitude
+
+***
+
+## Sadly we will have to leave C# behind
+
+***
+
+## Units of measure
 
 *)
 
-type Place = { 
-    Name : string
-    Latitude : float option
-    Longitude : float option }
-    member this.GetLocation() : ILocatable option =
-        match this.Latitude, this.Longitude with
-        | Some lat, Some lng ->
-            { interface ILocation with
-                member this.Latitude = lat
-                member this.Longitude = lng } |> Some
-        | _ -> None
+[<Measure>] type degLat
+[<Measure>] type degLng
+
+let degreesLatitude = (*) 1.<degLat>
+let degreesLongitude = (*) 1.<degLng>
 
 (**
 ***
 
-## And the C# version:
+## Correct `Location`
 
-    [lang=cs]
-    class Locatable : ILocatable {
-        public float Latitude { get; set; }
-        public float Longitude { get; set; }
-    }
+*)
 
-    public class Place {
-        public string Name { get; set; }
-        public float? Latitude { get; set; }
-        public float? Longitude { get; set; }
-        public ILocatable GetLocation() {
-            if (Latitude.HasValue && Longitude.HasValue) {
-                return new Locatable {
-                    Latitude = Latitude.Value,
-                    Longitude = Longitude.Value
-                };
-            } else {
-                return null; // Oh noes!
-            }
-        }
-    }
+type Location = {
+    Latitude : float<degLat>
+    Longitude : float<degLng>
+}
+
+type Place = { Name : City; Location : Location }
+
+(**
+***
+
+## Make invalid values impossible
 
 ***
 
-## Yuck, right?
+## Types can only get you so far
 
-### Note: you could use a `Nullable` struct for `Locatable`
+1. `Place` allows `null` and `""`
+2. `Location` allows latitude < -90 and > 90
+3. `Location` allows longitude < -`80 and > 180
 
 ***
 
-## Conclusion: Has-a often wins
+## 3. Valid values
 
-### "Composition over inheritance"
+***
+
+## Revisiting `City`
+
+*)
+
+type City =
+    City of name : string
+    static member Create (name : string) =
+        match name with
+        | null | "" ->
+            invalidArg "Invalid city"
+                "The city name cannot be null or empty."
+        | x -> City x
+
+(**
+
+' Without a city lookup, we are stuck with a minimal
+' validation for the city name. We could add a bit
+' more, such as requiring one or more commas, but
+' this provides the general idea.
+
+***
+
+## Better than nothing
+
+***
+
+## Revisiting `Location`
+
+*)
+
+type Location =
+    private { latitude : float<degLat>; longitude : float<degLng> }
+    member this.Latitude = this.latitude
+    member this.Longitude = this.longitude
+    static member Create (lat, lng) =
+        if -90.<degLat> > lat || lat > 90.<degLat> then
+            invalidArg "lat"
+                "Latitude must be within the range -90 to 90."
+        elif -180.<degLng> > lng && lng > 180.<degLng> then
+            invalidArg "lng"
+                "Longitude must be within the range -180 to 180."
+        else { latitude = lat; longitude = lng }
+
+(**
+
+' This may look strange as we are now hiding
+' the record we previously used. However, we
+' retain immutability and add validation.
+
+***
+
+## Revisiting `Place`
+
+*)
+
+type Place = { Name : City; Location : Location option }
+
+(**
+
+' Place doesn't really change except to swap
+' Name : string for Name : City
+
+***
+
+## Further study: Dependent Types
+
+* Code Contracts
+* F*
+* Idris
+
+' We have seen that the F# type system can
+' get us pretty far along our way. 
+' We had to resort to constructor functions
+' to provide more rigid validation.
+'
+' Note that we can still create an invalid `City`.
+' However, if we privatize the union, we can't
+' retrieve the name via pattern matching.
+'
+' Some languages offer additional type system
+' constructs to do these validations. Code contracts,
+' originally from Eiffel, offer one form of this.
+' Newer languages have also been working on a concpt
+' called dependent types or refinement types. These
+' allow you to further specify the range of values
+' allowed, as we have done above using our
+' constructor functions. I've listed a few examples
+' in case you wish to study these further.
+
+***
+
+# Converting `City` to `Place`
+
+***
+
+## UI input: two cities
+
+## Process input: two places
+
+## How do we translate?
+
+***
+
+## Retrieving values from other sources
+
+' For the purposes of our demo application,
+' let's assume we have a database of city names
+' with their corresponding geographic locations.
+' We will use the FSharp.SqlClient type provider
+' to provide us the types we need to access the data.
+
+' Why not use a third-party service such as Google Maps?
+' I thought of doing this, but I wanted to keep this
+' example close to what we are actually doing at Tachyus.
+' Also, the SqlClient type providers are really quite cool,
+' and I like showing it off. It's also a way we can
+' further constrain the available cities, should we have
+' time to explore that.
+
+***
+
+
 
 ***
 
@@ -300,35 +473,9 @@ type Place = {
 
 *)
 
-(*** define: city ***)
-type City = City of string
-
-(*** define: city-example ***)
-let city = City "Houston, TX"
-
-(*** define: magic ***)
-let magic (City name) = name
-
-(*** define-output:magic-city ***)
-magic city
-
 (*** define: units-of-measure ***)
-[<Measure>] type degLat
-[<Measure>] type degLng
 [<Measure>] type m
 [<Measure>] type ft
-
-(*** define: location ***)
-type Location = {
-    Latitude : float<degLat>
-    Longitude : float<degLng> }
-    static member Create(lat : float, lng : float) =
-        if -180. <= lng && lng <= 180. && -90. <= lat && lat <= 90. then
-            { Latitude = lat * 1.<degLat>; Longitude = lng * 1.<degLng>
-        else failwith "Invalid location"
-
-(*** define: place ***)
-type Place = { Name : City; Location : Location }
 
 (*** define: geo-locate ***)
 let geoLocate (city: City) =
