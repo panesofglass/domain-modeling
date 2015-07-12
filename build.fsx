@@ -2,56 +2,156 @@
 // FAKE build script 
 // --------------------------------------------------------------------------------------
 
-#I "packages/FAKE/tools"
+#I "packages/FsReveal/fsreveal/"
+#I "packages/FAKE/tools/"
+#I "packages/Suave/lib/net40"
+
 #r "FakeLib.dll"
-open System
-open System.IO
-open Fake 
-open Fake.Git
+#r "suave.dll"
+
+#load "fsreveal.fsx"
 
 // Git configuration (used for publishing documentation in gh-pages branch)
-// The profile where the project is posted 
-let gitHome = "https://github.com/panesofglass"
+// The profile where the project is posted
+let gitOwner = "panesofglass"
+let gitHome = "https://github.com/" + gitOwner
 // The name of the project on GitHub
-let gitName = "domain-modeling"
+let gitProjectName = "domain-modeling"
 
-// --------------------------------------------------------------------------------------
-// Clean build results & restore NuGet packages
+open FsReveal
+open Fake
+open Fake.Git
+open System.IO
+open System.Diagnostics
+open Suave
+open Suave.Web
+open Suave.Http
+open Suave.Http.Files
+open Suave.Sockets
+open Suave.Sockets.Control
+open Suave.Sockets.AsyncSocket
+open Suave.WebSocket
+open Suave.Utils
+
+let outDir = __SOURCE_DIRECTORY__ @@ "output"
+let slidesDir = __SOURCE_DIRECTORY__ @@ "slides"
 
 Target "Clean" (fun _ ->
-    CleanDirs ["temp";"output"]
+    CleanDirs [outDir]
 )
 
-// --------------------------------------------------------------------------------------
-// Generate the documentation
+let fsiEvaluator = 
+    let evaluator = FSharp.Literate.FsiEvaluator()
+    evaluator.EvaluationFailed.Add(fun err -> 
+        traceImportant <| sprintf "Evaluating F# snippet failed:\n%s\nThe snippet evaluated:\n%s" err.StdErr err.Text )
+    evaluator 
 
-Target "Generate" (fun _ ->
-    if not <| executeFSIWithArgs "" "generate.fsx" [] [] then
-        failwith "generating slides failed"
+let copyStylesheet() =
+    try
+        CopyFile (outDir @@ "css" @@ "custom.css") (slidesDir @@ "custom.css")
+    with
+    | exn -> traceImportant <| sprintf "Could not copy stylesheet: %s" exn.Message
+
+let copyPics() =
+    try
+      CopyDir (outDir @@ "images") (slidesDir @@ "images") (fun f -> true)
+    with
+    | exn -> traceImportant <| sprintf "Could not copy picture: %s" exn.Message    
+
+let generateFor (file:FileInfo) = 
+    try
+        copyPics()
+        let rec tryGenerate trials =
+            try
+                FsReveal.GenerateFromFile(file.FullName, outDir, fsiEvaluator = fsiEvaluator)
+            with 
+            | exn when trials > 0 -> tryGenerate (trials - 1)
+            | exn -> 
+                traceImportant <| sprintf "Could not generate slides for: %s" file.FullName
+                traceImportant exn.Message
+
+        tryGenerate 3
+
+        copyStylesheet()
+    with
+    | :? FileNotFoundException as exn ->
+        traceImportant <| sprintf "Could not copy file: %s" exn.FileName
+
+let refreshEvent = new Event<_>()
+
+let handleWatcherEvents (events:FileChange seq) =
+    for e in events do
+        let fi = fileInfo e.FullPath
+        traceImportant <| sprintf "%s was changed." fi.Name
+        match fi.Attributes.HasFlag FileAttributes.Hidden || fi.Attributes.HasFlag FileAttributes.Directory with
+        | true -> ()
+        | _ -> generateFor fi
+    refreshEvent.Trigger()
+
+let socketHandler (webSocket : WebSocket) =
+  fun cx -> socket {
+    while true do
+      let! refreshed =
+        Control.Async.AwaitEvent(refreshEvent.Publish)
+        |> Suave.Sockets.SocketOp.ofAsync 
+      do! webSocket.send Text (UTF8.bytes "refreshed") true
+  }
+
+let startWebServer () =
+    let serverConfig = 
+        { defaultConfig with
+           homeFolder = Some (FullName outDir)
+        }
+    let app =
+      choose [
+        Applicatives.path "/websocket" >>= handShake socketHandler
+        Writers.setHeader "Cache-Control" "no-cache, no-store, must-revalidate"
+        >>= Writers.setHeader "Pragma" "no-cache"
+        >>= Writers.setHeader "Expires" "0"
+        >>= browseHome ]
+    startWebServerAsync serverConfig app |> snd |> Async.Start
+    Process.Start "http://localhost:8083/index.html" |> ignore
+
+Target "GenerateSlides" (fun _ ->
+    !! (slidesDir @@ "*.md")
+      ++ (slidesDir @@ "*.fsx")
+    |> Seq.map fileInfo
+    |> Seq.iter generateFor
 )
 
-// --------------------------------------------------------------------------------------
-// Release Scripts
+Target "KeepRunning" (fun _ ->    
+    use watcher = !! (slidesDir + "/**/*.*") |> WatchChanges (fun changes ->
+         handleWatcherEvents changes
+    )
+    
+    startWebServer ()
 
-Target "Publish" (fun _ ->
-    let tempDocsDir = "temp/gh-pages"
+    traceImportant "Waiting for slide edits. Press any key to stop."
+
+    System.Console.ReadKey() |> ignore
+
+    watcher.Dispose()
+)
+
+Target "ReleaseSlides" (fun _ ->
+    if gitOwner = "myGitUser" || gitProjectName = "MyProject" then
+        failwith "You need to specify the gitOwner and gitProjectName in build.fsx"
+    let tempDocsDir = __SOURCE_DIRECTORY__ @@ "temp/gh-pages"
     CleanDir tempDocsDir
-    Repository.cloneSingleBranch "" (gitHome + "/" + gitName + ".git") "gh-pages" tempDocsDir
+    Repository.cloneSingleBranch "" (gitHome + "/" + gitProjectName + ".git") "gh-pages" tempDocsDir
 
-    CopyRecursive "output" tempDocsDir true |> tracefn "%A"
+    fullclean tempDocsDir
+    CopyRecursive outDir tempDocsDir true |> tracefn "%A"
     StageAll tempDocsDir
-    Commit tempDocsDir "Update slides"
+    Git.Commit.Commit tempDocsDir "Update generated slides"
     Branches.push tempDocsDir
 )
 
-// --------------------------------------------------------------------------------------
-// Run all targets by default. Invoke 'build <Target>' to override
-
-Target "All" DoNothing
-
 "Clean"
-==> "Generate"
-==> "Publish"
-==> "All"
+  ==> "GenerateSlides"
+  ==> "KeepRunning"
 
-RunTargetOrDefault "All"
+"GenerateSlides"
+  ==> "ReleaseSlides"
+  
+RunTargetOrDefault "KeepRunning"

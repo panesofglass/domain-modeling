@@ -98,7 +98,7 @@
 
 *)
 
-type City = string
+type CityAlias = string
 
 (**
 ***
@@ -125,6 +125,8 @@ let cityName (City name) = name
 
 (*** define-output:city-name ***)
 cityName (City "Houston, TX")
+
+(*** include-output:city-name ***)
 
 (**
 ***
@@ -301,8 +303,8 @@ type Place = { Name : string; Location : Location option }
 [<Measure>] type degLat
 [<Measure>] type degLng
 
-let degreesLatitude = (*) 1.<degLat>
-let degreesLongitude = (*) 1.<degLng>
+let degreesLatitude x = x * 1.<degLat>
+let degreesLongitude x = x * 1.<degLng>
 
 (**
 ***
