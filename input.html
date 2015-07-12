@@ -1,0 +1,795 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Domain Modeling with Types</title>
+    <meta name="description" content="Domain Modeling with Types (using F#)">
+    <meta name="author" content="Ryan Riley (@panesofglass)">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="//code.jquery.com/jquery-1.8.0.js"></script>
+    <script src="//code.jquery.com/ui/1.8.23/jquery-ui.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.1/css/bootstrap-combined.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/night.css" id="theme">
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/style.css" />
+    <link type="text/css" rel="stylesheet" href="fsharp.formatting/styles/deedle.css" />
+    <link type="text/css" rel="stylesheet" href="css/custom.css" />
+    <script src="fsharp.formatting/styles/tips.js" type="text/javascript"></script>
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link rel="stylesheet" href="css/fsreveal.css">
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+			if( window.location.search.match( /print-pdf/gi ) ) {
+				var link = document.createElement( 'link' );
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'css/print/pdf.css';
+				document.getElementsByTagName( 'head' )[0].appendChild( link );
+			}
+    </script>
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <script language="javascript" type="text/javascript">
+        function init()
+        {
+            websocket = new WebSocket("ws://localhost:8083/websocket");
+            websocket.onmessage = function(evt) { location.reload(); };
+        }
+        window.addEventListener("load", init, false);
+    </script>
+</head>
+<body>
+    <div class="reveal">
+        <div class="tip" id="fs1">type CityAlias = string<br /><br />Full name: Input.CityAlias</div>
+<div class="tip" id="fs2">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = System.String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
+<div class="tip" id="fs3">Multiple items<br />union case City.City: string -&gt; City<br /><br />--------------------<br />type City = | City of string<br /><br />Full name: Input.City</div>
+<div class="tip" id="fs4">val cityName : City -&gt; string<br /><br />Full name: Input.cityName</div>
+<div class="tip" id="fs5">val name : string</div>
+<div class="tip" id="fs6">type ILocatable =<br />&#160;&#160;interface<br />&#160;&#160;&#160;&#160;abstract member Latitude : float<br />&#160;&#160;&#160;&#160;abstract member Longitude : float<br />&#160;&#160;end<br /><br />Full name: Input.ILocatable</div>
+<div class="tip" id="fs7">abstract member ILocatable.Latitude : float<br /><br />Full name: Input.ILocatable.Latitude</div>
+<div class="tip" id="fs8">Multiple items<br />val float : value:&#39;T -&gt; float (requires member op_Explicit)<br /><br />Full name: Microsoft.FSharp.Core.Operators.float<br /><br />--------------------<br />type float = System.Double<br /><br />Full name: Microsoft.FSharp.Core.float<br /><br />--------------------<br />type float&lt;&#39;Measure&gt; = float<br /><br />Full name: Microsoft.FSharp.Core.float&lt;_&gt;</div>
+<div class="tip" id="fs9">abstract member ILocatable.Longitude : float<br /><br />Full name: Input.ILocatable.Longitude</div>
+<div class="tip" id="fs10">type Place =<br />&#160;&#160;{Name: string;<br />&#160;&#160;&#160;Latitude: float;<br />&#160;&#160;&#160;Longitude: float;}<br /><br />Full name: Input.Place</div>
+<div class="tip" id="fs11">Place.Name: string</div>
+<div class="tip" id="fs12">Place.Latitude: float</div>
+<div class="tip" id="fs13">Place.Longitude: float</div>
+<div class="tip" id="fs14">type &#39;T option = Option&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Core.option&lt;_&gt;</div>
+<div class="tip" id="fs15">union case Option.Some: Value: &#39;T -&gt; Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs16">union case Option.None: Option&lt;&#39;T&gt;</div>
+<div class="tip" id="fs17">Multiple items<br />type MeasureAttribute =<br />&#160;&#160;inherit Attribute<br />&#160;&#160;new : unit -&gt; MeasureAttribute<br /><br />Full name: Microsoft.FSharp.Core.MeasureAttribute<br /><br />--------------------<br />new : unit -&gt; MeasureAttribute</div>
+<div class="tip" id="fs18">val invalidArg : argumentName:string -&gt; message:string -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.Operators.invalidArg</div>
+<div class="tip" id="fs19">type &#39;T list = List&lt;&#39;T&gt;<br /><br />Full name: Microsoft.FSharp.Collections.list&lt;_&gt;</div>
+<div class="tip" id="fs20">val failwith : message:string -&gt; &#39;T<br /><br />Full name: Microsoft.FSharp.Core.Operators.failwith</div>
+<div class="tip" id="fs21">Multiple items<br />module List<br /><br />from Microsoft.FSharp.Collections<br /><br />--------------------<br />type List&lt;&#39;T&gt; =<br />&#160;&#160;| ( [] )<br />&#160;&#160;| ( :: ) of Head: &#39;T * Tail: &#39;T list<br />&#160;&#160;interface IEnumerable<br />&#160;&#160;interface IEnumerable&lt;&#39;T&gt;<br />&#160;&#160;member Head : &#39;T<br />&#160;&#160;member IsEmpty : bool<br />&#160;&#160;member Item : index:int -&gt; &#39;T with get<br />&#160;&#160;member Length : int<br />&#160;&#160;member Tail : &#39;T list<br />&#160;&#160;static member Cons : head:&#39;T * tail:&#39;T list -&gt; &#39;T list<br />&#160;&#160;static member Empty : &#39;T list<br /><br />Full name: Microsoft.FSharp.Collections.List&lt;_&gt;</div>
+<div class="tip" id="fs22">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; list:&#39;T list -&gt; &#39;U list<br /><br />Full name: Microsoft.FSharp.Collections.List.map</div>
+
+        <!-- Any section element inside of this container is displayed as a slide -->
+        <div class="slides">
+            <section >
+
+<h1>Domain Modeling with F#</h1>
+
+<h2><a href="https://twitter.com/panesofglass">Ryan Riley</a></h2>
+
+</section>
+
+<section >
+
+<img alt="Tachyus logo" src="images/tachyus.png" height="100px" style="background-color:#fff;" />
+
+</section>
+
+<section >
+
+<h1><a href="https://twitter.com/panesofglass">@panesofglass</a></h1>
+
+</section>
+
+<section >
+
+<h1><a href="https://github.com/panesofglass">https://github.com/panesofglass</a></h1>
+
+</section>
+
+<section >
+
+<h1><a href="http://owin.org/">OWIN</a></h1>
+
+</section>
+
+<section >
+
+<p><img src="images/fssf.png" alt="F# logo" /></p>
+
+</section>
+
+<section >
+
+<h1>Objective</h1>
+
+<h2>Visualize distance between two cities by their geographic location</h2>
+
+</section>
+
+<section >
+
+<h2>Process</h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">[<span class="i">start</span>; <span class="i">dest</span>]
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs21', 66)" onmouseover="showTip(event, 'fs21', 66)" class="i">List</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs22', 67)" onmouseover="showTip(event, 'fs22', 67)" class="i">map</span> <span class="i">geoLocate</span>
+<span class="o">|&gt;</span> <span class="i">findDistance</span>
+</code></pre></td>
+</tr>
+</table>
+
+<aside class="notes">
+This pipeline shows that we want to take a list of two Cities as inputs,<br/>
+translate those cities into locations,<br/>
+and finally calculate the distance (in feet).<br/>
+</aside>
+
+</section>
+
+<section >
+
+<h1>Goal 1</h1>
+
+<h2>Define <code>City</code></h2>
+
+</section>
+
+<section >
+
+<h2>Simplest thing possible (C#)</h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="cs"><span class="k">using</span> City <span class="o">=</span> <span class="k">string</span>;
+</code></pre></td></tr></table>
+
+</section>
+
+<section >
+
+<h2>Simplest thing possible (F#)</h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="t">CityAlias</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="t">string</span>
+</code></pre></td>
+</tr>
+</table>
+
+</section>
+
+<section >
+
+<h2>Does this really help?</h2>
+
+<aside class="notes">
+Maybe: you get better documentation throughout your code;<br/>
+however, you don't get any type safety.<br/>
+</aside>
+
+</section>
+
+<section >
+
+<h2>Can we do better?</h2>
+
+</section>
+
+<section >
+
+<h2>Single-cased union types</h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="t">City</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs3', 4)" onmouseover="showTip(event, 'fs3', 4)" class="p">City</span> <span class="k">of</span> <span onmouseout="hideTip(event, 'fs2', 5)" onmouseover="showTip(event, 'fs2', 5)" class="t">string</span>
+</code></pre></td>
+</tr>
+</table>
+
+<p>Extract the value via pattern matching:</p>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 6)" onmouseover="showTip(event, 'fs4', 6)" class="f">cityName</span> (<span onmouseout="hideTip(event, 'fs3', 7)" onmouseover="showTip(event, 'fs3', 7)" class="p">City</span> <span onmouseout="hideTip(event, 'fs5', 8)" onmouseover="showTip(event, 'fs5', 8)" class="i">name</span>) <span class="o">=</span> <span class="i">name</span>
+</code></pre></td>
+</tr>
+</table>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs4', 9)" onmouseover="showTip(event, 'fs4', 9)" class="f">cityName</span> (<span onmouseout="hideTip(event, 'fs3', 10)" onmouseover="showTip(event, 'fs3', 10)" class="p">City</span> <span class="s">&quot;Houston, TX&quot;</span>)
+</code></pre></td>
+</tr>
+</table>
+
+<table class="pre"><tr><td><pre><code></code></pre></td></tr></table>
+
+</section>
+
+<section >
+
+<h1>Goal 2</h1>
+
+<h2>Define a <code>Location</code> type</h2>
+
+</section>
+
+<section >
+
+<h2><code>Place</code> type (C#)</h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="cs"><span class="k">public</span> <span class="k">interface</span> ILocatable {
+    <span class="k">float</span> Latitude { get; }
+    <span class="k">float</span> Longitude { get; }
+}
+
+<span class="k">public</span> <span class="k">class</span> Place <span class="o">:</span> ILocatable {
+    <span class="k">public</span> <span class="k">string</span> Name { get; set; }
+    <span class="k">public</span> <span class="k">float</span> Latitude { get; set; }
+    <span class="k">public</span> <span class="k">float</span> Longitude { get; set; }
+}
+</code></pre></td></tr></table>
+
+</section>
+
+<section >
+
+<h2><code>Place</code> type (F#)</h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs6', 11)" onmouseover="showTip(event, 'fs6', 11)" class="t">ILocatable</span> <span class="o">=</span>
+    <span class="k">abstract</span> <span onmouseout="hideTip(event, 'fs7', 12)" onmouseover="showTip(event, 'fs7', 12)" class="i">Latitude</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs8', 13)" onmouseover="showTip(event, 'fs8', 13)" class="t">float</span>
+    <span class="k">abstract</span> <span onmouseout="hideTip(event, 'fs9', 14)" onmouseover="showTip(event, 'fs9', 14)" class="i">Longitude</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs8', 15)" onmouseover="showTip(event, 'fs8', 15)" class="t">float</span>
+
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs10', 16)" onmouseover="showTip(event, 'fs10', 16)" class="t">Place</span> <span class="o">=</span> { 
+    <span onmouseout="hideTip(event, 'fs11', 17)" onmouseover="showTip(event, 'fs11', 17)" class="i">Name</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs2', 18)" onmouseover="showTip(event, 'fs2', 18)" class="t">string</span>
+    <span onmouseout="hideTip(event, 'fs12', 19)" onmouseover="showTip(event, 'fs12', 19)" class="i">Latitude</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs8', 20)" onmouseover="showTip(event, 'fs8', 20)" class="t">float</span>
+    <span onmouseout="hideTip(event, 'fs13', 21)" onmouseover="showTip(event, 'fs13', 21)" class="i">Longitude</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs8', 22)" onmouseover="showTip(event, 'fs8', 22)" class="t">float</span> }
+    <span class="k">interface</span> <span class="i">ILocation</span> <span class="k">with</span>
+        <span class="k">member</span> <span class="i">this</span><span class="o">.</span><span class="i">Latitude</span> <span class="o">=</span> <span class="i">this</span><span class="o">.</span><span class="i">Latitude</span>
+        <span class="k">member</span> <span class="i">this</span><span class="o">.</span><span class="i">Longitude</span> <span class="o">=</span> <span class="i">this</span><span class="o">.</span><span class="i">Longitude</span>
+</code></pre></td>
+</tr>
+</table>
+
+</section>
+
+<section >
+
+<h2>What could go wrong?</h2>
+
+<ol>
+<li>Latitude or longitude not provided</li>
+<li>Latitude and longitude mixed up</li>
+<li>Invalid city and location values</li>
+</ol>
+
+</section>
+
+<section >
+
+<h2>1. Handling missing values</h2>
+
+<p>Examples:</p>
+
+<ul>
+<li>Atlantis</li>
+<li>Camelot</li>
+</ul>
+
+</section>
+
+<section >
+
+<h2>C# version:</h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
+<span class="l">18: </span>
+<span class="l">19: </span>
+<span class="l">20: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="cs"><span class="k">class</span> Locatable <span class="o">:</span> ILocatable {
+    <span class="k">public</span> <span class="k">float</span> Latitude { get; set; }
+    <span class="k">public</span> <span class="k">float</span> Longitude { get; set; }
+}
+
+<span class="k">public</span> <span class="k">class</span> Place {
+    <span class="k">public</span> <span class="k">string</span> Name { get; set; }
+    <span class="k">public</span> <span class="k">float</span>? Latitude { get; set; }
+    <span class="k">public</span> <span class="k">float</span>? Longitude { get; set; }
+    <span class="k">public</span> ILocatable GetLocation() {
+        <span class="k">if</span> (Latitude.HasValue <span class="o">&amp;</span><span class="o">&amp;</span> Longitude.HasValue) {
+            <span class="k">return</span> <span class="k">new</span> Locatable {
+                Latitude <span class="o">=</span> Latitude.Value,
+                Longitude <span class="o">=</span> Longitude.Value
+            };
+        } <span class="k">else</span> {
+            <span class="k">return</span> <span class="k">null</span>; <span class="c">// Oh noes!</span>
+        }
+    }
+}
+</code></pre></td></tr></table>
+
+</section>
+
+<section >
+
+<h2>F# <code>Place</code> with optional <code>ILocatable</code></h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs10', 23)" onmouseover="showTip(event, 'fs10', 23)" class="i">Place</span> <span class="o">=</span> { 
+    <span class="i">Name</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs2', 24)" onmouseover="showTip(event, 'fs2', 24)" class="i">string</span>
+    <span class="i">Latitude</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs8', 25)" onmouseover="showTip(event, 'fs8', 25)" class="i">float</span> <span onmouseout="hideTip(event, 'fs14', 26)" onmouseover="showTip(event, 'fs14', 26)" class="i">option</span>
+    <span class="i">Longitude</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs8', 27)" onmouseover="showTip(event, 'fs8', 27)" class="i">float</span> <span onmouseout="hideTip(event, 'fs14', 28)" onmouseover="showTip(event, 'fs14', 28)" class="i">option</span> }
+    <span class="k">member</span> <span class="i">this</span><span class="o">.</span><span class="i">GetLocation</span>() <span class="o">:</span> <span onmouseout="hideTip(event, 'fs6', 29)" onmouseover="showTip(event, 'fs6', 29)" class="i">ILocatable</span> <span onmouseout="hideTip(event, 'fs14', 30)" onmouseover="showTip(event, 'fs14', 30)" class="i">option</span> <span class="o">=</span>
+        <span class="k">match</span> <span class="i">this</span><span class="o">.</span><span class="i">Latitude</span>, <span class="i">this</span><span class="o">.</span><span class="i">Longitude</span> <span class="k">with</span>
+        | <span onmouseout="hideTip(event, 'fs15', 31)" onmouseover="showTip(event, 'fs15', 31)" class="i">Some</span> <span class="i">lat</span>, <span onmouseout="hideTip(event, 'fs15', 32)" onmouseover="showTip(event, 'fs15', 32)" class="i">Some</span> <span class="i">lng</span> <span class="k">-&gt;</span>
+            { <span class="k">interface</span> <span class="i">ILocation</span> <span class="k">with</span>
+                <span class="k">member</span> <span class="i">this</span><span class="o">.</span><span class="i">Latitude</span> <span class="o">=</span> <span class="i">lat</span>
+                <span class="k">member</span> <span class="i">this</span><span class="o">.</span><span class="i">Longitude</span> <span class="o">=</span> <span class="i">lng</span> } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs15', 33)" onmouseover="showTip(event, 'fs15', 33)" class="i">Some</span>
+        | _ <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs16', 34)" onmouseover="showTip(event, 'fs16', 34)" class="i">None</span>
+</code></pre></td>
+</tr>
+</table>
+
+</section>
+
+<section >
+
+<h2>Yuck, right?</h2>
+
+</section>
+
+<section >
+
+<h2>Can we do better?</h2>
+
+</section>
+
+<section >
+
+<h2>Rethinking <code>ILocatable</code></h2>
+
+<h3>"Is-a" vs. "Has-a"</h3>
+
+</section>
+
+<section >
+
+<h2><code>Latitude</code> and <code>Longitude</code> belong together</h2>
+
+</section>
+
+<section >
+
+<h2>Refactored <code>Place</code> type (C#)</h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+<span class="l">9: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="cs"><span class="k">public</span> <span class="k">class</span> Location {
+    <span class="k">public</span> <span class="k">float</span> Latitude { get; set; }
+    <span class="k">public</span> <span class="k">float</span> Longitude { get; set; }
+}
+
+<span class="k">public</span> <span class="k">class</span> Place {
+    <span class="k">public</span> <span class="k">string</span> Name { get; set; }
+    <span class="k">public</span> Location Location { get; set; }
+}
+</code></pre></td></tr></table>
+
+</section>
+
+<section >
+
+<h2>Refactored <code>Place</code> type (F#)</h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span class="i">Location</span> <span class="o">=</span> { <span class="i">Latitude</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs8', 35)" onmouseover="showTip(event, 'fs8', 35)" class="i">float</span>; <span class="i">Longitude</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs8', 36)" onmouseover="showTip(event, 'fs8', 36)" class="i">float</span> }
+
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs10', 37)" onmouseover="showTip(event, 'fs10', 37)" class="i">Place</span> <span class="o">=</span> { <span class="i">Name</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs2', 38)" onmouseover="showTip(event, 'fs2', 38)" class="i">string</span>; <span class="i">Location</span> <span class="o">:</span> <span class="i">Location</span> <span onmouseout="hideTip(event, 'fs14', 39)" onmouseover="showTip(event, 'fs14', 39)" class="i">option</span> }
+</code></pre></td>
+</tr>
+</table>
+
+</section>
+
+<section >
+
+<h2>Note: No <code>null</code></h2>
+
+</section>
+
+<section >
+
+<h2>Has-a preferred to Is-a</h2>
+
+<h3>"Composition over inheritance"</h3>
+
+</section>
+
+<section >
+
+<h2>2. Mixing up latitude and longitude</h2>
+
+</section>
+
+<section >
+
+<h2>Sadly we will have to leave C# behind</h2>
+
+</section>
+
+<section >
+
+<h2>Units of measure</h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">[&lt;<span onmouseout="hideTip(event, 'fs17', 40)" onmouseover="showTip(event, 'fs17', 40)" class="i">Measure</span>&gt;] <span class="k">type</span> <span class="i">degLat</span>
+[&lt;<span onmouseout="hideTip(event, 'fs17', 41)" onmouseover="showTip(event, 'fs17', 41)" class="i">Measure</span>&gt;] <span class="k">type</span> <span class="i">degLng</span>
+
+<span class="k">let</span> <span class="i">degreesLatitude</span> <span class="i">x</span> <span class="o">=</span> <span class="i">x</span> <span class="o">*</span> <span class="n">1.</span><span class="o">&lt;</span><span class="i">degLat</span><span class="o">&gt;</span>
+<span class="k">let</span> <span class="i">degreesLongitude</span> <span class="i">x</span> <span class="o">=</span> <span class="i">x</span> <span class="o">*</span> <span class="n">1.</span><span class="o">&lt;</span><span class="i">degLng</span><span class="o">&gt;</span>
+</code></pre></td>
+</tr>
+</table>
+
+</section>
+
+<section >
+
+<h2>Correct <code>Location</code></h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span class="i">Location</span> <span class="o">=</span> {
+    <span class="i">Latitude</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs8', 42)" onmouseover="showTip(event, 'fs8', 42)" class="i">float</span><span class="o">&lt;</span><span class="i">degLat</span><span class="o">&gt;</span>
+    <span class="i">Longitude</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs8', 43)" onmouseover="showTip(event, 'fs8', 43)" class="i">float</span><span class="o">&lt;</span><span class="i">degLng</span><span class="o">&gt;</span>
+}
+
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs10', 44)" onmouseover="showTip(event, 'fs10', 44)" class="i">Place</span> <span class="o">=</span> { <span class="i">Name</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs3', 45)" onmouseover="showTip(event, 'fs3', 45)" class="i">City</span>; <span class="i">Location</span> <span class="o">:</span> <span class="i">Location</span> }
+</code></pre></td>
+</tr>
+</table>
+
+</section>
+
+<section >
+
+<h2>Make invalid values impossible</h2>
+
+</section>
+
+<section >
+
+<h2>Types can only get you so far</h2>
+
+<ol>
+<li><code>Place</code> allows <code>null</code> and <code>""</code></li>
+<li><code>Location</code> allows latitude < -90 and > 90</li>
+<li><code>Location</code> allows longitude < -`80 and > 180</li>
+</ol>
+
+</section>
+
+<section >
+
+<h2>3. Valid values</h2>
+
+</section>
+
+<section >
+
+<h2>Revisiting <code>City</code></h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs3', 46)" onmouseover="showTip(event, 'fs3', 46)" class="i">City</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs3', 47)" onmouseover="showTip(event, 'fs3', 47)" class="i">City</span> <span class="k">of</span> <span class="i">name</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs2', 48)" onmouseover="showTip(event, 'fs2', 48)" class="i">string</span>
+    <span class="k">static</span> <span class="k">member</span> <span class="i">Create</span> (<span class="i">name</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs2', 49)" onmouseover="showTip(event, 'fs2', 49)" class="i">string</span>) <span class="o">=</span>
+        <span class="k">match</span> <span class="i">name</span> <span class="k">with</span>
+        | <span class="k">null</span> | <span class="s">&quot;&quot;</span> <span class="k">-&gt;</span>
+            <span onmouseout="hideTip(event, 'fs18', 50)" onmouseover="showTip(event, 'fs18', 50)" class="i">invalidArg</span> <span class="s">&quot;Invalid city&quot;</span>
+                <span class="s">&quot;The city name cannot be null or empty.&quot;</span>
+        | <span class="i">x</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs3', 51)" onmouseover="showTip(event, 'fs3', 51)" class="i">City</span> <span class="i">x</span>
+</code></pre></td>
+</tr>
+</table>
+
+<aside class="notes">
+Without a city lookup, we are stuck with a minimal<br/>
+validation for the city name. We could add a bit<br/>
+more, such as requiring one or more commas, but<br/>
+this provides the general idea.<br/>
+</aside>
+
+</section>
+
+<section >
+
+<h2>Better than nothing</h2>
+
+</section>
+
+<section >
+
+<h2>Revisiting <code>Location</code></h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span class="i">Location</span> <span class="o">=</span>
+    <span class="k">private</span> { <span class="i">latitude</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs8', 52)" onmouseover="showTip(event, 'fs8', 52)" class="i">float</span><span class="o">&lt;</span><span class="i">degLat</span><span class="o">&gt;</span>; <span class="i">longitude</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs8', 53)" onmouseover="showTip(event, 'fs8', 53)" class="i">float</span><span class="o">&lt;</span><span class="i">degLng</span><span class="o">&gt;</span> }
+    <span class="k">member</span> <span class="i">this</span><span class="o">.</span><span class="i">Latitude</span> <span class="o">=</span> <span class="i">this</span><span class="o">.</span><span class="i">latitude</span>
+    <span class="k">member</span> <span class="i">this</span><span class="o">.</span><span class="i">Longitude</span> <span class="o">=</span> <span class="i">this</span><span class="o">.</span><span class="i">longitude</span>
+    <span class="k">static</span> <span class="k">member</span> <span class="i">Create</span> (<span class="i">lat</span>, <span class="i">lng</span>) <span class="o">=</span>
+        <span class="k">if</span> <span class="o">-</span><span class="n">90.</span><span class="o">&lt;</span><span class="i">degLat</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="i">lat</span> <span class="o">||</span> <span class="i">lat</span> <span class="o">&gt;</span> <span class="n">90.</span><span class="o">&lt;</span><span class="i">degLat</span><span class="o">&gt;</span> <span class="k">then</span>
+            <span onmouseout="hideTip(event, 'fs18', 54)" onmouseover="showTip(event, 'fs18', 54)" class="i">invalidArg</span> <span class="s">&quot;lat&quot;</span>
+                <span class="s">&quot;Latitude must be within the range -90 to 90.&quot;</span>
+        <span class="k">elif</span> <span class="o">-</span><span class="n">180.</span><span class="o">&lt;</span><span class="i">degLng</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="i">lng</span> <span class="o">&amp;&amp;</span> <span class="i">lng</span> <span class="o">&gt;</span> <span class="n">180.</span><span class="o">&lt;</span><span class="i">degLng</span><span class="o">&gt;</span> <span class="k">then</span>
+            <span onmouseout="hideTip(event, 'fs18', 55)" onmouseover="showTip(event, 'fs18', 55)" class="i">invalidArg</span> <span class="s">&quot;lng&quot;</span>
+                <span class="s">&quot;Longitude must be within the range -180 to 180.&quot;</span>
+        <span class="k">else</span> { <span class="i">latitude</span> <span class="o">=</span> <span class="i">lat</span>; <span class="i">longitude</span> <span class="o">=</span> <span class="i">lng</span> }
+</code></pre></td>
+</tr>
+</table>
+
+<aside class="notes">
+This may look strange as we are now hiding<br/>
+the record we previously used. However, we<br/>
+retain immutability and add validation.<br/>
+</aside>
+
+</section>
+
+<section >
+
+<h2>Revisiting <code>Place</code></h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs10', 56)" onmouseover="showTip(event, 'fs10', 56)" class="i">Place</span> <span class="o">=</span> { <span class="i">Name</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs3', 57)" onmouseover="showTip(event, 'fs3', 57)" class="i">City</span>; <span class="i">Location</span> <span class="o">:</span> <span class="i">Location</span> <span onmouseout="hideTip(event, 'fs14', 58)" onmouseover="showTip(event, 'fs14', 58)" class="i">option</span> }
+</code></pre></td>
+</tr>
+</table>
+
+<aside class="notes">
+Place doesn't really change except to swap<br/>
+Name : string for Name : City<br/>
+</aside>
+
+</section>
+
+<section >
+
+<h2>Further study: Dependent Types</h2>
+
+<ul>
+<li>Code Contracts</li>
+<li>F*</li>
+<li>Idris</li>
+</ul>
+
+<aside class="notes">
+We have seen that the F# type system can<br/>
+get us pretty far along our way. <br/>
+We had to resort to constructor functions<br/>
+to provide more rigid validation.<br/>
+</aside>
+'
+<aside class="notes">
+Note that we can still create an invalid `City`.<br/>
+However, if we privatize the union, we can't<br/>
+retrieve the name via pattern matching.<br/>
+</aside>
+'
+<aside class="notes">
+Some languages offer additional type system<br/>
+constructs to do these validations. Code contracts,<br/>
+originally from Eiffel, offer one form of this.<br/>
+Newer languages have also been working on a concpt<br/>
+called dependent types or refinement types. These<br/>
+allow you to further specify the range of values<br/>
+allowed, as we have done above using our<br/>
+constructor functions. I've listed a few examples<br/>
+in case you wish to study these further.<br/>
+</aside>
+
+</section>
+
+<section >
+
+<h1>Converting <code>City</code> to <code>Place</code></h1>
+
+</section>
+
+<section >
+
+<h2>UI input: two cities</h2>
+
+<h2>Process input: two places</h2>
+
+<h2>How do we translate?</h2>
+
+</section>
+
+<section >
+
+<h2>Retrieving values from other sources</h2>
+
+<aside class="notes">
+For the purposes of our demo application,<br/>
+let's assume we have a database of city names<br/>
+with their corresponding geographic locations.<br/>
+We will use the FSharp.SqlClient type provider<br/>
+to provide us the types we need to access the data.<br/>
+</aside>
+
+<aside class="notes">
+Why not use a third-party service such as Google Maps?<br/>
+I thought of doing this, but I wanted to keep this<br/>
+example close to what we are actually doing at Tachyus.<br/>
+Also, the SqlClient type providers are really quite cool,<br/>
+and I like showing it off. It's also a way we can<br/>
+further constrain the available cities, should we have<br/>
+time to explore that.<br/>
+</aside>
+
+</section>
+
+<section >
+
+<h1>Questions?</h1>
+
+</section>
+
+<section >
+
+<h1>Resources</h1>
+
+<ul>
+<li>TODO 1</li>
+<li>TODO 2</li>
+</ul>
+
+</section>
+
+
+
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script>
+        // Add the nohighlight class and data-noescape attribute to code elements that have already been formatted by FSharp.Formatting
+        $('pre.highlighted code').addClass('nohighlight').attr('data-noescape', '');
+
+        // Full list of configuration options available here:
+        // https://github.com/hakimel/reveal.js#configuration
+        Reveal.initialize({
+            controls: true,
+            progress: true,
+            history: true,
+            center: true,
+
+            transition: 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+            // Parallax scrolling
+            // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+            // parallaxBackgroundSize: '2100px 900px',
+
+            // Optional libraries used to extend on reveal.js
+            dependencies: [
+                { src: 'lib/js/classList.js', condition: function () { return !document.body.classList; } },
+                { src: 'plugin/markdown/marked.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/markdown/markdown.js', condition: function () { return !!document.querySelector('[data-markdown]'); } },
+                { src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } },
+                { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () { return !!document.body.classList; } },
+                { src: 'plugin/notes/notes.js', async: true, condition: function () { return !!document.body.classList; } }
+            ]
+        });
+
+    </script>
+</body>
+</html>
+
