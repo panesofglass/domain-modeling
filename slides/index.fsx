@@ -35,7 +35,7 @@
 
 (**
 
-# Domain Modeling with F#
+# Domain Modeling with Types
 
 ## [Ryan Riley](https://twitter.com/panesofglass)
 
@@ -49,7 +49,7 @@
 
 ***
 
-# https://github.com/panesofglass
+## https://github.com/panesofglass
 
 ***
 
@@ -123,10 +123,10 @@ type City = City of string
 (** Extract the value via pattern matching: *)
 let cityName (City name) = name
 
-(*** define-output:city-name ***)
+(*** define-value:city-name ***)
 cityName (City "Houston, TX")
 
-(*** include-output:city-name ***)
+(*** include-value:city-name ***)
 
 (**
 ***
@@ -145,7 +145,7 @@ cityName (City "Houston, TX")
         float Longitude { get; }
     }
 
-    public class Place : ILocatable {
+    public class PlaceFirstTry : ILocatable {
         public string Name { get; set; }
         public float Latitude { get; set; }
         public float Longitude { get; set; }
@@ -161,11 +161,11 @@ type ILocatable =
     abstract Latitude : float
     abstract Longitude : float
 
-type Place = { 
-    Name : string
-    Latitude : float
-    Longitude : float }
-    interface ILocation with
+type PlaceFirstTry =
+    { Name : string
+      Latitude : float
+      Longitude : float }
+    interface ILocatable with
         member this.Latitude = this.Latitude
         member this.Longitude = this.Longitude
 
@@ -197,7 +197,7 @@ Examples:
         public float Longitude { get; set; }
     }
 
-    public class Place {
+    public class PlaceWithOptionalLocation {
         public string Name { get; set; }
         public float? Latitude { get; set; }
         public float? Longitude { get; set; }
@@ -219,14 +219,14 @@ Examples:
 
 *)
 
-type Place = { 
-    Name : string
-    Latitude : float option
-    Longitude : float option }
+type PlaceWithOptionalLocation =
+    { Name : string
+      Latitude : float option
+      Longitude : float option }
     member this.GetLocation() : ILocatable option =
         match this.Latitude, this.Longitude with
         | Some lat, Some lng ->
-            { interface ILocation with
+            { new ILocatable with
                 member this.Latitude = lat
                 member this.Longitude = lng } |> Some
         | _ -> None
@@ -264,6 +264,10 @@ type Place = {
         public string Name { get; set; }
         public Location Location { get; set; }
     }
+
+***
+
+## Note: "optional" indicated by a `null`
 
 ***
 
@@ -318,7 +322,7 @@ type Location = {
     Longitude : float<degLng>
 }
 
-type Place = { Name : City; Location : Location }
+type Place = { Name : City; Location : Location option }
 
 (**
 ***
@@ -343,8 +347,8 @@ type Place = { Name : City; Location : Location }
 
 *)
 
-type City =
-    City of name : string
+type City = City of name : string
+    with
     static member Create (name : string) =
         match name with
         | null | "" ->
@@ -397,9 +401,15 @@ type Location =
 type Place = { Name : City; Location : Location option }
 
 (**
+***
+
+## `Place` still has yet to change
+
+### Single Responsibility Principle
 
 ' Place doesn't really change except to swap
 ' Name : string for Name : City
+' This is exactly the goal of SRP.
 
 ***
 
@@ -482,7 +492,7 @@ type Place = { Name : City; Location : Location option }
 (*** define: geo-locate ***)
 let geoLocate (city: City) =
     // Get coordinates
-    let location = Location.Create(0., 0.)
+    let location = Location.Create(0.<degLat>, 0.<degLng>)
     location
 
 (*** define: find-distance ***)
