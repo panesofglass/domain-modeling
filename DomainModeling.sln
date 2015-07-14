@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.22823.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DomainModeling", "slides\DomainModeling.fsproj", "{2BCDFDAE-5B31-47C3-836A-482C67514B72}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "project", "project", "{5F8FDEFE-63AF-4301-BEA5-6C0DBC8C268A}"
+	ProjectSection(SolutionItems) = preProject
+		build.fsx = build.fsx
+		create-db.sql = create-db.sql
+		paket.dependencies = paket.dependencies
+		paket.lock = paket.lock
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2BCDFDAE-5B31-47C3-836A-482C67514B72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BCDFDAE-5B31-47C3-836A-482C67514B72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BCDFDAE-5B31-47C3-836A-482C67514B72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BCDFDAE-5B31-47C3-836A-482C67514B72}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

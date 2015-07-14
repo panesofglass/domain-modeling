@@ -11,7 +11,8 @@
 
 (*** hide ***)
 #r "System.Device.dll"
-#I "packages"
+#I "../packages"
+#r "FSharp.Data.SqlClient/lib/net40/FSharp.Data.SqlClient.dll"
 #r "Aether/lib/net40/Aether.dll"
 #r "Hekate/lib/net40/Hekate.dll"
 #r "FParsec/lib/net40-client/FParsecCS.dll"
@@ -49,7 +50,7 @@
 
 ***
 
-## https://github.com/panesofglass
+## [github/panesofglass](https://github.com/panesofglass)
 
 ***
 
@@ -63,7 +64,7 @@
 
 # Objective
 
-## Visualize distance between two cities by their geographic location
+## Visualize distance between two cities by their geographic coordinates.
 
 ***
 
@@ -118,15 +119,14 @@ type CityAlias = string
 
 *)
 
-type City = City of string
+type City1 = City of string
 
 (** Extract the value via pattern matching: *)
 let cityName (City name) = name
+let result = cityName (City "Houston, TX")
 
-(*** define-value:city-name ***)
-cityName (City "Houston, TX")
-
-(*** include-value:city-name ***)
+(** Value of result: *)
+(*** include-value: result ***)
 
 (**
 ***
@@ -275,9 +275,9 @@ type PlaceWithOptionalLocation =
 
 *)
 
-type Location = { Latitude : float; Longitude : float }
+type Location1 = { Latitude : float; Longitude : float }
 
-type Place = { Name : string; Location : Location option }
+type Place1 = { Name : string; Location : Location1 option }
 
 (**
 ***
@@ -304,11 +304,7 @@ type Place = { Name : string; Location : Location option }
 
 *)
 
-[<Measure>] type degLat
-[<Measure>] type degLng
-
-let degreesLatitude x = x * 1.<degLat>
-let degreesLongitude x = x * 1.<degLng>
+(*** include: location-measure-types ***)
 
 (**
 ***
@@ -317,12 +313,7 @@ let degreesLongitude x = x * 1.<degLng>
 
 *)
 
-type Location = {
-    Latitude : float<degLat>
-    Longitude : float<degLng>
-}
-
-type Place = { Name : City; Location : Location option }
+(*** include: location2 ***)
 
 (**
 ***
@@ -335,7 +326,7 @@ type Place = { Name : City; Location : Location option }
 
 1. `Place` allows `null` and `""`
 2. `Location` allows latitude < -90 and > 90
-3. `Location` allows longitude < -`80 and > 180
+3. `Location` allows longitude < -180 and > 180
 
 ***
 
@@ -347,14 +338,7 @@ type Place = { Name : City; Location : Location option }
 
 *)
 
-type City = City of name : string
-    with
-    static member Create (name : string) =
-        match name with
-        | null | "" ->
-            invalidArg "Invalid city"
-                "The city name cannot be null or empty."
-        | x -> City x
+(*** include: city ***)
 
 (**
 
@@ -373,18 +357,7 @@ type City = City of name : string
 
 *)
 
-type Location =
-    private { latitude : float<degLat>; longitude : float<degLng> }
-    member this.Latitude = this.latitude
-    member this.Longitude = this.longitude
-    static member Create (lat, lng) =
-        if -90.<degLat> > lat || lat > 90.<degLat> then
-            invalidArg "lat"
-                "Latitude must be within the range -90 to 90."
-        elif -180.<degLng> > lng && lng > 180.<degLng> then
-            invalidArg "lng"
-                "Longitude must be within the range -180 to 180."
-        else { latitude = lat; longitude = lng }
+(*** include: location ***)
 
 (**
 
@@ -398,7 +371,7 @@ type Location =
 
 *)
 
-type Place = { Name : City; Location : Location option }
+(*** include: place ***)
 
 (**
 ***
@@ -413,21 +386,22 @@ type Place = { Name : City; Location : Location option }
 
 ***
 
-## Further study: Dependent Types
+## Further study: Contracts and Dependent Types
 
-* Code Contracts
-* F*
-* Idris
+* [Code Contracts](http://research.microsoft.com/en-us/projects/contracts/)
+* [F*](https://fstar-lang.org/)
+* [TS*](http://research.microsoft.com/en-us/um/people/nswamy/papers/tstar.pdf)
+* [Idris](http://www.idris-lang.org/)
 
 ' We have seen that the F# type system can
 ' get us pretty far along our way. 
 ' We had to resort to constructor functions
 ' to provide more rigid validation.
-'
+
 ' Note that we can still create an invalid `City`.
 ' However, if we privatize the union, we can't
 ' retrieve the name via pattern matching.
-'
+
 ' Some languages offer additional type system
 ' constructs to do these validations. Code contracts,
 ' originally from Eiffel, offer one form of this.
@@ -440,15 +414,29 @@ type Place = { Name : City; Location : Location option }
 
 ***
 
-# Converting `City` to `Place`
+# Goal 3: Converting `City` to `Place`
 
 ***
 
-## UI input: two cities
+## Process
 
-## Process input: two places
+*)
+
+(*** include: location-calculator-pipeline ***)
+
+(**
+
+' This pipeline shows that we want to take a list of two Cities as inputs,
+' translate those cities into locations,
+' and finally calculate the distance (in feet).
+
+***
 
 ## How do we translate?
+
+* UI input: two cities
+* Calculation input: two geographic coordinates
+
 
 ***
 
@@ -456,7 +444,7 @@ type Place = { Name : City; Location : Location option }
 
 ' For the purposes of our demo application,
 ' let's assume we have a database of city names
-' with their corresponding geographic locations.
+' with their corresponding geographic coordinates.
 ' We will use the FSharp.SqlClient type provider
 ' to provide us the types we need to access the data.
 
@@ -470,7 +458,27 @@ type Place = { Name : City; Location : Location option }
 
 ***
 
+## [FSharp.Data.SqlClient](http://fsprojects.github.io/FSharp.Data.SqlClient/)
 
+***
+
+## Type-checked SQL
+
+*)
+
+(*** include: sql-command-provider ***)
+
+(**
+
+***
+
+## Lookup coordinates by city name
+
+*)
+
+(*** include: lookup-location ***)
+
+(**
 
 ***
 
@@ -485,29 +493,124 @@ type Place = { Name : City; Location : Location option }
 
 *)
 
+(*** define: location-measure-types ***)
+[<Measure>] type degLat
+[<Measure>] type degLng
+
+let degreesLatitude x = x * 1.<degLat>
+let degreesLongitude x = x * 1.<degLng>
+
+(*** hide ***)
+let degLatResult = degreesLatitude 1.
+let degLngResult = degreesLongitude 1.
+
+(*** define: location2 ***)
+type Location2 = {
+    Latitude : float<degLat>
+    Longitude : float<degLng>
+}
+
+type Place2 = { Name : City1; Location : Location2 option }
+
+(*** define: city ***)
+type City = City of name : string
+    with
+    static member Create (name : string) =
+        match name with
+        | null | "" ->
+            invalidArg "Invalid city"
+                "The city name cannot be null or empty."
+        | x -> City x
+
+(*** define: location ***)
+type Location =
+    private { latitude : float<degLat>; longitude : float<degLng> }
+    member this.Latitude = this.latitude
+    member this.Longitude = this.longitude
+    static member Create (lat, lng) =
+        if -90.<degLat> > lat || lat > 90.<degLat> then
+            invalidArg "lat"
+                "Latitude must be within the range -90 to 90."
+        elif -180.<degLng> > lng && lng > 180.<degLng> then
+            invalidArg "lng"
+                "Longitude must be within the range -180 to 180."
+        else { latitude = lat; longitude = lng }
+
+(*** define: place ***)
+type Place = { Name : City; Location : Location option }
+
 (*** define: units-of-measure ***)
 [<Measure>] type m
 [<Measure>] type ft
 
-(*** define: geo-locate ***)
-let geoLocate (city: City) =
-    // Get coordinates
-    let location = Location.Create(0.<degLat>, 0.<degLng>)
-    location
+(*** define: processing-stages ***)
+type Stage =
+    | AwaitingInput
+    | InputReceived of start : City * dest : City
+    | GeoLocated of start : Place * dest : Place
+    | Calculated of float<m>
+    | Result of float<ft>
+
+(*** hide ***)
+open FSharp.Data
+
+[<Literal>]
+let connStr = """Data Source=(LocalDB)\v11.0;Initial Catalog=Database1;Integrated Security=True;Connect Timeout=10"""
+
+(*** define: sql-command-provider ***)
+type LookupLocation = SqlCommandProvider<"
+    SELECT City, Latitude, Longitude
+    FROM [dbo].[CityLocations]
+    WHERE City = @city
+    ", connStr, SingleRow = true>
+
+(*** define: lookup-location ***)
+let lookupLocation (City name) =
+    use cmd = new LookupLocation()
+    let result = cmd.Execute(name)
+    match result with
+    | Some p ->
+        match p.Latitude, p.Longitude with
+        | Some lat, Some lng ->
+            { Name = City.Create(p.City)
+              Location = Location.Create(
+                            degreesLatitude lat,
+                            degreesLongitude lng) |> Some }
+        | _, _ ->
+            { Name = City.Create(p.City); Location = None }
+    | None -> { Name = City.Create(name); Location = None }
+
+(*** define: use-lookup-location ***)
+let foundCity = lookupLocation (City "Conroe, TX")
+
+(*** define: toGeoCoordinate ***)
+open System.Device.Location
+let toGeoCoordinate = function
+    { latitude = lat; longitude = lng } ->
+        GeoCoordinate(lat / 1.<degLat>, lng / 1.<degLng>)
 
 (*** define: find-distance ***)
-let findDistance : Location list -> float<ft> = function
-    | [loc1; loc2] ->
-        // Convert locations to GeoLocations
-        // Calcualte distance in m
-        // Convert to feet
-        0.<ft>
+let findDistance (start: Location, dest: Location) : float<m> =
+    (start |> toGeoCoordinate).GetDistanceTo(dest |> toGeoCoordinate)
+    * 1.<m>
+
+let tryFindDistance : Place list -> float<m> option = function
+    | [{ Location = Some start }; { Location = Some dest }] ->
+        findDistance (start, dest) |> Some
+    | [_;_] -> None
     | [] | [_] -> failwith "Too few locations provided"
     | _ -> failwith "Too many locations provided"
+
+(*** define: meters-to-feet ***)
+let metersToFeet (input: float<m>) =
+    input * 3.2808399<ft/m>
     
+(*** hide ***)
+let start = City "Houston, TX"
+let dest = City "San Mateo, CA"
 
 (*** define: location-calculator-pipeline ***)
 [start; dest]
-|> List.map geoLocate
-|> findDistance
-
+|> List.map lookupLocation
+|> tryFindDistance
+|> Option.map metersToFeet

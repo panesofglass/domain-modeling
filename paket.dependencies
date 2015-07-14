@@ -1,6 +1,7 @@
 source https://nuget.org/api/v2
 
 nuget FAKE
-nuget Freya
 nuget FsReveal
 nuget Suave
+nuget Freya
+nuget FSharp.Data.SqlClient
