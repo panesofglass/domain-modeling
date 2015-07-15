@@ -68,11 +68,11 @@
 
 ***
 
-## Process
+# Process
 
 *)
 
-(*** include: location-calculator-pipeline ***)
+(*** include: distance-calculator-example ***)
 
 (**
 
@@ -324,7 +324,7 @@ type Place1 = { Name : string; Location : Location1 option }
 
 ## Types can only get you so far
 
-1. `Place` allows `null` and `""`
+1. `City` allows `null` and `""`
 2. `Location` allows latitude < -90 and > 90
 3. `Location` allows longitude < -180 and > 180
 
@@ -414,7 +414,7 @@ type Place1 = { Name : string; Location : Location1 option }
 
 ***
 
-# Goal 3: Converting `City` to `Place`
+# Goal 3: Processing Requests
 
 ***
 
@@ -422,7 +422,7 @@ type Place1 = { Name : string; Location : Location1 option }
 
 *)
 
-(*** include: location-calculator-pipeline ***)
+(*** include: distance-calculator-example ***)
 
 (**
 
@@ -436,7 +436,20 @@ type Place1 = { Name : string; Location : Location1 option }
 
 * UI input: two cities
 * Calculation input: two geographic coordinates
+* Unit conversion: meters -> feet
 
+***
+
+## Start with types
+
+*)
+
+(*** include: workflow-process-types ***)
+
+(**
+***
+
+## Implementation
 
 ***
 
@@ -470,15 +483,142 @@ type Place1 = { Name : string; Location : Location1 option }
 
 (**
 
+' Show how this works and that invalid SQL
+' immediately causes compiler errors.
+' Discuss that this erases to raw ADO.NET
+' so performance is excellent.
+
 ***
 
 ## Lookup coordinates by city name
 
 *)
 
-(*** include: lookup-location ***)
+(*** include: lookup-locations ***)
 
 (**
+
+***
+
+## Calculate Distance
+
+*)
+
+(*** include: find-distance ***)
+
+(**
+
+' System.Device.Location.GeoCoordinate has a method
+' that uses the Haversine formula, which assumes a
+' spherical earth. We could implement this ourselves,
+' but why bother when it's already available?
+
+***
+
+## Unit conversion
+
+*)
+
+(*** include: units-of-measure ***)
+(*** include: meters-to-feet ***)
+
+(**
+
+' Similar to what we saw above, we apply units of measure
+' to ensure our results are what we intended. Note that
+' here we create a conversion function to handle the conversion.
+
+***
+
+## Wrapping up the steps
+
+*)
+
+(*** include: distance-calculator-pipeline ***)
+
+(**
+
+' Here we use function composition and rely on type
+' inference to create a single function to run our
+' workflow.
+
+***
+
+## What about `Show`?
+
+' We introduced a Show type with the other workflow types.
+' Where is it? How do we get to the Show step? Doesn't it
+' break from the process we defined at the outset?
+' How are we going to bridge the gap?
+
+***
+
+# Goal 4: Visualizing Results
+
+***
+
+## What do we need to do?
+
+1. Serialize data for display in a browser
+2. Define HTTP resources to process requests
+3. Render the UI
+
+***
+
+## 1. Serialization
+
+***
+
+## Serialized data should also send `Place`s
+
+***
+
+## Bridging the gap
+
+*)
+
+(*** include: distance-workflow ***)
+
+(**
+
+' Here we create a mutually recursive function definition,
+' with each function calling the next step in succession.
+' Note that these essentially wrap the functions we defined
+' above and thread through the additional state we want to
+' make available at the end. We also introduce the showPlaces
+' function that will serialize the results for us.
+
+***
+
+## Defunctionalization
+
+' Not everyone likes the mutually recursive function approach.
+' It works, and in some cases it is the best and right solution.
+' However, you can defunctionalize this solution to use
+' discriminated unions and a single recursive function to process
+' the same workflow.
+
+***
+
+## Defining state machine `Stage`s
+
+*)
+
+(*** include: stages ***)
+
+(**
+***
+
+## Process `Stage`s recursively
+
+*)
+
+(*** include: processing-stages ***)
+
+(**
+***
+
+## Output: JSON strings
 
 ***
 
@@ -543,14 +683,6 @@ type Place = { Name : City; Location : Location option }
 [<Measure>] type m
 [<Measure>] type ft
 
-(*** define: processing-stages ***)
-type Stage =
-    | AwaitingInput
-    | InputReceived of start : City * dest : City
-    | GeoLocated of start : Place * dest : Place
-    | Calculated of float<m>
-    | Result of float<ft>
-
 (*** hide ***)
 open FSharp.Data
 
@@ -558,15 +690,24 @@ open FSharp.Data
 let connStr = """Data Source=(LocalDB)\v11.0;Initial Catalog=Database1;Integrated Security=True;Connect Timeout=10"""
 
 (*** define: sql-command-provider ***)
-type LookupLocation = SqlCommandProvider<"
+type GetCityLocation = SqlCommandProvider<"
     SELECT City, Latitude, Longitude
     FROM [dbo].[CityLocations]
     WHERE City = @city
     ", connStr, SingleRow = true>
 
-(*** define: lookup-location ***)
+(*** define: workflow-process-types ***)
+type LookupLocations = City * City -> Place * Place
+
+type TryFindDistance = Place * Place -> float<m> option
+
+type MetersToFeet = float<m> -> float<ft>
+
+type Show = Place * Place * float<ft> option -> string
+
+(*** define: lookup-locations ***)
 let lookupLocation (City name) =
-    use cmd = new LookupLocation()
+    use cmd = new GetCityLocation()
     let result = cmd.Execute(name)
     match result with
     | Some p ->
@@ -580,37 +721,92 @@ let lookupLocation (City name) =
             { Name = City.Create(p.City); Location = None }
     | None -> { Name = City.Create(name); Location = None }
 
-(*** define: use-lookup-location ***)
-let foundCity = lookupLocation (City "Conroe, TX")
+let lookupLocations (start, dest) =
+    lookupLocation start, lookupLocation dest
 
-(*** define: toGeoCoordinate ***)
+(*** hide ***)
+lookupLocation (City "Houston, TX")
+lookupLocation (City "Conroe, TX")
+lookupLocation (City "The Woodlands, TX")
+lookupLocation (City "Adelaide, AUS")
+lookupLocation (City "Atlantis, TX")
+
+(*** define: find-distance ***)
 open System.Device.Location
 let toGeoCoordinate = function
     { latitude = lat; longitude = lng } ->
         GeoCoordinate(lat / 1.<degLat>, lng / 1.<degLng>)
 
-(*** define: find-distance ***)
 let findDistance (start: Location, dest: Location) : float<m> =
     (start |> toGeoCoordinate).GetDistanceTo(dest |> toGeoCoordinate)
     * 1.<m>
 
-let tryFindDistance : Place list -> float<m> option = function
-    | [{ Location = Some start }; { Location = Some dest }] ->
+let tryFindDistance : TryFindDistance = function
+    | { Location = Some start }, { Location = Some dest } ->
         findDistance (start, dest) |> Some
-    | [_;_] -> None
-    | [] | [_] -> failwith "Too few locations provided"
-    | _ -> failwith "Too many locations provided"
+    | _, _ -> None
 
 (*** define: meters-to-feet ***)
 let metersToFeet (input: float<m>) =
     input * 3.2808399<ft/m>
     
-(*** hide ***)
-let start = City "Houston, TX"
-let dest = City "San Mateo, CA"
+(*** define: distance-calculator-pipeline ***)
+let workflow =
+    lookupLocations
+    >> tryFindDistance
+    >> Option.map metersToFeet
 
-(*** define: location-calculator-pipeline ***)
-[start; dest]
-|> List.map lookupLocation
+(*** define: distance-calculator-example ***)
+(City "Houston, TX", City "San Mateo, CA")
+|> lookupLocations
 |> tryFindDistance
 |> Option.map metersToFeet
+
+(*** define: serialize ***)
+let serializePlace = function
+    | { Place.Name = City name; Location = Some loc } ->
+        sprintf """{"name":"%s","latitude":%f,"longitude":%f}""" name loc.Latitude loc.Longitude
+    | _ -> "null"
+
+let serializeResult place1 place2 distance =
+    let place1' = serializePlace place1
+    let place2' = serializePlace place2
+    match distance with
+    | Some d ->
+        sprintf """{"start":%s,"dest":%s,"distance":%f}""" place1' place2' d
+    | None -> sprintf """{"start":%s,"dest":%s}""" place1' place2'
+
+(*** define: distance-workflow ***)
+let rec receiveInput(start, dest) =
+    let start', dest' = lookupLocations(start, dest)
+    calculateDistance(start', dest')
+and calculateDistance(start, dest) =
+    match tryFindDistance(start, dest) with
+    | Some distance ->
+        showPlacesWithDistanceInMeters(start, dest, distance)
+    | None -> showPlaces(start, dest, None)
+and showPlacesWithDistanceInMeters(start, dest, distance) =
+    showPlaces(start, dest, Some(metersToFeet distance))
+and showPlaces(start, dest, distance) =
+    serializeResult start dest distance
+
+(*** define: stages ***)
+type Stage =
+    | AwaitingInput
+    | InputReceived of start : City * dest : City
+    | Located of start : Place * dest : Place
+    | Calculated of Place * Place * float<m> option
+    | Show of Place * Place * float<ft> option
+
+(*** define: processing-stages ***)
+type RunWorkflow = Stage -> string
+
+let rec runWorkflow = function
+    | AwaitingInput -> runWorkflow AwaitingInput
+    | InputReceived(start, dest) ->
+        runWorkflow (Located(lookupLocations(start, dest)))
+    | Located(start, dest) ->
+        runWorkflow (Calculated(start, dest, tryFindDistance(start, dest)))
+    | Calculated(start, dest, distance) ->
+        runWorkflow (Show(start, dest, distance |> Option.map metersToFeet))
+    | Show(start, dest, distance) -> serializeResult start dest distance

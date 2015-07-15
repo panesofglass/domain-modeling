@@ -44,11 +44,14 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Device" />
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
     <None Include="index.fsx" />
     <Compile Include="AssemblyInfo.fs" />
+    <Compile Include="Domain.fsi" />
+    <Compile Include="Domain.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
   </ItemGroup>
