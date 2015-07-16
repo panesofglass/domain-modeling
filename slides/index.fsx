@@ -817,13 +817,15 @@ open System.Text
 open Arachne.Language
 open Arachne.Uri
 open Arachne.Http
+open Arachne.Http.Cors
 open Arachne.Uri.Template
-open Chiron
 open Freya.Core
 open Freya.Core.Operators
 open Freya.Lenses.Http
+open Freya.Lenses.Http.Cors
 open Freya.Machine
 open Freya.Machine.Extensions.Http
+open Freya.Machine.Extensions.Http.Cors
 open Freya.Machine.Router
 open Freya.Router
 
@@ -855,29 +857,39 @@ let getHandler _ = freya {
     let! json = get
     return represent json }
 
-(*** define: http-config ***)
+(*** define: http-config-defs ***)
 let en = Freya.init [ LanguageTag.Parse "en" ]
-let json = Freya.init [ MediaType.Json ]
 let utf8 = Freya.init [ Charset.Utf8 ]
+let supportedMethods = Freya.init [GET; OPTIONS]
+let mediaTypes = Freya.init [ MediaType.Html
+                              MediaType.JavaScript
+                              MediaType.Css
+                              MediaType.Json ]
 
+(*** define: http-config-cors ***)
+let corsOrigins = Freya.init AccessControlAllowOriginRange.Any
+let corsHeaders = Freya.init [ "accept"; "content-type" ]
+
+(*** define: http-config-common ***)
 let common =
     freyaMachine {
         using http
+        using httpCors
         charsetsSupported utf8
+        corsHeadersSupported corsHeaders
+        corsOriginsSupported corsOrigins
         languagesSupported en
-        mediaTypesSupported json }
+        mediaTypesSupported mediaTypes }
 
 (*** define: resource ***)
-let supportedMethods =
-    Freya.init [GET; OPTIONS]
-
 let distanceCalculator =
     freyaMachine {
         including common
+        corsMethodsSupported supportedMethods
         methodsSupported supportedMethods
         handleOk getHandler } |> FreyaMachine.toPipeline
 
 let app =
     freyaRouter {
-        resource (UriTemplate.Parse "/") distanceCalculator
+        resource (UriTemplate.Parse "/calc") distanceCalculator
     } |> FreyaRouter.toPipeline

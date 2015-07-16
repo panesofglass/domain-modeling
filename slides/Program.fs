@@ -10,7 +10,7 @@ type Startup() =
 [<EntryPoint>]
 let main argv = 
     let server = WebApp.Start<Startup>("http://localhost:8000/")
-    printfn "Started application on port 8000"
+    printfn "Running on port 7000"
     printfn "Press <enter> to quit"
     Console.ReadLine() |> ignore
     server.Dispose()
