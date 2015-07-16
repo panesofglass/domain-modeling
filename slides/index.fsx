@@ -42,7 +42,7 @@
 
 ***
 
-<img alt="Tachyus logo" src="images/tachyus.png" height="100px" style="background-color:#fff;" />
+<img alt="Tachyus logo" src="images/tachyus.png" height="300px" style="background-color:#fff;" />
 
 ***
 
@@ -723,6 +723,10 @@ type Place1 = { Name : string; Location : Location1 option }
 ' noise to your code. Leverage the compiler to cover as
 ' many of your test cases as possible and avoid the pain
 ' of debugging or scrambling to fix a production issue.
+
+' Perhaps the best example of where developers failed
+' was the Mars Climate Orbiter, which was lost because
+' of a units error. https://d2cj35nmzi9erd.cloudfront.net/msp98/news/mco990930.html
 
 ***
 
