@@ -110,7 +110,7 @@ let workflow =
 (*** define: serialize ***)
 let serializePlace = function
     | { Name = City name; Location = Some loc } ->
-        sprintf """{"name":"%s","latitude":%f,"longitude":%f}""" name loc.Latitude loc.Longitude
+        sprintf """{"name":"%s","location":{"latitude":%f,"longitude":%f}}""" name loc.Latitude loc.Longitude
     | _ -> "null"
 
 let serializeResult place1 place2 distance =

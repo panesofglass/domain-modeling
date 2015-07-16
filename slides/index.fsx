@@ -623,13 +623,17 @@ type Place1 = { Name : string; Location : Location1 option }
     {
         "start": {
             "name": "Houston, TX",
-            "latitude": 29.760427,
-            "longitude": -95.369803
+            "location": {
+                "latitude": 29.760427,
+                "longitude": -95.369803
+            }
         },
         "dest": {
             "name": "San Mateo, CA",
-            "latitude": 31.700148,
-            "longitude": -106.275785
+            "location": {
+                "latitude": 31.700148,
+                "longitude": -106.275785
+            }
         },
         "distance": 3493771.738857
     }
@@ -721,6 +725,9 @@ type Place1 = { Name : string; Location : Location1 option }
 <label for="show-result">Result</label>
 <input type="text" id="show-result" name="show-result" readonly />
 
+<div id="mapDiv"></div>
+
+<script src="//dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
 <script src="js/app.js"></script>
 
 ***
@@ -946,7 +953,7 @@ let workflow =
 (*** define: serialize ***)
 let serializePlace = function
     | { Place.Name = City name; Location = Some loc } ->
-        sprintf """{"name":"%s","latitude":%f,"longitude":%f}""" name loc.Latitude loc.Longitude
+        sprintf """{"name":"%s","location":{"latitude":%f,"longitude":%f}}""" name loc.Latitude loc.Longitude
     | _ -> "null"
 
 let serializeResult place1 place2 distance =
