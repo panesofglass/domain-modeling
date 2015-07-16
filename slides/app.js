@@ -2,15 +2,17 @@
     var map;
 
     function createInfobox(name, pin) {
-        return new Microsoft.Maps.Infobox(pin.getLocation(), {
+        var loc = pin.getLocation();
+        return new Microsoft.Maps.Infobox(loc, {
             title: name,
+            description: name + ' is located at Latitude: ' + loc.latitude + ', Longitude: ' + loc.longitude,
             visible: true,
             offset: new Microsoft.Maps.Point(0, 15)
         });
     }
 
     function addToMap(place) {
-        var loc = new Microsoft.Maps.Location(location.latitude, location.longitude);
+        var loc = new Microsoft.Maps.Location(place.location.latitude, place.location.longitude);
         var pin = new Microsoft.Maps.Pushpin(loc);
         var infobox = createInfobox(place.name, pin);
         map.entities.push(pin);
