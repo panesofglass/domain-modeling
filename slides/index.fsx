@@ -623,15 +623,15 @@ type Place1 = { Name : string; Location : Location1 option }
     {
         "start": {
             "name": "Houston, TX",
-            "latitude": 0.,
-            "longitude": 0.
+            "latitude": 29.760427,
+            "longitude": -95.369803
         },
         "dest": {
-            "name": "Conroe, TX",
-            "latitude": 0.,
-            "longitude": 0.
+            "name": "San Mateo, CA",
+            "latitude": 31.700148,
+            "longitude": -106.275785
         },
-        "distance": 0.
+        "distance": 3493771.738857
     }
 
 ***
@@ -830,7 +830,7 @@ type City = City of name : string
 
 (*** define: location ***)
 type Location =
-    private { latitude : float<degLat>; longitude : float<degLng> }
+    internal { latitude : float<degLat>; longitude : float<degLng> }
     member this.Latitude = this.latitude
     member this.Longitude = this.longitude
     static member Create (lat, lng) =
@@ -894,6 +894,7 @@ let lookupLocations (start, dest) =
 lookupLocation (City "Houston, TX")
 lookupLocation (City "Conroe, TX")
 lookupLocation (City "The Woodlands, TX")
+lookupLocation (City "San Mateo, CA")
 lookupLocation (City "Adelaide, AUS")
 lookupLocation (City "Atlantis, TX")
 
@@ -956,6 +957,9 @@ and showPlacesWithDistanceInMeters(start, dest, distance) =
 and showPlaces(start, dest, distance) =
     serializeResult start dest distance
 
+(*** hide ***)
+receiveInput(City "Houston, TX", City "San Mateo, CA")
+
 (*** define: stages ***)
 type Stage =
     | AwaitingInput
@@ -978,6 +982,8 @@ let rec runWorkflow = function
     | Show(start, dest, distance) -> serializeResult start dest distance
 
 (*** hide ***)
+runWorkflow (InputReceived(City "Houston, TX", City "San Mateo, CA"))
+
 open System
 open System.Text
 open Arachne.Language
@@ -1010,7 +1016,7 @@ let cities = freya {
         qs.Split('&')
         |> Array.map (fun q ->
             let arr = q.Split('=')
-            arr.[1])
+            arr.[1].Trim())
     return City.Create(parts.[0]), City.Create(parts.[1]) }
 
 (*** define: get-handler ***)
