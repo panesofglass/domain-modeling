@@ -618,18 +618,180 @@ type Place1 = { Name : string; Location : Location1 option }
 (**
 ***
 
-## Output: JSON strings
+## Output: JSON
+
+    {
+        "start": {
+            "name": "Houston, TX",
+            "latitude": 0.,
+            "longitude": 0.
+        },
+        "dest": {
+            "name": "Conroe, TX",
+            "latitude": 0.,
+            "longitude": 0.
+        },
+        "distance": 0.
+    }
 
 ***
 
-# Questions?
+## 2. Define HTTP resources
+
+* MVC
+* Web API
+* ?
+
+***
+
+## Is it possible to model HTTP itself?
+
+***
+
+## This is HTTP
+
+<img src="images/http-state-diagram.png" alt="HTTP State Machine" />
+
+***
+
+## Freya
+
+<img src="images/freya.svg" alt="Freya logo" height="300px" width="300px" style="background-color:#fff;" />
+
+***
+
+## Freya Machines = HTTP Resources
+
+*)
+
+(*** include: resource ***)
+
+(**
+***
+
+## Machine Composition!
+
+*)
+
+(*** include: http-config-common ***)
+
+(**
+
+' We are literally mixing in existing graphs into our
+' resource definitions. We have a well-typed, well-
+' specified HTTP implementation that allows us to map
+' our domain into the world of HTTP, and we get the
+' compiler to help us out!
+
+***
+
+## That's nice, but how do we map the domain?
+
+***
+
+## Parse the query string for cities
+
+*)
+
+(*** include: parse-query-string ***)
+
+(**
+
+***
+
+## Define the GET handler
+
+*)
+
+(*** include: get-handler ***)
+
+(**
+***
+
+## 3. Show and Tell
+
+***
+# Review
+
+***
+
+## 1. Make invalid states impossible
+
+' The ultimate goal of leveraging a type system should
+' be to make invalid states impossible. If you use types
+' only for documentation, then you are likely just adding
+' noise to your code. Leverage the compiler to cover as
+' many of your test cases as possible and avoid the pain
+' of debugging or scrambling to fix a production issue.
+
+***
+
+## 2. Provide types from external sources
+
+' In many cases, code generation is an excellent tool for
+' ensuring you stay in lockstep with an external dependency.
+' F#'s type providers kick this up a notch, providing types
+' without generating code you have to maintain, in some cases
+' erasing the types in the compiled output for better performance.
+
+***
+
+## 3. Declare your app's state machine
+
+' We looked at this when we created the mutually recursive
+' workflow function and the defunctionalized Stage type and
+' runWorkflow function. This can tie everything together for
+' you at the top level and ensure you don't accidentally
+' re-order your function calls.
+
+***
+
+## 4. Even "untyped" protocols can benefit from types
+
+' HTTP is about as untyped as they come when it comes to protocols.
+' It's incredibly extensible and is often represented as a simple
+' dictionary with string keys. However, that doesn't mean you have
+' to just accept that a compiler can't help you. Protocols define
+' at least some level of expectation that you can expect, so
+' leverage as much through your types as you can.
+
+' F#'s computation expressions prove to be an incredible asset
+' for such problems. The Freya machine library provides a typed,
+' pluggable DSL for working with HTTP. It's pretty incredible.
+' One doesn't often think of mixins and static typing going hand-
+' in-hand, but Freya clearly shows it's possible, and you gain a
+' lot more safety from both the checked types and defined state
+' machine than were you to try to re-encode the HTTP protocol
+' again and again every time you want to build a web app.
+
+***
+
+## 5. Types can't always get you all the way
+
+' Despite the extent to which we were able to add compile-time
+' type checking throughout this little sample, we also saw
+' a few cases where types were not able to help us, at least
+' not in C# or F#. Some other languages and tools are paving
+' the way for improvements, though, and perhaps we'll eventually
+' see things like refinement and dependent types in .NET.
+
+' Network interruptions, external dependencies, and more are
+' still outside the scope of nearly all type systems. We have
+' a long way to go, but we should at least start leveraging
+' what we have available today.
 
 ***
 
 # Resources
 
-* TODO 1
-* TODO 2
+* [F# Software Foundation](http://fsharp.org/)
+* [F# for Fun and Profit](http://fsharpforfunandprofit.com/)
+* [Defunctionalization](http://www.brics.dk/RS/01/23/)
+* [Search "F# domain driven design"](https://www.bing.com/search?q=F%23+domain+driven+design)
+
+***
+
+# Questions?
 
 *)
 
