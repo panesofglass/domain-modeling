@@ -721,7 +721,7 @@ type Place1 = { Name : string; Location : Location1 option }
 <label for="show-result">Result</label>
 <input type="text" id="show-result" name="show-result" readonly />
 
-<script src="/js/app.js"></script>
+<script src="js/app.js"></script>
 
 ***
 
