@@ -183,6 +183,95 @@
 <div class="tip" id="fs135">type RunWorkflow = Stage -&gt; string<br /><br />Full name: Index.RunWorkflow</div>
 <div class="tip" id="fs136">val runWorkflow : _arg1:Stage -&gt; string<br /><br />Full name: Index.runWorkflow</div>
 <div class="tip" id="fs137">val distance : float&lt;m&gt; option</div>
+<div class="tip" id="fs138">namespace System.Text</div>
+<div class="tip" id="fs139">namespace Arachne</div>
+<div class="tip" id="fs140">namespace Arachne.Language</div>
+<div class="tip" id="fs141">namespace Arachne.Uri</div>
+<div class="tip" id="fs142">namespace Arachne.Http</div>
+<div class="tip" id="fs143">namespace Arachne.Http.Cors</div>
+<div class="tip" id="fs144">namespace Arachne.Uri.Template</div>
+<div class="tip" id="fs145">namespace Freya</div>
+<div class="tip" id="fs146">namespace Freya.Core</div>
+<div class="tip" id="fs147">Multiple items<br />module Freya<br /><br />from Freya.Core<br /><br />--------------------<br />namespace Freya<br /><br />--------------------<br />type Freya&lt;&#39;T&gt; = FreyaState -&gt; Async&lt;&#39;T * FreyaState&gt;<br /><br />Full name: Freya.Core.Freya&lt;_&gt;</div>
+<div class="tip" id="fs148">module Operators<br /><br />from Freya.Core</div>
+<div class="tip" id="fs149">namespace Freya.Lenses</div>
+<div class="tip" id="fs150">namespace Freya.Lenses.Http</div>
+<div class="tip" id="fs151">namespace Freya.Lenses.Http.Cors</div>
+<div class="tip" id="fs152">namespace Freya.Machine</div>
+<div class="tip" id="fs153">namespace Freya.Machine.Extensions</div>
+<div class="tip" id="fs154">namespace Freya.Machine.Extensions.Http</div>
+<div class="tip" id="fs155">namespace Freya.Machine.Extensions.Http.Cors</div>
+<div class="tip" id="fs156">namespace Freya.Machine.Router</div>
+<div class="tip" id="fs157">namespace Freya.Router</div>
+<div class="tip" id="fs158">val represent : x:string -&gt; Representation<br /><br />Full name: Index.represent</div>
+<div class="tip" id="fs159">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
+<div class="tip" id="fs160">type Description =<br />&#160;&#160;{Charset: Charset option;<br />&#160;&#160;&#160;Encodings: ContentCoding list option;<br />&#160;&#160;&#160;MediaType: MediaType option;<br />&#160;&#160;&#160;Languages: LanguageTag list option;}<br /><br />Full name: Freya.Machine.Extensions.Http.Types.Description</div>
+<div class="tip" id="fs161">Multiple items<br />union case Charset.Charset: string -&gt; Charset<br /><br />--------------------<br />type Charset =<br />&#160;&#160;| Charset of string<br />&#160;&#160;static member Iso88591 : Charset<br />&#160;&#160;static member Unicode : Charset<br />&#160;&#160;static member Utf8 : Charset<br /><br />Full name: Arachne.Http.Charset</div>
+<div class="tip" id="fs162">property Charset.Utf8: Charset</div>
+<div class="tip" id="fs163">Multiple items<br />union case MediaType.MediaType: Type * SubType * Parameters -&gt; MediaType<br /><br />--------------------<br />type MediaType =<br />&#160;&#160;| MediaType of Type * SubType * Parameters<br />&#160;&#160;override ToString : unit -&gt; string<br />&#160;&#160;static member Css : MediaType<br />&#160;&#160;static member Format : (MediaType -&gt; string)<br />&#160;&#160;static member Html : MediaType<br />&#160;&#160;static member JavaScript : MediaType<br />&#160;&#160;static member Json : MediaType<br />&#160;&#160;static member private Mapping : Mapping&lt;MediaType&gt;<br />&#160;&#160;static member ParametersLens : (MediaType -&gt; Parameters) * (Parameters -&gt; MediaType -&gt; MediaType)<br />&#160;&#160;static member Parse : (string -&gt; MediaType)<br />&#160;&#160;static member SubTypeLens : (MediaType -&gt; SubType) * (SubType -&gt; MediaType -&gt; MediaType)<br />&#160;&#160;static member Text : MediaType<br />&#160;&#160;static member TryParse : (string -&gt; MediaType option)<br />&#160;&#160;static member TypeLens : (MediaType -&gt; Type) * (Type -&gt; MediaType -&gt; MediaType)<br />&#160;&#160;static member Xml : MediaType<br /><br />Full name: Arachne.Http.MediaType</div>
+<div class="tip" id="fs164">property MediaType.Json: MediaType</div>
+<div class="tip" id="fs165">Multiple items<br />union case LanguageTag.LanguageTag: Language * Script option * Region option * Variant -&gt; LanguageTag<br /><br />--------------------<br />type LanguageTag =<br />&#160;&#160;| LanguageTag of Language * Script option * Region option * Variant<br />&#160;&#160;override ToString : unit -&gt; string<br />&#160;&#160;static member Format : (LanguageTag -&gt; string)<br />&#160;&#160;static member private Mapping : Mapping&lt;LanguageTag&gt;<br />&#160;&#160;static member Parse : (string -&gt; LanguageTag)<br />&#160;&#160;static member TryParse : (string -&gt; LanguageTag option)<br /><br />Full name: Arachne.Language.LanguageTag</div>
+<div class="tip" id="fs166">property LanguageTag.Parse: string -&gt; LanguageTag</div>
+<div class="tip" id="fs167">Multiple items<br />namespace System.Data<br /><br />--------------------<br />namespace Microsoft.FSharp.Data</div>
+<div class="tip" id="fs168">type Encoding =<br />&#160;&#160;member BodyName : string<br />&#160;&#160;member Clone : unit -&gt; obj<br />&#160;&#160;member CodePage : int<br />&#160;&#160;member DecoderFallback : DecoderFallback with get, set<br />&#160;&#160;member EncoderFallback : EncoderFallback with get, set<br />&#160;&#160;member EncodingName : string<br />&#160;&#160;member Equals : value:obj -&gt; bool<br />&#160;&#160;member GetByteCount : chars:char[] -&gt; int + 3 overloads<br />&#160;&#160;member GetBytes : chars:char[] -&gt; byte[] + 5 overloads<br />&#160;&#160;member GetCharCount : bytes:byte[] -&gt; int + 2 overloads<br />&#160;&#160;...<br /><br />Full name: System.Text.Encoding</div>
+<div class="tip" id="fs169">property Encoding.UTF8: Encoding</div>
+<div class="tip" id="fs170">Encoding.GetBytes(s: string) : byte []<br />Encoding.GetBytes(chars: char []) : byte []<br />Encoding.GetBytes(chars: char [], index: int, count: int) : byte []<br />Encoding.GetBytes(chars: nativeptr&lt;char&gt;, charCount: int, bytes: nativeptr&lt;byte&gt;, byteCount: int) : int<br />Encoding.GetBytes(s: string, charIndex: int, charCount: int, bytes: byte [], byteIndex: int) : int<br />Encoding.GetBytes(chars: char [], charIndex: int, charCount: int, bytes: byte [], byteIndex: int) : int</div>
+<div class="tip" id="fs171">val cities : Freya&lt;City * City&gt;<br /><br />Full name: Index.cities</div>
+<div class="tip" id="fs172">val freya : FreyaBuilder<br /><br />Full name: Freya.Core.Builder.freya</div>
+<div class="tip" id="fs173">val qs : string</div>
+<div class="tip" id="fs174">val getLens : (FreyaState -&gt; &#39;a) * (&#39;a -&gt; FreyaState -&gt; FreyaState) -&gt; Freya&lt;&#39;a&gt;<br /><br />Full name: Freya.Core.Freya.getLens</div>
+<div class="tip" id="fs175">Multiple items<br />module Request<br /><br />from Freya.Lenses.Http.Cors.Lenses<br /><br />--------------------<br />module Request<br /><br />from Freya.Lenses.Http.Lenses</div>
+<div class="tip" id="fs176">val query : Aether.Lens&lt;FreyaState,string&gt;<br /><br />Full name: Freya.Lenses.Http.Lenses.Request.query</div>
+<div class="tip" id="fs177">val parts : string []</div>
+<div class="tip" id="fs178">String.Split(params separator: char []) : string []<br />String.Split(separator: string [], options: StringSplitOptions) : string []<br />String.Split(separator: char [], options: StringSplitOptions) : string []<br />String.Split(separator: char [], count: int) : string []<br />String.Split(separator: string [], count: int, options: StringSplitOptions) : string []<br />String.Split(separator: char [], count: int, options: StringSplitOptions) : string []</div>
+<div class="tip" id="fs179">type Array =<br />&#160;&#160;member Clone : unit -&gt; obj<br />&#160;&#160;member CopyTo : array:Array * index:int -&gt; unit + 1 overload<br />&#160;&#160;member GetEnumerator : unit -&gt; IEnumerator<br />&#160;&#160;member GetLength : dimension:int -&gt; int<br />&#160;&#160;member GetLongLength : dimension:int -&gt; int64<br />&#160;&#160;member GetLowerBound : dimension:int -&gt; int<br />&#160;&#160;member GetUpperBound : dimension:int -&gt; int<br />&#160;&#160;member GetValue : params indices:int[] -&gt; obj + 7 overloads<br />&#160;&#160;member Initialize : unit -&gt; unit<br />&#160;&#160;member IsFixedSize : bool<br />&#160;&#160;...<br /><br />Full name: System.Array</div>
+<div class="tip" id="fs180">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; array:&#39;T [] -&gt; &#39;U []<br /><br />Full name: Microsoft.FSharp.Collections.Array.map</div>
+<div class="tip" id="fs181">val q : string</div>
+<div class="tip" id="fs182">val arr : string []</div>
+<div class="tip" id="fs183">val get : Freya&lt;string&gt;<br /><br />Full name: Index.get</div>
+<div class="tip" id="fs184">val cities : City * City</div>
+<div class="tip" id="fs185">val stage : Stage</div>
+<div class="tip" id="fs186">val memo : m:Freya&lt;&#39;a&gt; -&gt; Freya&lt;&#39;a&gt;<br /><br />Full name: Freya.Core.Freya.memo</div>
+<div class="tip" id="fs187">val getHandler : &#39;a -&gt; Freya&lt;Representation&gt;<br /><br />Full name: Index.getHandler</div>
+<div class="tip" id="fs188">val json : string</div>
+<div class="tip" id="fs189">val en : Freya&lt;LanguageTag list&gt;<br /><br />Full name: Index.en</div>
+<div class="tip" id="fs190">val init : x:&#39;T -&gt; env:FreyaState -&gt; Async&lt;&#39;T * FreyaState&gt;<br /><br />Full name: Freya.Core.Freya.init</div>
+<div class="tip" id="fs191">val utf8 : Freya&lt;Charset list&gt;<br /><br />Full name: Index.utf8</div>
+<div class="tip" id="fs192">val supportedMethods : Freya&lt;Method list&gt;<br /><br />Full name: Index.supportedMethods</div>
+<div class="tip" id="fs193">union case Method.GET: Method</div>
+<div class="tip" id="fs194">union case Method.OPTIONS: Method</div>
+<div class="tip" id="fs195">val mediaTypes : Freya&lt;MediaType list&gt;<br /><br />Full name: Index.mediaTypes</div>
+<div class="tip" id="fs196">property MediaType.Html: MediaType</div>
+<div class="tip" id="fs197">property MediaType.JavaScript: MediaType</div>
+<div class="tip" id="fs198">property MediaType.Css: MediaType</div>
+<div class="tip" id="fs199">val corsOrigins : Freya&lt;AccessControlAllowOriginRange&gt;<br /><br />Full name: Index.corsOrigins</div>
+<div class="tip" id="fs200">type AccessControlAllowOriginRange =<br />&#160;&#160;| Origins of OriginListOrNull<br />&#160;&#160;| Any<br /><br />Full name: Arachne.Http.Cors.AccessControlAllowOriginRange</div>
+<div class="tip" id="fs201">union case AccessControlAllowOriginRange.Any: AccessControlAllowOriginRange</div>
+<div class="tip" id="fs202">val corsHeaders : Freya&lt;string list&gt;<br /><br />Full name: Index.corsHeaders</div>
+<div class="tip" id="fs203">val common : FreyaMachine<br /><br />Full name: Index.common</div>
+<div class="tip" id="fs204">val freyaMachine : FreyaMachineBuilder<br /><br />Full name: Freya.Machine.Builder.freyaMachine</div>
+<div class="tip" id="fs205">custom operation: using (FreyaMachineExtension)<br /><br />Calls FreyaMachineBuilder.Using </div>
+<div class="tip" id="fs206">val http : FreyaMachineExtension<br /><br />Full name: Freya.Machine.Extensions.Http.Extension.http</div>
+<div class="tip" id="fs207">val httpCors : FreyaMachineExtension<br /><br />Full name: Freya.Machine.Extensions.Http.Cors.Extension.httpCors</div>
+<div class="tip" id="fs208">custom operation: charsetsSupported (Freya&lt;Charset list&gt;)<br /><br />Calls FreyaMachineBuilder.CharsetsSupported </div>
+<div class="tip" id="fs209">custom operation: corsHeadersSupported (Freya&lt;string list&gt;)<br /><br />Calls FreyaMachineBuilder.CorsHeadersSupported </div>
+<div class="tip" id="fs210">custom operation: corsOriginsSupported (Freya&lt;AccessControlAllowOriginRange&gt;)<br /><br />Calls FreyaMachineBuilder.CorsOriginsSupported </div>
+<div class="tip" id="fs211">custom operation: languagesSupported (Freya&lt;LanguageTag list&gt;)<br /><br />Calls FreyaMachineBuilder.LanguagesSupported </div>
+<div class="tip" id="fs212">custom operation: mediaTypesSupported (Freya&lt;MediaType list&gt;)<br /><br />Calls FreyaMachineBuilder.MediaTypesSupported </div>
+<div class="tip" id="fs213">val distanceCalculator : FreyaPipeline<br /><br />Full name: Index.distanceCalculator</div>
+<div class="tip" id="fs214">custom operation: including (&#39;a -&gt; unit * FreyaMachineSpecification)<br /><br />Calls FreyaMachineBuilder.Including </div>
+<div class="tip" id="fs215">custom operation: corsMethodsSupported (Freya&lt;Method list&gt;)<br /><br />Calls FreyaMachineBuilder.CorsMethodsSupported </div>
+<div class="tip" id="fs216">custom operation: methodsSupported (Freya&lt;Method list&gt;)<br /><br />Calls FreyaMachineBuilder.MethodsSupported </div>
+<div class="tip" id="fs217">custom operation: handleOk (Specification -&gt; Freya&lt;Representation&gt;)<br /><br />Calls FreyaMachineBuilder.HandleOk </div>
+<div class="tip" id="fs218">Multiple items<br />module FreyaMachine<br /><br />from Freya.Machine<br /><br />--------------------<br />type FreyaMachine = FreyaMachineSpecification -&gt; unit * FreyaMachineSpecification<br /><br />Full name: Freya.Machine.Types.FreyaMachine</div>
+<div class="tip" id="fs219">val toPipeline : (FreyaMachine -&gt; FreyaPipeline)<br /><br />Full name: Freya.Machine.FreyaMachine.toPipeline</div>
+<div class="tip" id="fs220">val app : FreyaPipeline<br /><br />Full name: Index.app</div>
+<div class="tip" id="fs221">val freyaRouter : FreyaRouterBuilder<br /><br />Full name: Freya.Router.Builder.freyaRouter</div>
+<div class="tip" id="fs222">custom operation: resource (UriTemplate) (FreyaPipeline)<br /><br />Calls FreyaRouterBuilder.Resource </div>
+<div class="tip" id="fs223">Multiple items<br />union case UriTemplate.UriTemplate: UriTemplatePart list -&gt; UriTemplate<br /><br />--------------------<br />type UriTemplate =<br />&#160;&#160;| UriTemplate of UriTemplatePart list<br />&#160;&#160;member Match : uri:string -&gt; UriTemplateData<br />&#160;&#160;member Render : data:UriTemplateData -&gt; string<br />&#160;&#160;override ToString : unit -&gt; string<br />&#160;&#160;static member Format : (UriTemplate -&gt; string)<br />&#160;&#160;static member private Mapping : Mapping&lt;UriTemplate&gt;<br />&#160;&#160;static member Matching : Matching&lt;UriTemplate,UriTemplateData&gt;<br />&#160;&#160;static member Parse : (string -&gt; UriTemplate)<br />&#160;&#160;static member Rendering : Rendering&lt;UriTemplate&gt;<br />&#160;&#160;static member TryParse : (string -&gt; UriTemplate option)<br />&#160;&#160;static member ( + ) : UriTemplate * UriTemplate -&gt; UriTemplate<br /><br />Full name: Arachne.Uri.Template.UriTemplate</div>
+<div class="tip" id="fs224">property UriTemplate.Parse: string -&gt; UriTemplate</div>
+<div class="tip" id="fs225">Multiple items<br />module FreyaRouter<br /><br />from Freya.Router<br /><br />--------------------<br />type FreyaRouter = FreyaRoute list -&gt; unit * FreyaRoute list<br /><br />Full name: Freya.Router.Types.FreyaRouter</div>
+<div class="tip" id="fs226">val toPipeline : (FreyaRouter -&gt; FreyaPipeline)<br /><br />Full name: Freya.Router.FreyaRouter.toPipeline</div>
 
         <!-- Any section element inside of this container is displayed as a slide -->
         <div class="slides">
@@ -1264,13 +1353,305 @@ the same workflow.<br/>
 
 <section >
 
-<h2>Output: JSON strings</h2>
+<h2>Output: JSON</h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
+<span class="l">13: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">{
+    <span class="s">&quot;start&quot;</span><span class="o">:</span> {
+        <span class="s">&quot;name&quot;</span><span class="o">:</span> <span class="s">&quot;Houston, TX&quot;</span>,
+        <span class="s">&quot;latitude&quot;</span><span class="o">:</span> <span class="n">0.</span>,
+        <span class="s">&quot;longitude&quot;</span><span class="o">:</span> <span class="n">0.</span>
+    },
+    <span class="s">&quot;dest&quot;</span><span class="o">:</span> {
+        <span class="s">&quot;name&quot;</span><span class="o">:</span> <span class="s">&quot;Conroe, TX&quot;</span>,
+        <span class="s">&quot;latitude&quot;</span><span class="o">:</span> <span class="n">0.</span>,
+        <span class="s">&quot;longitude&quot;</span><span class="o">:</span> <span class="n">0.</span>
+    },
+    <span class="s">&quot;distance&quot;</span><span class="o">:</span> <span class="n">0.</span>
+}
+</code></pre></td>
+</tr>
+</table>
 
 </section>
 
 <section >
 
-<h1>Questions?</h1>
+<h2>2. Define HTTP resources</h2>
+
+<ul>
+<li>MVC</li>
+<li>Web API</li>
+<li>?</li>
+</ul>
+
+</section>
+
+<section >
+
+<h2>Is it possible to model HTTP itself?</h2>
+
+</section>
+
+<section >
+
+<h2>This is HTTP</h2>
+
+<img src="images/http-state-diagram.png" alt="HTTP State Machine" />
+
+</section>
+
+<section >
+
+<h2>Freya</h2>
+
+<img src="images/freya.svg" alt="Freya logo" height="300px" width="300px" style="background-color:#fff;" />
+
+</section>
+
+<section >
+
+<h2>Freya Machines = HTTP Resources</h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs213', 597)" onmouseover="showTip(event, 'fs213', 597)" class="i">distanceCalculator</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs204', 598)" onmouseover="showTip(event, 'fs204', 598)" class="i">freyaMachine</span> {
+        <span onmouseout="hideTip(event, 'fs214', 599)" onmouseover="showTip(event, 'fs214', 599)" class="k">including</span> <span onmouseout="hideTip(event, 'fs203', 600)" onmouseover="showTip(event, 'fs203', 600)" class="i">common</span>
+        <span onmouseout="hideTip(event, 'fs215', 601)" onmouseover="showTip(event, 'fs215', 601)" class="k">corsMethodsSupported</span> <span onmouseout="hideTip(event, 'fs192', 602)" onmouseover="showTip(event, 'fs192', 602)" class="i">supportedMethods</span>
+        <span onmouseout="hideTip(event, 'fs216', 603)" onmouseover="showTip(event, 'fs216', 603)" class="k">methodsSupported</span> <span onmouseout="hideTip(event, 'fs192', 604)" onmouseover="showTip(event, 'fs192', 604)" class="i">supportedMethods</span>
+        <span onmouseout="hideTip(event, 'fs217', 605)" onmouseover="showTip(event, 'fs217', 605)" class="k">handleOk</span> <span onmouseout="hideTip(event, 'fs187', 606)" onmouseover="showTip(event, 'fs187', 606)" class="f">getHandler</span> } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs218', 607)" onmouseover="showTip(event, 'fs218', 607)" class="t">FreyaMachine</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs219', 608)" onmouseover="showTip(event, 'fs219', 608)" class="f">toPipeline</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs220', 609)" onmouseover="showTip(event, 'fs220', 609)" class="i">app</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs221', 610)" onmouseover="showTip(event, 'fs221', 610)" class="i">freyaRouter</span> {
+        <span onmouseout="hideTip(event, 'fs222', 611)" onmouseover="showTip(event, 'fs222', 611)" class="k">resource</span> (<span onmouseout="hideTip(event, 'fs223', 612)" onmouseover="showTip(event, 'fs223', 612)" class="t">UriTemplate</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs224', 613)" onmouseover="showTip(event, 'fs224', 613)" class="f">Parse</span> <span class="s">&quot;/calc&quot;</span>) <span onmouseout="hideTip(event, 'fs213', 614)" onmouseover="showTip(event, 'fs213', 614)" class="i">distanceCalculator</span>
+    } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs225', 615)" onmouseover="showTip(event, 'fs225', 615)" class="t">FreyaRouter</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs226', 616)" onmouseover="showTip(event, 'fs226', 616)" class="f">toPipeline</span>
+</code></pre></td>
+</tr>
+</table>
+
+</section>
+
+<section >
+
+<h2>Machine Composition!</h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+<span class="l">9: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs203', 581)" onmouseover="showTip(event, 'fs203', 581)" class="i">common</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs204', 582)" onmouseover="showTip(event, 'fs204', 582)" class="i">freyaMachine</span> {
+        <span onmouseout="hideTip(event, 'fs205', 583)" onmouseover="showTip(event, 'fs205', 583)" class="k">using</span> <span onmouseout="hideTip(event, 'fs206', 584)" onmouseover="showTip(event, 'fs206', 584)" class="i">http</span>
+        <span onmouseout="hideTip(event, 'fs205', 585)" onmouseover="showTip(event, 'fs205', 585)" class="k">using</span> <span onmouseout="hideTip(event, 'fs207', 586)" onmouseover="showTip(event, 'fs207', 586)" class="i">httpCors</span>
+        <span onmouseout="hideTip(event, 'fs208', 587)" onmouseover="showTip(event, 'fs208', 587)" class="k">charsetsSupported</span> <span onmouseout="hideTip(event, 'fs191', 588)" onmouseover="showTip(event, 'fs191', 588)" class="i">utf8</span>
+        <span onmouseout="hideTip(event, 'fs209', 589)" onmouseover="showTip(event, 'fs209', 589)" class="k">corsHeadersSupported</span> <span onmouseout="hideTip(event, 'fs202', 590)" onmouseover="showTip(event, 'fs202', 590)" class="i">corsHeaders</span>
+        <span onmouseout="hideTip(event, 'fs210', 591)" onmouseover="showTip(event, 'fs210', 591)" class="k">corsOriginsSupported</span> <span onmouseout="hideTip(event, 'fs199', 592)" onmouseover="showTip(event, 'fs199', 592)" class="i">corsOrigins</span>
+        <span onmouseout="hideTip(event, 'fs211', 593)" onmouseover="showTip(event, 'fs211', 593)" class="k">languagesSupported</span> <span onmouseout="hideTip(event, 'fs189', 594)" onmouseover="showTip(event, 'fs189', 594)" class="i">en</span>
+        <span onmouseout="hideTip(event, 'fs212', 595)" onmouseover="showTip(event, 'fs212', 595)" class="k">mediaTypesSupported</span> <span onmouseout="hideTip(event, 'fs195', 596)" onmouseover="showTip(event, 'fs195', 596)" class="i">mediaTypes</span> }
+</code></pre></td>
+</tr>
+</table>
+
+<aside class="notes">
+We are literally mixing in existing graphs into our<br/>
+resource definitions. We have a well-typed, well-<br/>
+specified HTTP implementation that allows us to map<br/>
+our domain into the world of HTTP, and we get the<br/>
+compiler to help us out!<br/>
+</aside>
+
+</section>
+
+<section >
+
+<h2>That's nice, but how do we map the domain?</h2>
+
+</section>
+
+<section >
+
+<h2>Parse the query string for cities</h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs171', 509)" onmouseover="showTip(event, 'fs171', 509)" class="i">cities</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs172', 510)" onmouseover="showTip(event, 'fs172', 510)" class="i">freya</span> {
+    <span class="k">let!</span> <span onmouseout="hideTip(event, 'fs173', 511)" onmouseover="showTip(event, 'fs173', 511)" class="i">qs</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs147', 512)" onmouseover="showTip(event, 'fs147', 512)" class="t">Freya</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs174', 513)" onmouseover="showTip(event, 'fs174', 513)" class="f">getLens</span> <span onmouseout="hideTip(event, 'fs175', 514)" onmouseover="showTip(event, 'fs175', 514)" class="t">Request</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs176', 515)" onmouseover="showTip(event, 'fs176', 515)" class="i">query</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs177', 516)" onmouseover="showTip(event, 'fs177', 516)" class="i">parts</span> <span class="o">=</span>
+        <span onmouseout="hideTip(event, 'fs173', 517)" onmouseover="showTip(event, 'fs173', 517)" class="i">qs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs178', 518)" onmouseover="showTip(event, 'fs178', 518)" class="f">Split</span>(<span class="s">&#39;&amp;&#39;</span>)
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs179', 519)" onmouseover="showTip(event, 'fs179', 519)" class="t">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs180', 520)" onmouseover="showTip(event, 'fs180', 520)" class="f">map</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs181', 521)" onmouseover="showTip(event, 'fs181', 521)" class="i">q</span> <span class="k">-&gt;</span>
+            <span class="k">let</span> <span onmouseout="hideTip(event, 'fs182', 522)" onmouseover="showTip(event, 'fs182', 522)" class="i">arr</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs181', 523)" onmouseover="showTip(event, 'fs181', 523)" class="i">q</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs178', 524)" onmouseover="showTip(event, 'fs178', 524)" class="f">Split</span>(<span class="s">&#39;=&#39;</span>)
+            <span onmouseout="hideTip(event, 'fs182', 525)" onmouseover="showTip(event, 'fs182', 525)" class="i">arr</span><span class="o">.</span>[<span class="n">1</span>])
+    <span class="k">return</span> <span onmouseout="hideTip(event, 'fs53', 526)" onmouseover="showTip(event, 'fs53', 526)" class="t">City</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs88', 527)" onmouseover="showTip(event, 'fs88', 527)" class="f">Create</span>(<span class="i">parts</span><span class="o">.</span>[<span class="n">0</span>]), <span onmouseout="hideTip(event, 'fs53', 528)" onmouseover="showTip(event, 'fs53', 528)" class="t">City</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs88', 529)" onmouseover="showTip(event, 'fs88', 529)" class="f">Create</span>(<span class="i">parts</span><span class="o">.</span>[<span class="n">1</span>]) }
+</code></pre></td>
+</tr>
+</table>
+
+</section>
+
+<section >
+
+<h2>Define the GET handler</h2>
+
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
+<span class="l">2: </span>
+<span class="l">3: </span>
+<span class="l">4: </span>
+<span class="l">5: </span>
+<span class="l">6: </span>
+<span class="l">7: </span>
+<span class="l">8: </span>
+</pre></td>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs183', 530)" onmouseover="showTip(event, 'fs183', 530)" class="i">get</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs172', 531)" onmouseover="showTip(event, 'fs172', 531)" class="i">freya</span> {
+    <span class="k">let!</span> <span onmouseout="hideTip(event, 'fs184', 532)" onmouseover="showTip(event, 'fs184', 532)" class="i">cities</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs184', 533)" onmouseover="showTip(event, 'fs184', 533)" class="i">cities</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs185', 534)" onmouseover="showTip(event, 'fs185', 534)" class="i">stage</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs131', 535)" onmouseover="showTip(event, 'fs131', 535)" class="p">InputReceived</span> <span onmouseout="hideTip(event, 'fs184', 536)" onmouseover="showTip(event, 'fs184', 536)" class="i">cities</span>
+    <span class="k">return</span> <span onmouseout="hideTip(event, 'fs136', 537)" onmouseover="showTip(event, 'fs136', 537)" class="f">runWorkflow</span> <span onmouseout="hideTip(event, 'fs185', 538)" onmouseover="showTip(event, 'fs185', 538)" class="i">stage</span> } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs147', 539)" onmouseover="showTip(event, 'fs147', 539)" class="t">Freya</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs186', 540)" onmouseover="showTip(event, 'fs186', 540)" class="f">memo</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs187', 541)" onmouseover="showTip(event, 'fs187', 541)" class="f">getHandler</span> _ <span class="o">=</span> <span onmouseout="hideTip(event, 'fs172', 542)" onmouseover="showTip(event, 'fs172', 542)" class="i">freya</span> {
+    <span class="k">let!</span> <span onmouseout="hideTip(event, 'fs188', 543)" onmouseover="showTip(event, 'fs188', 543)" class="i">json</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs183', 544)" onmouseover="showTip(event, 'fs183', 544)" class="i">get</span>
+    <span class="k">return</span> <span onmouseout="hideTip(event, 'fs158', 545)" onmouseover="showTip(event, 'fs158', 545)" class="f">represent</span> <span onmouseout="hideTip(event, 'fs188', 546)" onmouseover="showTip(event, 'fs188', 546)" class="i">json</span> }
+</code></pre></td>
+</tr>
+</table>
+
+</section>
+
+<section >
+
+<h2>3. Show and Tell</h2>
+
+</section>
+
+<section >
+
+<h1>Review</h1>
+
+</section>
+
+<section >
+
+<h2>1. Make invalid states impossible</h2>
+
+<aside class="notes">
+The ultimate goal of leveraging a type system should<br/>
+be to make invalid states impossible. If you use types<br/>
+only for documentation, then you are likely just adding<br/>
+noise to your code. Leverage the compiler to cover as<br/>
+many of your test cases as possible and avoid the pain<br/>
+of debugging or scrambling to fix a production issue.<br/>
+</aside>
+
+</section>
+
+<section >
+
+<h2>2. Provide types from external sources</h2>
+
+<aside class="notes">
+In many cases, code generation is an excellent tool for<br/>
+ensuring you stay in lockstep with an external dependency.<br/>
+F#'s type providers kick this up a notch, providing types<br/>
+without generating code you have to maintain, in some cases<br/>
+erasing the types in the compiled output for better performance.<br/>
+</aside>
+
+</section>
+
+<section >
+
+<h2>3. Declare your app's state machine</h2>
+
+<aside class="notes">
+We looked at this when we created the mutually recursive<br/>
+workflow function and the defunctionalized Stage type and<br/>
+runWorkflow function. This can tie everything together for<br/>
+you at the top level and ensure you don't accidentally<br/>
+re-order your function calls.<br/>
+</aside>
+
+</section>
+
+<section >
+
+<h2>4. Even "untyped" protocols can benefit from types</h2>
+
+<aside class="notes">
+HTTP is about as untyped as they come when it comes to protocols.<br/>
+It's incredibly extensible and is often represented as a simple<br/>
+dictionary with string keys. However, that doesn't mean you have<br/>
+to just accept that a compiler can't help you. Protocols define<br/>
+at least some level of expectation that you can expect, so<br/>
+leverage as much through your types as you can.<br/>
+</aside>
+
+<aside class="notes">
+F#'s computation expressions prove to be an incredible asset<br/>
+for such problems. The Freya machine library provides a typed,<br/>
+pluggable DSL for working with HTTP. It's pretty incredible.<br/>
+One doesn't often think of mixins and static typing going hand-<br/>
+in-hand, but Freya clearly shows it's possible, and you gain a<br/>
+lot more safety from both the checked types and defined state<br/>
+machine than were you to try to re-encode the HTTP protocol<br/>
+again and again every time you want to build a web app.<br/>
+</aside>
+
+</section>
+
+<section >
+
+<h2>5. Types can't always get you all the way</h2>
+
+<aside class="notes">
+Despite the extent to which we were able to add compile-time<br/>
+type checking throughout this little sample, we also saw<br/>
+a few cases where types were not able to help us, at least<br/>
+not in C# or F#. Some other languages and tools are paving<br/>
+the way for improvements, though, and perhaps we'll eventually<br/>
+see things like refinement and dependent types in .NET.<br/>
+</aside>
+
+<aside class="notes">
+Network interruptions, external dependencies, and more are<br/>
+still outside the scope of nearly all type systems. We have<br/>
+a long way to go, but we should at least start leveraging<br/>
+what we have available today.<br/>
+</aside>
 
 </section>
 
@@ -1279,9 +1660,17 @@ the same workflow.<br/>
 <h1>Resources</h1>
 
 <ul>
-<li>TODO 1</li>
-<li>TODO 2</li>
+<li><a href="http://fsharp.org/">F# Software Foundation</a></li>
+<li><a href="http://fsharpforfunandprofit.com/">F# for Fun and Profit</a></li>
+<li><a href="http://www.brics.dk/RS/01/23/">Defunctionalization</a></li>
+<li><a href="https://www.bing.com/search?q=F%23+domain+driven+design">Search "F# domain driven design"</a></li>
 </ul>
+
+</section>
+
+<section >
+
+<h1>Questions?</h1>
 
 </section>
 
