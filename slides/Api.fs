@@ -34,7 +34,7 @@ let cities = freya {
         qs.Split('&')
         |> Array.map (fun q ->
             let arr = q.Split('=')
-            arr.[1].Trim())
+            System.Net.WebUtility.UrlDecode(arr.[1].Trim()))
     return City.Create(parts.[0]), City.Create(parts.[1]) }
 
 (*** define: get-handler ***)
