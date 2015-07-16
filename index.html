@@ -1370,17 +1370,25 @@ the same workflow.<br/>
 <span class="l">11: </span>
 <span class="l">12: </span>
 <span class="l">13: </span>
+<span class="l">14: </span>
+<span class="l">15: </span>
+<span class="l">16: </span>
+<span class="l">17: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">{
     <span class="s">&quot;start&quot;</span><span class="o">:</span> {
         <span class="s">&quot;name&quot;</span><span class="o">:</span> <span class="s">&quot;Houston, TX&quot;</span>,
-        <span class="s">&quot;latitude&quot;</span><span class="o">:</span> <span class="n">29.760427</span>,
-        <span class="s">&quot;longitude&quot;</span><span class="o">:</span> <span class="o">-</span><span class="n">95.369803</span>
+        <span class="s">&quot;location&quot;</span><span class="o">:</span> {
+            <span class="s">&quot;latitude&quot;</span><span class="o">:</span> <span class="n">29.760427</span>,
+            <span class="s">&quot;longitude&quot;</span><span class="o">:</span> <span class="o">-</span><span class="n">95.369803</span>
+        }
     },
     <span class="s">&quot;dest&quot;</span><span class="o">:</span> {
         <span class="s">&quot;name&quot;</span><span class="o">:</span> <span class="s">&quot;San Mateo, CA&quot;</span>,
-        <span class="s">&quot;latitude&quot;</span><span class="o">:</span> <span class="n">31.700148</span>,
-        <span class="s">&quot;longitude&quot;</span><span class="o">:</span> <span class="o">-</span><span class="n">106.275785</span>
+        <span class="s">&quot;location&quot;</span><span class="o">:</span> {
+            <span class="s">&quot;latitude&quot;</span><span class="o">:</span> <span class="n">31.700148</span>,
+            <span class="s">&quot;longitude&quot;</span><span class="o">:</span> <span class="o">-</span><span class="n">106.275785</span>
+        }
     },
     <span class="s">&quot;distance&quot;</span><span class="o">:</span> <span class="n">3493771.738857</span>
 }
@@ -1569,6 +1577,9 @@ compiler to help us out!<br/>
 <label for="show-result">Result</label>
 <input type="text" id="show-result" name="show-result" readonly />
 
+<div id="mapDiv"></div>
+
+<script src="//dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
 <script src="js/app.js"></script>
 
 </section>
