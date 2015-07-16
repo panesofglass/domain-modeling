@@ -710,7 +710,21 @@ type Place1 = { Name : string; Location : Location1 option }
 
 ## 3. Show and Tell
 
+<form id="calc-form">
+    <label for="start">Start City</label>
+    <input type="text" id="start" name="start" /><br />
+    <label for="dest">Destination</label>
+    <input type="text" id="dest" name="dest" /><br />
+    <button type="button" id="calculate">Calculate Distance</button>
+</form>
+
+<label for="show-result">Result</label>
+<input type="text" id="show-result" name="show-result" readonly />
+
+<script src="/js/app.js"></script>
+
 ***
+
 # Review
 
 ***

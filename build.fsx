@@ -52,6 +52,12 @@ let copyStylesheet() =
     with
     | exn -> traceImportant <| sprintf "Could not copy stylesheet: %s" exn.Message
 
+let copyScript() =
+    try
+        CopyFile (outDir @@ "js" @@ "app.js") (slidesDir @@ "app.js")
+    with
+    | exn -> traceImportant <| sprintf "Could not copy script: %s" exn.Message
+
 let copyPics() =
     try
       CopyDir (outDir @@ "images") (slidesDir @@ "images") (fun f -> true)
@@ -73,6 +79,7 @@ let generateFor (file:FileInfo) =
         tryGenerate 3
 
         copyStylesheet()
+        copyScript()
     with
     | :? FileNotFoundException as exn ->
         traceImportant <| sprintf "Could not copy file: %s" exn.FileName
