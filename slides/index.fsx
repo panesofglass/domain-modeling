@@ -99,7 +99,8 @@
 
 *)
 
-type CityAlias = string
+module Alias =
+    type City = string
 
 (**
 ***
@@ -119,11 +120,13 @@ type CityAlias = string
 
 *)
 
-type City1 = City of string
+module SingleCase =
+    type City = City of string
 
 (** Extract the value via pattern matching: *)
-let cityName (City name) = name
-let result = cityName (City "Houston, TX")
+    let city = City "Houston, TX"
+    let cityName (City name) = name
+    let result = cityName city
 
 (** Value of result: *)
 (*** include-value: result ***)
@@ -145,7 +148,7 @@ let result = cityName (City "Houston, TX")
         float Longitude { get; }
     }
 
-    public class PlaceFirstTry : ILocatable {
+    public class Place : ILocatable {
         public string Name { get; set; }
         public float Latitude { get; set; }
         public float Longitude { get; set; }
@@ -161,13 +164,15 @@ type ILocatable =
     abstract Latitude : float
     abstract Longitude : float
 
-type PlaceFirstTry =
-    { Name : string
-      Latitude : float
-      Longitude : float }
-    interface ILocatable with
-        member this.Latitude = this.Latitude
-        member this.Longitude = this.Longitude
+module FirstTry =
+
+    type Place =
+        { Name : string
+          Latitude : float
+          Longitude : float }
+        interface ILocatable with
+            member this.Latitude = this.Latitude
+            member this.Longitude = this.Longitude
 
 (**
 ***
@@ -197,7 +202,7 @@ Examples:
         public float Longitude { get; set; }
     }
 
-    public class PlaceWithOptionalLocation {
+    public class Place {
         public string Name { get; set; }
         public float? Latitude { get; set; }
         public float? Longitude { get; set; }
@@ -219,17 +224,19 @@ Examples:
 
 *)
 
-type PlaceWithOptionalLocation =
-    { Name : string
-      Latitude : float option
-      Longitude : float option }
-    member this.GetLocation() : ILocatable option =
-        match this.Latitude, this.Longitude with
-        | Some lat, Some lng ->
-            { new ILocatable with
-                member this.Latitude = lat
-                member this.Longitude = lng } |> Some
-        | _ -> None
+module OptionalLocation =
+
+    type Place =
+        { Name : string
+          Latitude : float option
+          Longitude : float option }
+        member this.GetLocation() : ILocatable option =
+            match this.Latitude, this.Longitude with
+            | Some lat, Some lng ->
+                { new ILocatable with
+                    member this.Latitude = lat
+                    member this.Longitude = lng } |> Some
+            | _ -> None
 
 (**
 ***
@@ -275,9 +282,11 @@ type PlaceWithOptionalLocation =
 
 *)
 
-type Location1 = { Latitude : float; Longitude : float }
+module Revised =
 
-type Place1 = { Name : string; Location : Location1 option }
+    type Location = { Latitude : float; Longitude : float }
+
+    type Place = { Name : string; Location : Location option }
 
 (**
 ***
@@ -831,13 +840,16 @@ let degreesLongitude x = x * 1.<degLng>
 let degLatResult = degreesLatitude 1.
 let degLngResult = degreesLongitude 1.
 
-(*** define: location2 ***)
-type Location2 = {
-    Latitude : float<degLat>
-    Longitude : float<degLng>
-}
+module UnitsOfMeasure =
+    open SingleCase
 
-type Place2 = { Name : City1; Location : Location2 option }
+(*** define: location2 ***)
+    type Location = {
+        Latitude : float<degLat>
+        Longitude : float<degLng>
+    }
+
+    type Place = { Name : City; Location : Location option }
 
 (*** define: city ***)
 type City = City of name : string
