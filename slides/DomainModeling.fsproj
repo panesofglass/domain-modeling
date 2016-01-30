@@ -66,8 +66,10 @@
     <Compile Include="Domain.fsi" />
     <Compile Include="Domain.fs" />
     <Compile Include="Api.fs" />
+    <Compile Include="Program.fs" />
     <None Include="load-dependencies.fsx" />
     <None Include="index.fsx" />
+    <Content Include="app.js" />
     <Content Include="custom.css" />
     <Content Include="App.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -383,6 +385,17 @@
       <ItemGroup>
         <Reference Include="Hekate">
           <HintPath>..\packages\Hekate\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Hekate.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1')">
+      <ItemGroup>
+        <Reference Include="Suave">
+          <HintPath>..\packages\Suave\lib\net40\Suave.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
