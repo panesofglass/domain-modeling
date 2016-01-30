@@ -38,7 +38,7 @@
     <script language="javascript" type="text/javascript">
         function init()
         {
-            websocket = new WebSocket("ws://localhost:8083/websocket");
+            websocket = new WebSocket("ws://"+window.location.host+"/websocket");
             websocket.onmessage = function(evt) { location.reload(); };
         }
         window.addEventListener("load", init, false);
@@ -113,10 +113,10 @@
 <div class="tip" id="fs65">Multiple items<br />Place.Location: Location option<br /><br />--------------------<br />type Location =<br />&#160;&#160;internal {latitude: float&lt;degLat&gt;;<br />&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;longitude: float&lt;degLng&gt;;}<br />&#160;&#160;member Latitude : float&lt;degLat&gt;<br />&#160;&#160;member Longitude : float&lt;degLng&gt;<br />&#160;&#160;static member Create : lat:float&lt;degLat&gt; * lng:float&lt;degLng&gt; -&gt; Location<br /><br />Full name: Index.Location</div>
 <div class="tip" id="fs66">[&lt;Measure&gt;]<br />type m<br /><br />Full name: Index.m</div>
 <div class="tip" id="fs67">[&lt;Measure&gt;]<br />type ft<br /><br />Full name: Index.ft</div>
-<div class="tip" id="fs68">namespace FSharp</div>
-<div class="tip" id="fs69">namespace FSharp.Data</div>
+<div class="tip" id="fs68">Multiple items<br />namespace FSharp<br /><br />--------------------<br />namespace Microsoft.FSharp</div>
+<div class="tip" id="fs69">Multiple items<br />namespace FSharp.Data<br /><br />--------------------<br />namespace Microsoft.FSharp.Data</div>
 <div class="tip" id="fs70">Multiple items<br />type LiteralAttribute =<br />&#160;&#160;inherit Attribute<br />&#160;&#160;new : unit -&gt; LiteralAttribute<br /><br />Full name: Microsoft.FSharp.Core.LiteralAttribute<br /><br />--------------------<br />new : unit -&gt; LiteralAttribute</div>
-<div class="tip" id="fs71">val connStr : string<br /><br />Full name: Index.connStr</div>
+<div class="tip" id="fs71">val ConnStr : string<br /><br />Full name: Index.ConnStr</div>
 <div class="tip" id="fs72">type GetCityLocation = SqlCommandProvider&lt;...&gt;<br /><br />Full name: Index.GetCityLocation</div>
 <div class="tip" id="fs73">type SqlCommandProvider<br /><br />Full name: FSharp.Data.SqlCommandProvider<br /><em><br /><br /><br />&lt;summary&gt;Typed representation of a T-SQL statement to execute against a SQL Server database.&lt;/summary&gt; <br />&lt;param name=&#39;CommandText&#39;&gt;Transact-SQL statement to execute at the data source.&lt;/param&gt;<br />&lt;param name=&#39;ConnectionStringOrName&#39;&gt;String used to open a SQL Server database or the name of the connection string in the configuration file in the form of “name=&amp;lt;connection string name&amp;gt;”.&lt;/param&gt;<br />&lt;param name=&#39;ResultType&#39;&gt;A value that defines structure of result: Records, Tuples, DataTable, or SqlDataReader.&lt;/param&gt;<br />&lt;param name=&#39;SingleRow&#39;&gt;If set the query is expected to return a single row of the result set. See MSDN documentation for details on CommandBehavior.SingleRow.&lt;/param&gt;<br />&lt;param name=&#39;ConfigFile&#39;&gt;The name of the configuration file that’s used for connection strings at DESIGN-TIME. The default value is app.config or web.config.&lt;/param&gt;<br />&lt;param name=&#39;AllParametersOptional&#39;&gt;If set all parameters become optional. NULL input values must be handled inside T-SQL.&lt;/param&gt;<br />&lt;param name=&#39;ResolutionFolder&#39;&gt;A folder to be used to resolve relative file paths to *.sql script files at compile time. The default value is the folder that contains the project or script.&lt;/param&gt;<br />&lt;param name=&#39;DataDirectory&#39;&gt;The name of the data directory that replaces |DataDirectory| in connection strings. The default value is the project or script directory.&lt;/param&gt;<br /></em></div>
 <div class="tip" id="fs74">type LookupLocations = City * City -&gt; Place * Place<br /><br />Full name: Index.LookupLocations</div>
@@ -220,8 +220,8 @@
 <div class="tip" id="fs172">Multiple items<br />module Request<br /><br />from Freya.Lenses.Http.Cors.Lenses<br /><br />--------------------<br />module Request<br /><br />from Freya.Lenses.Http.Lenses</div>
 <div class="tip" id="fs173">val query : Aether.Lens&lt;FreyaState,string&gt;<br /><br />Full name: Freya.Lenses.Http.Lenses.Request.query</div>
 <div class="tip" id="fs174">val parts : string []</div>
-<div class="tip" id="fs175">String.Split(params separator: char []) : string []<br />String.Split(separator: string [], options: StringSplitOptions) : string []<br />String.Split(separator: char [], options: StringSplitOptions) : string []<br />String.Split(separator: char [], count: int) : string []<br />String.Split(separator: string [], count: int, options: StringSplitOptions) : string []<br />String.Split(separator: char [], count: int, options: StringSplitOptions) : string []</div>
-<div class="tip" id="fs176">type Array =<br />&#160;&#160;member Clone : unit -&gt; obj<br />&#160;&#160;member CopyTo : array:Array * index:int -&gt; unit + 1 overload<br />&#160;&#160;member GetEnumerator : unit -&gt; IEnumerator<br />&#160;&#160;member GetLength : dimension:int -&gt; int<br />&#160;&#160;member GetLongLength : dimension:int -&gt; int64<br />&#160;&#160;member GetLowerBound : dimension:int -&gt; int<br />&#160;&#160;member GetUpperBound : dimension:int -&gt; int<br />&#160;&#160;member GetValue : params indices:int[] -&gt; obj + 7 overloads<br />&#160;&#160;member Initialize : unit -&gt; unit<br />&#160;&#160;member IsFixedSize : bool<br />&#160;&#160;...<br /><br />Full name: System.Array</div>
+<div class="tip" id="fs175">String.Split([&lt;ParamArray&gt;] separator: char []) : string []<br />String.Split(separator: string [], options: StringSplitOptions) : string []<br />String.Split(separator: char [], options: StringSplitOptions) : string []<br />String.Split(separator: char [], count: int) : string []<br />String.Split(separator: string [], count: int, options: StringSplitOptions) : string []<br />String.Split(separator: char [], count: int, options: StringSplitOptions) : string []</div>
+<div class="tip" id="fs176">type Array =<br />&#160;&#160;member Clone : unit -&gt; obj<br />&#160;&#160;member CopyTo : array:Array * index:int -&gt; unit + 1 overload<br />&#160;&#160;member GetEnumerator : unit -&gt; IEnumerator<br />&#160;&#160;member GetLength : dimension:int -&gt; int<br />&#160;&#160;member GetLongLength : dimension:int -&gt; int64<br />&#160;&#160;member GetLowerBound : dimension:int -&gt; int<br />&#160;&#160;member GetUpperBound : dimension:int -&gt; int<br />&#160;&#160;member GetValue : [&lt;ParamArray&gt;] indices:int[] -&gt; obj + 7 overloads<br />&#160;&#160;member Initialize : unit -&gt; unit<br />&#160;&#160;member IsFixedSize : bool<br />&#160;&#160;...<br /><br />Full name: System.Array</div>
 <div class="tip" id="fs177">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; array:&#39;T [] -&gt; &#39;U []<br /><br />Full name: Microsoft.FSharp.Collections.Array.map</div>
 <div class="tip" id="fs178">val q : string</div>
 <div class="tip" id="fs179">val arr : string []</div>
@@ -275,55 +275,30 @@
         <!-- Any section element inside of this container is displayed as a slide -->
         <div class="slides">
             <section >
-
 <h1>Domain Modeling with Types</h1>
-
 <h2><a href="https://twitter.com/panesofglass">Ryan Riley</a></h2>
-
 </section>
-
 <section >
-
 <img alt="Tachyus logo" src="images/tachyus.png" height="300px" style="background-color:#fff;" />
-
 </section>
-
 <section >
-
 <h1><a href="https://twitter.com/panesofglass">@panesofglass</a></h1>
-
 </section>
-
 <section >
-
 <h2><a href="https://github.com/panesofglass">github/panesofglass</a></h2>
-
 </section>
-
 <section >
-
 <h1><a href="http://owin.org/">OWIN</a></h1>
-
 </section>
-
 <section >
-
 <p><img src="images/fssf.png" alt="F# logo" /></p>
-
 </section>
-
 <section >
-
 <h1>Objective</h1>
-
 <h2>Visualize distance between two cities by their geographic coordinates.</h2>
-
 </section>
-
 <section >
-
 <h1>Process</h1>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -331,43 +306,30 @@
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">(<span onmouseout="hideTip(event, 'fs51', 298)" onmouseover="showTip(event, 'fs51', 298)" class="p">City</span> <span class="s">&quot;Houston, TX&quot;</span>, <span onmouseout="hideTip(event, 'fs51', 299)" onmouseover="showTip(event, 'fs51', 299)" class="p">City</span> <span class="s">&quot;San Mateo, CA&quot;</span>)
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs88', 300)" onmouseover="showTip(event, 'fs88', 300)" class="f">lookupLocations</span>
-<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs99', 301)" onmouseover="showTip(event, 'fs99', 301)" class="i">tryFindDistance</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs99', 301)" onmouseover="showTip(event, 'fs99', 301)" class="f">tryFindDistance</span>
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs103', 302)" onmouseover="showTip(event, 'fs103', 302)" class="t">Option</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs104', 303)" onmouseover="showTip(event, 'fs104', 303)" class="f">map</span> <span onmouseout="hideTip(event, 'fs100', 304)" onmouseover="showTip(event, 'fs100', 304)" class="f">metersToFeet</span>
 </code></pre></td>
 </tr>
 </table>
-
 <aside class="notes">
 This pipeline shows that we want to take a list of two Cities as inputs,<br/>
 translate those cities into locations,<br/>
 and finally calculate the distance (in feet).<br/>
 </aside>
-
 </section>
-
 <section >
-
 <h1>Goal 1</h1>
-
 <h2>Define <code>City</code></h2>
-
 </section>
-
 <section >
-
 <h2>Simplest thing possible (C#)</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="cs"><span class="k">using</span> City <span class="o">=</span> <span class="k">string</span>;
 </code></pre></td></tr></table>
-
 </section>
-
 <section >
-
 <h2>Simplest thing possible (F#)</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -376,30 +338,19 @@ and finally calculate the distance (in feet).<br/>
 </code></pre></td>
 </tr>
 </table>
-
 </section>
-
 <section >
-
 <h2>Does this really help?</h2>
-
 <aside class="notes">
 Maybe: you get better documentation throughout your code;<br/>
 however, you don't get any type safety.<br/>
 </aside>
-
 </section>
-
 <section >
-
 <h2>Can we do better?</h2>
-
 </section>
-
 <section >
-
 <h2>Single-cased union types</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -408,9 +359,7 @@ however, you don't get any type safety.<br/>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Extract the value via pattern matching:</p>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -421,25 +370,15 @@ however, you don't get any type safety.<br/>
 </code></pre></td>
 </tr>
 </table>
-
 <p>Value of result:</p>
-
 <table class="pre"><tr><td><pre><code>No value has been returned</code></pre></td></tr></table>
-
 </section>
-
 <section >
-
 <h1>Goal 2</h1>
-
 <h2>Define a <code>Location</code> type</h2>
-
 </section>
-
 <section >
-
 <h2><code>Place</code> type (C#)</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -462,13 +401,9 @@ however, you don't get any type safety.<br/>
     <span class="k">public</span> <span class="k">float</span> Longitude { get; set; }
 }
 </code></pre></td></tr></table>
-
 </section>
-
 <section >
-
 <h2><code>Place</code> type (F#)</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -499,38 +434,25 @@ however, you don't get any type safety.<br/>
 </code></pre></td>
 </tr>
 </table>
-
 </section>
-
 <section >
-
 <h2>What could go wrong?</h2>
-
 <ol>
 <li>Latitude or longitude not provided</li>
 <li>Latitude and longitude mixed up</li>
 <li>Invalid city and location values</li>
 </ol>
-
 </section>
-
 <section >
-
 <h2>1. Handling missing values</h2>
-
 <p>Examples:</p>
-
 <ul>
 <li>Atlantis</li>
 <li>Camelot</li>
 </ul>
-
 </section>
-
 <section >
-
 <h2>C# version:</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -573,13 +495,9 @@ however, you don't get any type safety.<br/>
     }
 }
 </code></pre></td></tr></table>
-
 </section>
-
 <section >
-
 <h2>F# <code>Place</code> with optional <code>ILocatable</code></h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -610,39 +528,22 @@ however, you don't get any type safety.<br/>
 </code></pre></td>
 </tr>
 </table>
-
 </section>
-
 <section >
-
 <h2>Yuck, right?</h2>
-
 </section>
-
 <section >
-
 <h2>Can we do better?</h2>
-
 </section>
-
 <section >
-
 <h2>Rethinking <code>ILocatable</code></h2>
-
 <h3>"Is-a" vs. "Has-a"</h3>
-
 </section>
-
 <section >
-
 <h2><code>Latitude</code> and <code>Longitude</code> belong together</h2>
-
 </section>
-
 <section >
-
 <h2>Refactored <code>Place</code> type (C#)</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -663,19 +564,12 @@ however, you don't get any type safety.<br/>
     <span class="k">public</span> Location Location { get; set; }
 }
 </code></pre></td></tr></table>
-
 </section>
-
 <section >
-
 <h2>Note: "optional" indicated by a <code>null</code></h2>
-
 </section>
-
 <section >
-
 <h2>Refactored <code>Place</code> type (F#)</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -690,39 +584,22 @@ however, you don't get any type safety.<br/>
 </code></pre></td>
 </tr>
 </table>
-
 </section>
-
 <section >
-
 <h2>Note: No <code>null</code></h2>
-
 </section>
-
 <section >
-
 <h2>Has-a preferred to Is-a</h2>
-
 <h3>"Composition over inheritance"</h3>
-
 </section>
-
 <section >
-
 <h2>2. Mixing up latitude and longitude</h2>
-
 </section>
-
 <section >
-
 <h2>Sadly we will have to leave C# behind</h2>
-
 </section>
-
 <section >
-
 <h2>Units of measure</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -737,13 +614,9 @@ however, you don't get any type safety.<br/>
 </code></pre></td>
 </tr>
 </table>
-
 </section>
-
 <section >
-
 <h2>Correct <code>Location</code></h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -760,37 +633,23 @@ however, you don't get any type safety.<br/>
 </code></pre></td>
 </tr>
 </table>
-
 </section>
-
 <section >
-
 <h2>Make invalid values impossible</h2>
-
 </section>
-
 <section >
-
 <h2>Types can only get you so far</h2>
-
 <ol>
 <li><code>City</code> allows <code>null</code> and <code>""</code></li>
 <li><code>Location</code> allows latitude < -90 and > 90</li>
 <li><code>Location</code> allows longitude < -180 and > 180</li>
 </ol>
-
 </section>
-
 <section >
-
 <h2>3. Valid values</h2>
-
 </section>
-
 <section >
-
 <h2>Revisiting <code>City</code></h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -811,26 +670,18 @@ however, you don't get any type safety.<br/>
 </code></pre></td>
 </tr>
 </table>
-
 <aside class="notes">
 Without a city lookup, we are stuck with a minimal<br/>
 validation for the city name. We could add a bit<br/>
 more, such as requiring one or more commas, but<br/>
 this provides the general idea.<br/>
 </aside>
-
 </section>
-
 <section >
-
 <h2>Better than nothing</h2>
-
 </section>
-
 <section >
-
 <h2>Revisiting <code>Location</code></h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -859,66 +710,49 @@ this provides the general idea.<br/>
 </code></pre></td>
 </tr>
 </table>
-
 <aside class="notes">
 This may look strange as we are now hiding<br/>
 the record we previously used. However, we<br/>
 retain immutability and add validation.<br/>
 </aside>
-
 </section>
-
 <section >
-
 <h2>Revisiting <code>Place</code></h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs64', 147)" onmouseover="showTip(event, 'fs64', 147)" class="t">Place</span> <span class="o">=</span> { <span onmouseout="hideTip(event, 'fs49', 148)" onmouseover="showTip(event, 'fs49', 148)" class="i">Name</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs51', 149)" onmouseover="showTip(event, 'fs51', 149)" class="t">City</span>; <span onmouseout="hideTip(event, 'fs65', 150)" onmouseover="showTip(event, 'fs65', 150)" class="i">Location</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs65', 151)" onmouseover="showTip(event, 'fs65', 151)" class="t">Location</span> <span onmouseout="hideTip(event, 'fs21', 152)" onmouseover="showTip(event, 'fs21', 152)" class="t">option</span> }
 </code></pre></td>
 </tr>
 </table>
-
 </section>
-
 <section >
-
 <h2><code>Place</code> still has yet to change</h2>
-
 <h3>Single Responsibility Principle</h3>
-
 <aside class="notes">
 Place doesn't really change except to swap<br/>
 Name : string for Name : City<br/>
 This is exactly the goal of SRP.<br/>
 </aside>
-
 </section>
-
 <section >
-
 <h2>Further study: Contracts and Dependent Types</h2>
-
 <ul>
 <li><a href="http://research.microsoft.com/en-us/projects/contracts/">Code Contracts</a></li>
 <li><a href="https://fstar-lang.org/">F*</a></li>
 <li><a href="http://research.microsoft.com/en-us/um/people/nswamy/papers/tstar.pdf">TS*</a></li>
 <li><a href="http://www.idris-lang.org/">Idris</a></li>
 </ul>
-
 <aside class="notes">
 We have seen that the F# type system can<br/>
 get us pretty far along our way. <br/>
 We had to resort to constructor functions<br/>
 to provide more rigid validation.<br/>
 </aside>
-
 <aside class="notes">
 Note that we can still create an invalid `City`.<br/>
 However, if we privatize the union, we can't<br/>
 retrieve the name via pattern matching.<br/>
 </aside>
-
 <aside class="notes">
 Some languages offer additional type system<br/>
 constructs to do these validations. Code contracts,<br/>
@@ -930,19 +764,12 @@ allowed, as we have done above using our<br/>
 constructor functions. I've listed a few examples<br/>
 in case you wish to study these further.<br/>
 </aside>
-
 </section>
-
 <section >
-
 <h1>Goal 3: Processing Requests</h1>
-
 </section>
-
 <section >
-
 <h2>Process</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -950,36 +777,27 @@ in case you wish to study these further.<br/>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp">(<span onmouseout="hideTip(event, 'fs51', 298)" onmouseover="showTip(event, 'fs51', 298)" class="p">City</span> <span class="s">&quot;Houston, TX&quot;</span>, <span onmouseout="hideTip(event, 'fs51', 299)" onmouseover="showTip(event, 'fs51', 299)" class="p">City</span> <span class="s">&quot;San Mateo, CA&quot;</span>)
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs88', 300)" onmouseover="showTip(event, 'fs88', 300)" class="f">lookupLocations</span>
-<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs99', 301)" onmouseover="showTip(event, 'fs99', 301)" class="i">tryFindDistance</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs99', 301)" onmouseover="showTip(event, 'fs99', 301)" class="f">tryFindDistance</span>
 <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs103', 302)" onmouseover="showTip(event, 'fs103', 302)" class="t">Option</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs104', 303)" onmouseover="showTip(event, 'fs104', 303)" class="f">map</span> <span onmouseout="hideTip(event, 'fs100', 304)" onmouseover="showTip(event, 'fs100', 304)" class="f">metersToFeet</span>
 </code></pre></td>
 </tr>
 </table>
-
 <aside class="notes">
 This pipeline shows that we want to take a list of two Cities as inputs,<br/>
 translate those cities into locations,<br/>
 and finally calculate the distance (in feet).<br/>
 </aside>
-
 </section>
-
 <section >
-
 <h2>How do we translate?</h2>
-
 <ul>
 <li>UI input: two cities</li>
 <li>Calculation input: two geographic coordinates</li>
 <li>Unit conversion: meters -&gt; feet</li>
 </ul>
-
 </section>
-
 <section >
-
 <h2>Start with types</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -988,29 +806,22 @@ and finally calculate the distance (in feet).<br/>
 <span class="l">6: </span>
 <span class="l">7: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs74', 164)" onmouseover="showTip(event, 'fs74', 164)" class="i">LookupLocations</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs51', 165)" onmouseover="showTip(event, 'fs51', 165)" class="t">City</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs51', 166)" onmouseover="showTip(event, 'fs51', 166)" class="t">City</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs64', 167)" onmouseover="showTip(event, 'fs64', 167)" class="t">Place</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs64', 168)" onmouseover="showTip(event, 'fs64', 168)" class="t">Place</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs74', 164)" onmouseover="showTip(event, 'fs74', 164)" class="t">LookupLocations</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs51', 165)" onmouseover="showTip(event, 'fs51', 165)" class="t">City</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs51', 166)" onmouseover="showTip(event, 'fs51', 166)" class="t">City</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs64', 167)" onmouseover="showTip(event, 'fs64', 167)" class="t">Place</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs64', 168)" onmouseover="showTip(event, 'fs64', 168)" class="t">Place</span>
 
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs75', 169)" onmouseover="showTip(event, 'fs75', 169)" class="i">TryFindDistance</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs64', 170)" onmouseover="showTip(event, 'fs64', 170)" class="t">Place</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs64', 171)" onmouseover="showTip(event, 'fs64', 171)" class="t">Place</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs10', 172)" onmouseover="showTip(event, 'fs10', 172)" class="t">float</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs66', 173)" onmouseover="showTip(event, 'fs66', 173)" class="t">m</span><span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs21', 174)" onmouseover="showTip(event, 'fs21', 174)" class="t">option</span>
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs75', 169)" onmouseover="showTip(event, 'fs75', 169)" class="t">TryFindDistance</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs64', 170)" onmouseover="showTip(event, 'fs64', 170)" class="t">Place</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs64', 171)" onmouseover="showTip(event, 'fs64', 171)" class="t">Place</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs10', 172)" onmouseover="showTip(event, 'fs10', 172)" class="t">float</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs66', 173)" onmouseover="showTip(event, 'fs66', 173)" class="t">m</span><span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs21', 174)" onmouseover="showTip(event, 'fs21', 174)" class="t">option</span>
 
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs76', 175)" onmouseover="showTip(event, 'fs76', 175)" class="i">MetersToFeet</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs10', 176)" onmouseover="showTip(event, 'fs10', 176)" class="t">float</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs66', 177)" onmouseover="showTip(event, 'fs66', 177)" class="t">m</span><span class="o">&gt;</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs10', 178)" onmouseover="showTip(event, 'fs10', 178)" class="t">float</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs67', 179)" onmouseover="showTip(event, 'fs67', 179)" class="t">ft</span><span class="o">&gt;</span>
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs76', 175)" onmouseover="showTip(event, 'fs76', 175)" class="t">MetersToFeet</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs10', 176)" onmouseover="showTip(event, 'fs10', 176)" class="t">float</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs66', 177)" onmouseover="showTip(event, 'fs66', 177)" class="t">m</span><span class="o">&gt;</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs10', 178)" onmouseover="showTip(event, 'fs10', 178)" class="t">float</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs67', 179)" onmouseover="showTip(event, 'fs67', 179)" class="t">ft</span><span class="o">&gt;</span>
 
-<span class="k">type</span> <span onmouseout="hideTip(event, 'fs77', 180)" onmouseover="showTip(event, 'fs77', 180)" class="i">Show</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs64', 181)" onmouseover="showTip(event, 'fs64', 181)" class="t">Place</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs64', 182)" onmouseover="showTip(event, 'fs64', 182)" class="t">Place</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs10', 183)" onmouseover="showTip(event, 'fs10', 183)" class="t">float</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs67', 184)" onmouseover="showTip(event, 'fs67', 184)" class="t">ft</span><span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs21', 185)" onmouseover="showTip(event, 'fs21', 185)" class="t">option</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs2', 186)" onmouseover="showTip(event, 'fs2', 186)" class="t">string</span>
+<span class="k">type</span> <span onmouseout="hideTip(event, 'fs77', 180)" onmouseover="showTip(event, 'fs77', 180)" class="t">Show</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs64', 181)" onmouseover="showTip(event, 'fs64', 181)" class="t">Place</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs64', 182)" onmouseover="showTip(event, 'fs64', 182)" class="t">Place</span> <span class="o">*</span> <span onmouseout="hideTip(event, 'fs10', 183)" onmouseover="showTip(event, 'fs10', 183)" class="t">float</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs67', 184)" onmouseover="showTip(event, 'fs67', 184)" class="t">ft</span><span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs21', 185)" onmouseover="showTip(event, 'fs21', 185)" class="t">option</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs2', 186)" onmouseover="showTip(event, 'fs2', 186)" class="t">string</span>
 </code></pre></td>
 </tr>
 </table>
-
 </section>
-
 <section >
-
 <h2>Implementation</h2>
-
 </section>
-
 <section >
-
 <h2>Retrieving values from other sources</h2>
-
 <aside class="notes">
 For the purposes of our demo application,<br/>
 let's assume we have a database of city names<br/>
@@ -1018,7 +829,6 @@ with their corresponding geographic coordinates.<br/>
 We will use the FSharp.SqlClient type provider<br/>
 to provide us the types we need to access the data.<br/>
 </aside>
-
 <aside class="notes">
 Why not use a third-party service such as Google Maps?<br/>
 I thought of doing this, but I wanted to keep this<br/>
@@ -1028,19 +838,12 @@ and I like showing it off. It's also a way we can<br/>
 further constrain the available cities, should we have<br/>
 time to explore that.<br/>
 </aside>
-
 </section>
-
 <section >
-
 <h2><a href="http://fsprojects.github.io/FSharp.Data.SqlClient/">FSharp.Data.SqlClient</a></h2>
-
 </section>
-
 <section >
-
 <h2>Type-checked SQL</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -1051,24 +854,19 @@ time to explore that.<br/>
 <span class="s">    SELECT City, Latitude, Longitude</span>
 <span class="s">    FROM [dbo].[CityLocations]</span>
 <span class="s">    WHERE City = @city</span>
-<span class="s">    &quot;</span>, <span onmouseout="hideTip(event, 'fs71', 163)" onmouseover="showTip(event, 'fs71', 163)" class="i">connStr</span>, <span class="i">SingleRow</span> <span class="o">=</span> <span class="k">true</span><span class="o">&gt;</span>
+<span class="s">    &quot;</span>, <span onmouseout="hideTip(event, 'fs71', 163)" onmouseover="showTip(event, 'fs71', 163)" class="i">ConnStr</span>, <span class="i">SingleRow</span> <span class="o">=</span> <span class="k">true</span><span class="o">&gt;</span>
 </code></pre></td>
 </tr>
 </table>
-
 <aside class="notes">
 Show how this works and that invalid SQL<br/>
 immediately causes compiler errors.<br/>
 Discuss that this erases to raw ADO.NET<br/>
 so performance is excellent.<br/>
 </aside>
-
 </section>
-
 <section >
-
 <h2>Lookup coordinates by city name</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -1107,13 +905,9 @@ so performance is excellent.<br/>
 </code></pre></td>
 </tr>
 </table>
-
 </section>
-
 <section >
-
 <h2>Calculate Distance</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -1137,27 +931,22 @@ so performance is excellent.<br/>
     (<span onmouseout="hideTip(event, 'fs97', 267)" onmouseover="showTip(event, 'fs97', 267)" class="i">start</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs94', 268)" onmouseover="showTip(event, 'fs94', 268)" class="f">toGeoCoordinate</span>)<span class="o">.</span><span class="f">GetDistanceTo</span>(<span onmouseout="hideTip(event, 'fs98', 269)" onmouseover="showTip(event, 'fs98', 269)" class="i">dest</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs94', 270)" onmouseover="showTip(event, 'fs94', 270)" class="f">toGeoCoordinate</span>)
     <span class="o">*</span> <span class="n">1.</span><span class="o">&lt;</span><span onmouseout="hideTip(event, 'fs66', 271)" onmouseover="showTip(event, 'fs66', 271)" class="t">m</span><span class="o">&gt;</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs99', 272)" onmouseover="showTip(event, 'fs99', 272)" class="i">tryFindDistance</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs75', 273)" onmouseover="showTip(event, 'fs75', 273)" class="i">TryFindDistance</span> <span class="o">=</span> <span class="k">function</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs99', 272)" onmouseover="showTip(event, 'fs99', 272)" class="f">tryFindDistance</span> <span class="o">:</span> <span onmouseout="hideTip(event, 'fs75', 273)" onmouseover="showTip(event, 'fs75', 273)" class="t">TryFindDistance</span> <span class="o">=</span> <span class="k">function</span>
     | { <span onmouseout="hideTip(event, 'fs55', 274)" onmouseover="showTip(event, 'fs55', 274)" class="i">Location</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs24', 275)" onmouseover="showTip(event, 'fs24', 275)" class="p">Some</span> <span onmouseout="hideTip(event, 'fs97', 276)" onmouseover="showTip(event, 'fs97', 276)" class="i">start</span> }, { <span onmouseout="hideTip(event, 'fs55', 277)" onmouseover="showTip(event, 'fs55', 277)" class="i">Location</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs24', 278)" onmouseover="showTip(event, 'fs24', 278)" class="p">Some</span> <span onmouseout="hideTip(event, 'fs98', 279)" onmouseover="showTip(event, 'fs98', 279)" class="i">dest</span> } <span class="k">-&gt;</span>
         <span onmouseout="hideTip(event, 'fs96', 280)" onmouseover="showTip(event, 'fs96', 280)" class="f">findDistance</span> (<span onmouseout="hideTip(event, 'fs97', 281)" onmouseover="showTip(event, 'fs97', 281)" class="i">start</span>, <span onmouseout="hideTip(event, 'fs98', 282)" onmouseover="showTip(event, 'fs98', 282)" class="i">dest</span>) <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs24', 283)" onmouseover="showTip(event, 'fs24', 283)" class="p">Some</span>
     | _, _ <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs30', 284)" onmouseover="showTip(event, 'fs30', 284)" class="p">None</span>
 </code></pre></td>
 </tr>
 </table>
-
 <aside class="notes">
 System.Device.Location.GeoCoordinate has a method<br/>
 that uses the Haversine formula, which assumes a<br/>
 spherical earth. We could implement this ourselves,<br/>
 but why bother when it's already available?<br/>
 </aside>
-
 </section>
-
 <section >
-
 <h2>Unit conversion</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 </pre></td>
@@ -1166,7 +955,6 @@ but why bother when it's already available?<br/>
 </code></pre></td>
 </tr>
 </table>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -1177,19 +965,14 @@ but why bother when it's already available?<br/>
 </code></pre></td>
 </tr>
 </table>
-
 <aside class="notes">
 Similar to what we saw above, we apply units of measure<br/>
 to ensure our results are what we intended. Note that<br/>
 here we create a conversion function to handle the conversion.<br/>
 </aside>
-
 </section>
-
 <section >
-
 <h2>Wrapping up the steps</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -1197,67 +980,45 @@ here we create a conversion function to handle the conversion.<br/>
 </pre></td>
 <td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs102', 292)" onmouseover="showTip(event, 'fs102', 292)" class="f">workflow</span> <span class="o">=</span>
     <span onmouseout="hideTip(event, 'fs88', 293)" onmouseover="showTip(event, 'fs88', 293)" class="f">lookupLocations</span>
-    <span class="o">&gt;</span><span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs99', 294)" onmouseover="showTip(event, 'fs99', 294)" class="i">tryFindDistance</span>
+    <span class="o">&gt;</span><span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs99', 294)" onmouseover="showTip(event, 'fs99', 294)" class="f">tryFindDistance</span>
     <span class="o">&gt;</span><span class="o">&gt;</span> <span onmouseout="hideTip(event, 'fs103', 295)" onmouseover="showTip(event, 'fs103', 295)" class="t">Option</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs104', 296)" onmouseover="showTip(event, 'fs104', 296)" class="f">map</span> <span onmouseout="hideTip(event, 'fs100', 297)" onmouseover="showTip(event, 'fs100', 297)" class="f">metersToFeet</span>
 </code></pre></td>
 </tr>
 </table>
-
 <aside class="notes">
 Here we use function composition and rely on type<br/>
 inference to create a single function to run our<br/>
 workflow.<br/>
 </aside>
-
 </section>
-
 <section >
-
 <h2>What about <code>Show</code>?</h2>
-
 <aside class="notes">
 We introduced a Show type with the other workflow types.<br/>
 Where is it? How do we get to the Show step? Doesn't it<br/>
 break from the process we defined at the outset?<br/>
 How are we going to bridge the gap?<br/>
 </aside>
-
 </section>
-
 <section >
-
 <h1>Goal 4: Visualizing Results</h1>
-
 </section>
-
 <section >
-
 <h2>What do we need to do?</h2>
-
 <ol>
 <li>Serialize data for display in a browser</li>
 <li>Define HTTP resources to process requests</li>
 <li>Render the UI</li>
 </ol>
-
 </section>
-
 <section >
-
 <h2>1. Serialization</h2>
-
 </section>
-
 <section >
-
 <h2>Serialized data should also send <code>Place</code>s</h2>
-
 </section>
-
 <section >
-
 <h2>Bridging the gap</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -1275,7 +1036,7 @@ How are we going to bridge the gap?<br/>
     <span class="k">let</span> <span onmouseout="hideTip(event, 'fs118', 342)" onmouseover="showTip(event, 'fs118', 342)" class="i">start&#39;</span>, <span onmouseout="hideTip(event, 'fs119', 343)" onmouseover="showTip(event, 'fs119', 343)" class="i">dest&#39;</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs88', 344)" onmouseover="showTip(event, 'fs88', 344)" class="f">lookupLocations</span>(<span onmouseout="hideTip(event, 'fs89', 345)" onmouseover="showTip(event, 'fs89', 345)" class="i">start</span>, <span onmouseout="hideTip(event, 'fs90', 346)" onmouseover="showTip(event, 'fs90', 346)" class="i">dest</span>)
     <span onmouseout="hideTip(event, 'fs120', 347)" onmouseover="showTip(event, 'fs120', 347)" class="f">calculateDistance</span>(<span onmouseout="hideTip(event, 'fs118', 348)" onmouseover="showTip(event, 'fs118', 348)" class="i">start&#39;</span>, <span onmouseout="hideTip(event, 'fs119', 349)" onmouseover="showTip(event, 'fs119', 349)" class="i">dest&#39;</span>)
 <span class="k">and</span> <span onmouseout="hideTip(event, 'fs120', 350)" onmouseover="showTip(event, 'fs120', 350)" class="f">calculateDistance</span>(<span onmouseout="hideTip(event, 'fs121', 351)" onmouseover="showTip(event, 'fs121', 351)" class="i">start</span>, <span onmouseout="hideTip(event, 'fs122', 352)" onmouseover="showTip(event, 'fs122', 352)" class="i">dest</span>) <span class="o">=</span>
-    <span class="k">match</span> <span onmouseout="hideTip(event, 'fs99', 353)" onmouseover="showTip(event, 'fs99', 353)" class="i">tryFindDistance</span>(<span onmouseout="hideTip(event, 'fs121', 354)" onmouseover="showTip(event, 'fs121', 354)" class="i">start</span>, <span onmouseout="hideTip(event, 'fs122', 355)" onmouseover="showTip(event, 'fs122', 355)" class="i">dest</span>) <span class="k">with</span>
+    <span class="k">match</span> <span onmouseout="hideTip(event, 'fs99', 353)" onmouseover="showTip(event, 'fs99', 353)" class="f">tryFindDistance</span>(<span onmouseout="hideTip(event, 'fs121', 354)" onmouseover="showTip(event, 'fs121', 354)" class="i">start</span>, <span onmouseout="hideTip(event, 'fs122', 355)" onmouseover="showTip(event, 'fs122', 355)" class="i">dest</span>) <span class="k">with</span>
     | <span onmouseout="hideTip(event, 'fs24', 356)" onmouseover="showTip(event, 'fs24', 356)" class="p">Some</span> <span onmouseout="hideTip(event, 'fs123', 357)" onmouseover="showTip(event, 'fs123', 357)" class="i">distance</span> <span class="k">-&gt;</span>
         <span onmouseout="hideTip(event, 'fs124', 358)" onmouseover="showTip(event, 'fs124', 358)" class="f">showPlacesWithDistanceInMeters</span>(<span onmouseout="hideTip(event, 'fs121', 359)" onmouseover="showTip(event, 'fs121', 359)" class="i">start</span>, <span onmouseout="hideTip(event, 'fs122', 360)" onmouseover="showTip(event, 'fs122', 360)" class="i">dest</span>, <span onmouseout="hideTip(event, 'fs123', 361)" onmouseover="showTip(event, 'fs123', 361)" class="i">distance</span>)
     | <span onmouseout="hideTip(event, 'fs30', 362)" onmouseover="showTip(event, 'fs30', 362)" class="p">None</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs125', 363)" onmouseover="showTip(event, 'fs125', 363)" class="f">showPlaces</span>(<span onmouseout="hideTip(event, 'fs121', 364)" onmouseover="showTip(event, 'fs121', 364)" class="i">start</span>, <span onmouseout="hideTip(event, 'fs122', 365)" onmouseover="showTip(event, 'fs122', 365)" class="i">dest</span>, <span onmouseout="hideTip(event, 'fs30', 366)" onmouseover="showTip(event, 'fs30', 366)" class="p">None</span>)
@@ -1286,7 +1047,6 @@ How are we going to bridge the gap?<br/>
 </code></pre></td>
 </tr>
 </table>
-
 <aside class="notes">
 Here we create a mutually recursive function definition,<br/>
 with each function calling the next step in succession.<br/>
@@ -1295,13 +1055,9 @@ above and thread through the additional state we want to<br/>
 make available at the end. We also introduce the showPlaces<br/>
 function that will serialize the results for us.<br/>
 </aside>
-
 </section>
-
 <section >
-
 <h2>Defunctionalization</h2>
-
 <aside class="notes">
 Not everyone likes the mutually recursive function approach.<br/>
 It works, and in some cases it is the best and right solution.<br/>
@@ -1309,13 +1065,9 @@ However, you can defunctionalize this solution to use<br/>
 discriminated unions and a single recursive function to process<br/>
 the same workflow.<br/>
 </aside>
-
 </section>
-
 <section >
-
 <h2>Defining state machine <code>Stage</code>s</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -1332,13 +1084,9 @@ the same workflow.<br/>
 </code></pre></td>
 </tr>
 </table>
-
 </section>
-
 <section >
-
 <h2>Process <code>Stage</code>s recursively</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -1351,27 +1099,23 @@ the same workflow.<br/>
 <span class="l">10: </span>
 <span class="l">11: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs132', 408)" onmouseover="showTip(event, 'fs132', 408)" class="i">RunWorkflow</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs126', 409)" onmouseover="showTip(event, 'fs126', 409)" class="t">Stage</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs2', 410)" onmouseover="showTip(event, 'fs2', 410)" class="t">string</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">type</span> <span onmouseout="hideTip(event, 'fs132', 408)" onmouseover="showTip(event, 'fs132', 408)" class="t">RunWorkflow</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs126', 409)" onmouseover="showTip(event, 'fs126', 409)" class="t">Stage</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs2', 410)" onmouseover="showTip(event, 'fs2', 410)" class="t">string</span>
 
 <span class="k">let</span> <span class="k">rec</span> <span onmouseout="hideTip(event, 'fs133', 411)" onmouseover="showTip(event, 'fs133', 411)" class="f">runWorkflow</span> <span class="o">=</span> <span class="k">function</span>
     | <span onmouseout="hideTip(event, 'fs127', 412)" onmouseover="showTip(event, 'fs127', 412)" class="p">AwaitingInput</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs133', 413)" onmouseover="showTip(event, 'fs133', 413)" class="f">runWorkflow</span> <span onmouseout="hideTip(event, 'fs127', 414)" onmouseover="showTip(event, 'fs127', 414)" class="p">AwaitingInput</span>
     | <span onmouseout="hideTip(event, 'fs128', 415)" onmouseover="showTip(event, 'fs128', 415)" class="p">InputReceived</span>(<span onmouseout="hideTip(event, 'fs89', 416)" onmouseover="showTip(event, 'fs89', 416)" class="i">start</span>, <span onmouseout="hideTip(event, 'fs90', 417)" onmouseover="showTip(event, 'fs90', 417)" class="i">dest</span>) <span class="k">-&gt;</span>
         <span onmouseout="hideTip(event, 'fs133', 418)" onmouseover="showTip(event, 'fs133', 418)" class="f">runWorkflow</span> (<span onmouseout="hideTip(event, 'fs129', 419)" onmouseover="showTip(event, 'fs129', 419)" class="p">Located</span>(<span onmouseout="hideTip(event, 'fs88', 420)" onmouseover="showTip(event, 'fs88', 420)" class="f">lookupLocations</span>(<span onmouseout="hideTip(event, 'fs89', 421)" onmouseover="showTip(event, 'fs89', 421)" class="i">start</span>, <span onmouseout="hideTip(event, 'fs90', 422)" onmouseover="showTip(event, 'fs90', 422)" class="i">dest</span>)))
     | <span onmouseout="hideTip(event, 'fs129', 423)" onmouseover="showTip(event, 'fs129', 423)" class="p">Located</span>(<span onmouseout="hideTip(event, 'fs121', 424)" onmouseover="showTip(event, 'fs121', 424)" class="i">start</span>, <span onmouseout="hideTip(event, 'fs122', 425)" onmouseover="showTip(event, 'fs122', 425)" class="i">dest</span>) <span class="k">-&gt;</span>
-        <span onmouseout="hideTip(event, 'fs133', 426)" onmouseover="showTip(event, 'fs133', 426)" class="f">runWorkflow</span> (<span onmouseout="hideTip(event, 'fs130', 427)" onmouseover="showTip(event, 'fs130', 427)" class="p">Calculated</span>(<span onmouseout="hideTip(event, 'fs121', 428)" onmouseover="showTip(event, 'fs121', 428)" class="i">start</span>, <span onmouseout="hideTip(event, 'fs122', 429)" onmouseover="showTip(event, 'fs122', 429)" class="i">dest</span>, <span onmouseout="hideTip(event, 'fs99', 430)" onmouseover="showTip(event, 'fs99', 430)" class="i">tryFindDistance</span>(<span onmouseout="hideTip(event, 'fs121', 431)" onmouseover="showTip(event, 'fs121', 431)" class="i">start</span>, <span onmouseout="hideTip(event, 'fs122', 432)" onmouseover="showTip(event, 'fs122', 432)" class="i">dest</span>)))
+        <span onmouseout="hideTip(event, 'fs133', 426)" onmouseover="showTip(event, 'fs133', 426)" class="f">runWorkflow</span> (<span onmouseout="hideTip(event, 'fs130', 427)" onmouseover="showTip(event, 'fs130', 427)" class="p">Calculated</span>(<span onmouseout="hideTip(event, 'fs121', 428)" onmouseover="showTip(event, 'fs121', 428)" class="i">start</span>, <span onmouseout="hideTip(event, 'fs122', 429)" onmouseover="showTip(event, 'fs122', 429)" class="i">dest</span>, <span onmouseout="hideTip(event, 'fs99', 430)" onmouseover="showTip(event, 'fs99', 430)" class="f">tryFindDistance</span>(<span onmouseout="hideTip(event, 'fs121', 431)" onmouseover="showTip(event, 'fs121', 431)" class="i">start</span>, <span onmouseout="hideTip(event, 'fs122', 432)" onmouseover="showTip(event, 'fs122', 432)" class="i">dest</span>)))
     | <span onmouseout="hideTip(event, 'fs130', 433)" onmouseover="showTip(event, 'fs130', 433)" class="p">Calculated</span>(<span onmouseout="hideTip(event, 'fs121', 434)" onmouseover="showTip(event, 'fs121', 434)" class="i">start</span>, <span onmouseout="hideTip(event, 'fs122', 435)" onmouseover="showTip(event, 'fs122', 435)" class="i">dest</span>, <span onmouseout="hideTip(event, 'fs134', 436)" onmouseover="showTip(event, 'fs134', 436)" class="i">distance</span>) <span class="k">-&gt;</span>
         <span onmouseout="hideTip(event, 'fs133', 437)" onmouseover="showTip(event, 'fs133', 437)" class="f">runWorkflow</span> (<span onmouseout="hideTip(event, 'fs131', 438)" onmouseover="showTip(event, 'fs131', 438)" class="p">Show</span>(<span onmouseout="hideTip(event, 'fs121', 439)" onmouseover="showTip(event, 'fs121', 439)" class="i">start</span>, <span onmouseout="hideTip(event, 'fs122', 440)" onmouseover="showTip(event, 'fs122', 440)" class="i">dest</span>, <span onmouseout="hideTip(event, 'fs134', 441)" onmouseover="showTip(event, 'fs134', 441)" class="i">distance</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs103', 442)" onmouseover="showTip(event, 'fs103', 442)" class="t">Option</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs104', 443)" onmouseover="showTip(event, 'fs104', 443)" class="f">map</span> <span onmouseout="hideTip(event, 'fs100', 444)" onmouseover="showTip(event, 'fs100', 444)" class="f">metersToFeet</span>))
     | <span onmouseout="hideTip(event, 'fs131', 445)" onmouseover="showTip(event, 'fs131', 445)" class="p">Show</span>(<span onmouseout="hideTip(event, 'fs121', 446)" onmouseover="showTip(event, 'fs121', 446)" class="i">start</span>, <span onmouseout="hideTip(event, 'fs122', 447)" onmouseover="showTip(event, 'fs122', 447)" class="i">dest</span>, <span onmouseout="hideTip(event, 'fs113', 448)" onmouseover="showTip(event, 'fs113', 448)" class="i">distance</span>) <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs110', 449)" onmouseover="showTip(event, 'fs110', 449)" class="f">serializeResult</span> <span onmouseout="hideTip(event, 'fs121', 450)" onmouseover="showTip(event, 'fs121', 450)" class="i">start</span> <span onmouseout="hideTip(event, 'fs122', 451)" onmouseover="showTip(event, 'fs122', 451)" class="i">dest</span> <span onmouseout="hideTip(event, 'fs113', 452)" onmouseover="showTip(event, 'fs113', 452)" class="i">distance</span>
 </code></pre></td>
 </tr>
 </table>
-
 </section>
-
 <section >
-
 <h2>Output: JSON</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -1410,47 +1154,28 @@ the same workflow.<br/>
 </code></pre></td>
 </tr>
 </table>
-
 </section>
-
 <section >
-
 <h2>2. Define HTTP resources</h2>
-
 <ul>
 <li>MVC</li>
 <li>Web API</li>
 <li>?</li>
 </ul>
-
 </section>
-
 <section >
-
 <h2>Is it possible to model HTTP itself?</h2>
-
 </section>
-
 <section >
-
 <h2>This is HTTP</h2>
-
 <img src="images/http-state-diagram.png" alt="HTTP State Machine" />
-
 </section>
-
 <section >
-
 <h2>Freya</h2>
-
 <img src="images/freya.svg" alt="Freya logo" height="300px" width="300px" style="background-color:#fff;" />
-
 </section>
-
 <section >
-
 <h2>Freya Machines = HTTP Resources</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
 <span class="l"> 2: </span>
 <span class="l"> 3: </span>
@@ -1463,27 +1188,23 @@ the same workflow.<br/>
 <span class="l">10: </span>
 <span class="l">11: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs212', 612)" onmouseover="showTip(event, 'fs212', 612)" class="i">distanceCalculator</span> <span class="o">=</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs212', 612)" onmouseover="showTip(event, 'fs212', 612)" class="f">distanceCalculator</span> <span class="o">=</span>
     <span onmouseout="hideTip(event, 'fs203', 613)" onmouseover="showTip(event, 'fs203', 613)" class="i">freyaMachine</span> {
-        <span onmouseout="hideTip(event, 'fs213', 614)" onmouseover="showTip(event, 'fs213', 614)" class="k">including</span> <span onmouseout="hideTip(event, 'fs202', 615)" onmouseover="showTip(event, 'fs202', 615)" class="i">common</span>
-        <span onmouseout="hideTip(event, 'fs214', 616)" onmouseover="showTip(event, 'fs214', 616)" class="k">corsMethodsSupported</span> <span onmouseout="hideTip(event, 'fs191', 617)" onmouseover="showTip(event, 'fs191', 617)" class="i">supportedMethods</span>
-        <span onmouseout="hideTip(event, 'fs215', 618)" onmouseover="showTip(event, 'fs215', 618)" class="k">methodsSupported</span> <span onmouseout="hideTip(event, 'fs191', 619)" onmouseover="showTip(event, 'fs191', 619)" class="i">supportedMethods</span>
+        <span onmouseout="hideTip(event, 'fs213', 614)" onmouseover="showTip(event, 'fs213', 614)" class="k">including</span> <span onmouseout="hideTip(event, 'fs202', 615)" onmouseover="showTip(event, 'fs202', 615)" class="f">common</span>
+        <span onmouseout="hideTip(event, 'fs214', 616)" onmouseover="showTip(event, 'fs214', 616)" class="k">corsMethodsSupported</span> <span onmouseout="hideTip(event, 'fs191', 617)" onmouseover="showTip(event, 'fs191', 617)" class="f">supportedMethods</span>
+        <span onmouseout="hideTip(event, 'fs215', 618)" onmouseover="showTip(event, 'fs215', 618)" class="k">methodsSupported</span> <span onmouseout="hideTip(event, 'fs191', 619)" onmouseover="showTip(event, 'fs191', 619)" class="f">supportedMethods</span>
         <span onmouseout="hideTip(event, 'fs216', 620)" onmouseover="showTip(event, 'fs216', 620)" class="k">handleOk</span> <span onmouseout="hideTip(event, 'fs186', 621)" onmouseover="showTip(event, 'fs186', 621)" class="f">getHandler</span> } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs217', 622)" onmouseover="showTip(event, 'fs217', 622)" class="t">FreyaMachine</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs218', 623)" onmouseover="showTip(event, 'fs218', 623)" class="f">toPipeline</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs219', 624)" onmouseover="showTip(event, 'fs219', 624)" class="i">app</span> <span class="o">=</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs219', 624)" onmouseover="showTip(event, 'fs219', 624)" class="f">app</span> <span class="o">=</span>
     <span onmouseout="hideTip(event, 'fs220', 625)" onmouseover="showTip(event, 'fs220', 625)" class="i">freyaRouter</span> {
-        <span onmouseout="hideTip(event, 'fs221', 626)" onmouseover="showTip(event, 'fs221', 626)" class="k">resource</span> (<span onmouseout="hideTip(event, 'fs222', 627)" onmouseover="showTip(event, 'fs222', 627)" class="t">UriTemplate</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs223', 628)" onmouseover="showTip(event, 'fs223', 628)" class="f">Parse</span> <span class="s">&quot;/calc&quot;</span>) <span onmouseout="hideTip(event, 'fs212', 629)" onmouseover="showTip(event, 'fs212', 629)" class="i">distanceCalculator</span>
+        <span onmouseout="hideTip(event, 'fs221', 626)" onmouseover="showTip(event, 'fs221', 626)" class="k">resource</span> (<span onmouseout="hideTip(event, 'fs222', 627)" onmouseover="showTip(event, 'fs222', 627)" class="t">UriTemplate</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs223', 628)" onmouseover="showTip(event, 'fs223', 628)" class="f">Parse</span> <span class="s">&quot;/calc&quot;</span>) <span onmouseout="hideTip(event, 'fs212', 629)" onmouseover="showTip(event, 'fs212', 629)" class="f">distanceCalculator</span>
     } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs224', 630)" onmouseover="showTip(event, 'fs224', 630)" class="t">FreyaRouter</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs225', 631)" onmouseover="showTip(event, 'fs225', 631)" class="f">toPipeline</span>
 </code></pre></td>
 </tr>
 </table>
-
 </section>
-
 <section >
-
 <h2>Machine Composition!</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -1494,19 +1215,18 @@ the same workflow.<br/>
 <span class="l">8: </span>
 <span class="l">9: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs202', 596)" onmouseover="showTip(event, 'fs202', 596)" class="i">common</span> <span class="o">=</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs202', 596)" onmouseover="showTip(event, 'fs202', 596)" class="f">common</span> <span class="o">=</span>
     <span onmouseout="hideTip(event, 'fs203', 597)" onmouseover="showTip(event, 'fs203', 597)" class="i">freyaMachine</span> {
         <span onmouseout="hideTip(event, 'fs204', 598)" onmouseover="showTip(event, 'fs204', 598)" class="k">using</span> <span onmouseout="hideTip(event, 'fs205', 599)" onmouseover="showTip(event, 'fs205', 599)" class="i">http</span>
         <span onmouseout="hideTip(event, 'fs204', 600)" onmouseover="showTip(event, 'fs204', 600)" class="k">using</span> <span onmouseout="hideTip(event, 'fs206', 601)" onmouseover="showTip(event, 'fs206', 601)" class="i">httpCors</span>
-        <span onmouseout="hideTip(event, 'fs207', 602)" onmouseover="showTip(event, 'fs207', 602)" class="k">charsetsSupported</span> <span onmouseout="hideTip(event, 'fs190', 603)" onmouseover="showTip(event, 'fs190', 603)" class="i">utf8</span>
-        <span onmouseout="hideTip(event, 'fs208', 604)" onmouseover="showTip(event, 'fs208', 604)" class="k">corsHeadersSupported</span> <span onmouseout="hideTip(event, 'fs201', 605)" onmouseover="showTip(event, 'fs201', 605)" class="i">corsHeaders</span>
-        <span onmouseout="hideTip(event, 'fs209', 606)" onmouseover="showTip(event, 'fs209', 606)" class="k">corsOriginsSupported</span> <span onmouseout="hideTip(event, 'fs198', 607)" onmouseover="showTip(event, 'fs198', 607)" class="i">corsOrigins</span>
-        <span onmouseout="hideTip(event, 'fs210', 608)" onmouseover="showTip(event, 'fs210', 608)" class="k">languagesSupported</span> <span onmouseout="hideTip(event, 'fs188', 609)" onmouseover="showTip(event, 'fs188', 609)" class="i">en</span>
-        <span onmouseout="hideTip(event, 'fs211', 610)" onmouseover="showTip(event, 'fs211', 610)" class="k">mediaTypesSupported</span> <span onmouseout="hideTip(event, 'fs194', 611)" onmouseover="showTip(event, 'fs194', 611)" class="i">mediaTypes</span> }
+        <span onmouseout="hideTip(event, 'fs207', 602)" onmouseover="showTip(event, 'fs207', 602)" class="k">charsetsSupported</span> <span onmouseout="hideTip(event, 'fs190', 603)" onmouseover="showTip(event, 'fs190', 603)" class="f">utf8</span>
+        <span onmouseout="hideTip(event, 'fs208', 604)" onmouseover="showTip(event, 'fs208', 604)" class="k">corsHeadersSupported</span> <span onmouseout="hideTip(event, 'fs201', 605)" onmouseover="showTip(event, 'fs201', 605)" class="f">corsHeaders</span>
+        <span onmouseout="hideTip(event, 'fs209', 606)" onmouseover="showTip(event, 'fs209', 606)" class="k">corsOriginsSupported</span> <span onmouseout="hideTip(event, 'fs198', 607)" onmouseover="showTip(event, 'fs198', 607)" class="f">corsOrigins</span>
+        <span onmouseout="hideTip(event, 'fs210', 608)" onmouseover="showTip(event, 'fs210', 608)" class="k">languagesSupported</span> <span onmouseout="hideTip(event, 'fs188', 609)" onmouseover="showTip(event, 'fs188', 609)" class="f">en</span>
+        <span onmouseout="hideTip(event, 'fs211', 610)" onmouseover="showTip(event, 'fs211', 610)" class="k">mediaTypesSupported</span> <span onmouseout="hideTip(event, 'fs194', 611)" onmouseover="showTip(event, 'fs194', 611)" class="f">mediaTypes</span> }
 </code></pre></td>
 </tr>
 </table>
-
 <aside class="notes">
 We are literally mixing in existing graphs into our<br/>
 resource definitions. We have a well-typed, well-<br/>
@@ -1514,19 +1234,12 @@ specified HTTP implementation that allows us to map<br/>
 our domain into the world of HTTP, and we get the<br/>
 compiler to help us out!<br/>
 </aside>
-
 </section>
-
 <section >
-
 <h2>That's nice, but how do we map the domain?</h2>
-
 </section>
-
 <section >
-
 <h2>Parse the query string for cities</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -1536,7 +1249,7 @@ compiler to help us out!<br/>
 <span class="l">7: </span>
 <span class="l">8: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs168', 521)" onmouseover="showTip(event, 'fs168', 521)" class="i">cities</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs169', 522)" onmouseover="showTip(event, 'fs169', 522)" class="i">freya</span> {
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs168', 521)" onmouseover="showTip(event, 'fs168', 521)" class="f">cities</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs169', 522)" onmouseover="showTip(event, 'fs169', 522)" class="i">freya</span> {
     <span class="k">let!</span> <span onmouseout="hideTip(event, 'fs170', 523)" onmouseover="showTip(event, 'fs170', 523)" class="i">qs</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs144', 524)" onmouseover="showTip(event, 'fs144', 524)" class="t">Freya</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs171', 525)" onmouseover="showTip(event, 'fs171', 525)" class="f">getLens</span> <span onmouseout="hideTip(event, 'fs172', 526)" onmouseover="showTip(event, 'fs172', 526)" class="t">Request</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs173', 527)" onmouseover="showTip(event, 'fs173', 527)" class="i">query</span>
     <span class="k">let</span> <span onmouseout="hideTip(event, 'fs174', 528)" onmouseover="showTip(event, 'fs174', 528)" class="i">parts</span> <span class="o">=</span>
         <span onmouseout="hideTip(event, 'fs170', 529)" onmouseover="showTip(event, 'fs170', 529)" class="i">qs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs175', 530)" onmouseover="showTip(event, 'fs175', 530)" class="f">Split</span>(<span class="s">&#39;&amp;&#39;</span>)
@@ -1547,13 +1260,9 @@ compiler to help us out!<br/>
 </code></pre></td>
 </tr>
 </table>
-
 </section>
-
 <section >
-
 <h2>Define the GET handler</h2>
-
 <table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
 <span class="l">2: </span>
 <span class="l">3: </span>
@@ -1563,24 +1272,20 @@ compiler to help us out!<br/>
 <span class="l">7: </span>
 <span class="l">8: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs182', 545)" onmouseover="showTip(event, 'fs182', 545)" class="i">get</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs169', 546)" onmouseover="showTip(event, 'fs169', 546)" class="i">freya</span> {
-    <span class="k">let!</span> <span onmouseout="hideTip(event, 'fs183', 547)" onmouseover="showTip(event, 'fs183', 547)" class="i">cities</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs183', 548)" onmouseover="showTip(event, 'fs183', 548)" class="i">cities</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs182', 545)" onmouseover="showTip(event, 'fs182', 545)" class="f">get</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs169', 546)" onmouseover="showTip(event, 'fs169', 546)" class="i">freya</span> {
+    <span class="k">let!</span> <span onmouseout="hideTip(event, 'fs183', 547)" onmouseover="showTip(event, 'fs183', 547)" class="i">cities</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs183', 548)" onmouseover="showTip(event, 'fs183', 548)" class="f">cities</span>
     <span class="k">let</span> <span onmouseout="hideTip(event, 'fs184', 549)" onmouseover="showTip(event, 'fs184', 549)" class="i">stage</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs128', 550)" onmouseover="showTip(event, 'fs128', 550)" class="p">InputReceived</span> <span onmouseout="hideTip(event, 'fs183', 551)" onmouseover="showTip(event, 'fs183', 551)" class="i">cities</span>
     <span class="k">return</span> <span onmouseout="hideTip(event, 'fs133', 552)" onmouseover="showTip(event, 'fs133', 552)" class="f">runWorkflow</span> <span onmouseout="hideTip(event, 'fs184', 553)" onmouseover="showTip(event, 'fs184', 553)" class="i">stage</span> } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs144', 554)" onmouseover="showTip(event, 'fs144', 554)" class="t">Freya</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs185', 555)" onmouseover="showTip(event, 'fs185', 555)" class="f">memo</span>
 
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs186', 556)" onmouseover="showTip(event, 'fs186', 556)" class="f">getHandler</span> _ <span class="o">=</span> <span onmouseout="hideTip(event, 'fs169', 557)" onmouseover="showTip(event, 'fs169', 557)" class="i">freya</span> {
-    <span class="k">let!</span> <span onmouseout="hideTip(event, 'fs187', 558)" onmouseover="showTip(event, 'fs187', 558)" class="i">json</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs182', 559)" onmouseover="showTip(event, 'fs182', 559)" class="i">get</span>
+    <span class="k">let!</span> <span onmouseout="hideTip(event, 'fs187', 558)" onmouseover="showTip(event, 'fs187', 558)" class="i">json</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs182', 559)" onmouseover="showTip(event, 'fs182', 559)" class="f">get</span>
     <span class="k">return</span> <span onmouseout="hideTip(event, 'fs155', 560)" onmouseover="showTip(event, 'fs155', 560)" class="f">represent</span> <span onmouseout="hideTip(event, 'fs187', 561)" onmouseover="showTip(event, 'fs187', 561)" class="i">json</span> }
 </code></pre></td>
 </tr>
 </table>
-
 </section>
-
 <section >
-
 <h2>3. Show and Tell</h2>
-
 <form id="calc-form">
     <label for="start">Start City</label>
     <input type="text" id="start" name="start" /><br />
@@ -1588,27 +1293,17 @@ compiler to help us out!<br/>
     <input type="text" id="dest" name="dest" /><br />
     <button type="button" id="calculate">Calculate Distance</button>
 </form>
-
 <label for="show-result">Result</label>
 <input type="text" id="show-result" name="show-result" readonly />
-
 <div id="mapDiv"></div>
-
 <script src="//dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
 <script src="js/app.js"></script>
-
 </section>
-
 <section >
-
 <h1>Review</h1>
-
 </section>
-
 <section >
-
 <h2>1. Make invalid states impossible</h2>
-
 <aside class="notes">
 The ultimate goal of leveraging a type system should<br/>
 be to make invalid states impossible. If you use types<br/>
@@ -1617,19 +1312,14 @@ noise to your code. Leverage the compiler to cover as<br/>
 many of your test cases as possible and avoid the pain<br/>
 of debugging or scrambling to fix a production issue.<br/>
 </aside>
-
 <aside class="notes">
 Perhaps the best example of where developers failed<br/>
 was the Mars Climate Orbiter, which was lost because<br/>
 of a units error. https://d2cj35nmzi9erd.cloudfront.net/msp98/news/mco990930.html<br/>
 </aside>
-
 </section>
-
 <section >
-
 <h2>2. Provide types from external sources</h2>
-
 <aside class="notes">
 In many cases, code generation is an excellent tool for<br/>
 ensuring you stay in lockstep with an external dependency.<br/>
@@ -1637,13 +1327,9 @@ F#'s type providers kick this up a notch, providing types<br/>
 without generating code you have to maintain, in some cases<br/>
 erasing the types in the compiled output for better performance.<br/>
 </aside>
-
 </section>
-
 <section >
-
 <h2>3. Declare your app's state machine</h2>
-
 <aside class="notes">
 We looked at this when we created the mutually recursive<br/>
 workflow function and the defunctionalized Stage type and<br/>
@@ -1651,13 +1337,9 @@ runWorkflow function. This can tie everything together for<br/>
 you at the top level and ensure you don't accidentally<br/>
 re-order your function calls.<br/>
 </aside>
-
 </section>
-
 <section >
-
 <h2>4. Even "untyped" protocols can benefit from types</h2>
-
 <aside class="notes">
 HTTP is about as untyped as they come when it comes to protocols.<br/>
 It's incredibly extensible and is often represented as a simple<br/>
@@ -1666,7 +1348,6 @@ to just accept that a compiler can't help you. Protocols define<br/>
 at least some level of expectation that you can expect, so<br/>
 leverage as much through your types as you can.<br/>
 </aside>
-
 <aside class="notes">
 F#'s computation expressions prove to be an incredible asset<br/>
 for such problems. The Freya machine library provides a typed,<br/>
@@ -1677,13 +1358,9 @@ lot more safety from both the checked types and defined state<br/>
 machine than were you to try to re-encode the HTTP protocol<br/>
 again and again every time you want to build a web app.<br/>
 </aside>
-
 </section>
-
 <section >
-
 <h2>5. Types can't always get you all the way</h2>
-
 <aside class="notes">
 Despite the extent to which we were able to add compile-time<br/>
 type checking throughout this little sample, we also saw<br/>
@@ -1692,35 +1369,25 @@ not in C# or F#. Some other languages and tools are paving<br/>
 the way for improvements, though, and perhaps we'll eventually<br/>
 see things like refinement and dependent types in .NET.<br/>
 </aside>
-
 <aside class="notes">
 Network interruptions, external dependencies, and more are<br/>
 still outside the scope of nearly all type systems. We have<br/>
 a long way to go, but we should at least start leveraging<br/>
 what we have available today.<br/>
 </aside>
-
 </section>
-
 <section >
-
 <h1>Resources</h1>
-
 <ul>
 <li><a href="http://fsharp.org/">F# Software Foundation</a></li>
 <li><a href="http://fsharpforfunandprofit.com/">F# for Fun and Profit</a></li>
 <li><a href="http://www.brics.dk/RS/01/23/">Defunctionalization</a></li>
 <li><a href="https://www.bing.com/search?q=F%23+domain+driven+design">Search "F# domain driven design"</a></li>
 </ul>
-
 </section>
-
 <section >
-
 <h1>Questions?</h1>
-
 </section>
-
 
 
         </div>
