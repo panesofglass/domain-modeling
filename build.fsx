@@ -10,6 +10,10 @@
 #r "suave.dll"
 
 #load "fsreveal.fsx"
+#load "slides/load-dependencies.fsx"
+#load "slides/Domain.fsi"
+#load "slides/Domain.fs"
+#load "slides/Api.fs"
 
 // Git configuration (used for publishing documentation in gh-pages branch)
 // The profile where the project is posted
@@ -124,6 +128,7 @@ let startWebServer () =
     let app =
       choose [
         Filters.path "/websocket" >=> handShake socketHandler
+        Owin.OwinApp.ofAppFunc "/api" (Freya.Core.Integration.OwinAppFunc.ofFreya Api.app)
         Writers.setHeader "Cache-Control" "no-cache, no-store, must-revalidate"
         >=> Writers.setHeader "Pragma" "no-cache"
         >=> Writers.setHeader "Expires" "0"
