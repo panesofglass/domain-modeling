@@ -2,8 +2,6 @@ source https://nuget.org/api/v2
 
 nuget FAKE
 nuget FsReveal
-nuget Microsoft.Owin.Host.HttpListener
-nuget Microsoft.Owin.Hosting
-nuget Freya
+nuget Freya ~> 3.0.0-b
 nuget FSharp.Data.SqlClient
 nuget Suave

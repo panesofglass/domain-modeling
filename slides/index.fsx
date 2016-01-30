@@ -10,28 +10,7 @@
 *)
 
 (*** hide ***)
-#r "System.Device.dll"
-#I "../packages"
-#r "FSharp.Data.SqlClient/lib/net40/FSharp.Data.SqlClient.dll"
-#r "Aether/lib/net35/Aether.dll"
-#r "Hekate/lib/net35/Hekate.dll"
-#r "FParsec/lib/net40-client/FParsecCS.dll"
-#r "FParsec/lib/net40-client/FParsec.dll"
-#r "Arachne.Core/lib/net40/Arachne.Core.dll"
-#r "Arachne.Uri/lib/net40/Arachne.Uri.dll"
-#r "Arachne.Uri.Template/lib/net40/Arachne.Uri.Template.dll"
-#r "Arachne.Language/lib/net40/Arachne.Language.dll"
-#r "Arachne.Http/lib/net40/Arachne.Http.dll"
-#r "Arachne.Http.Cors/lib/net40/Arachne.Http.Cors.dll"
-#r "Freya.Core/lib/net45/Freya.Core.dll"
-#r "Freya.Lenses.Http/lib/net45/Freya.Lenses.Http.dll"
-#r "Freya.Lenses.Http.Cors/lib/net45/Freya.Lenses.Http.Cors.dll"
-#r "Freya.Recorder/lib/net45/Freya.Recorder.dll"
-#r "Freya.Machine/lib/net45/Freya.Machine.dll"
-#r "Freya.Machine.Extensions.Http/lib/net45/Freya.Machine.Extensions.Http.dll"
-#r "Freya.Machine.Extensions.Http.Cors/lib/net45/Freya.Machine.Extensions.Http.Cors.dll"
-#r "Freya.Router/lib/net45/Freya.Router.dll"
-#r "Freya.Machine.Router/lib/net45/Freya.Machine.Router.dll"
+#load "load-dependencies.fsx"
 
 (**
 
@@ -885,7 +864,7 @@ type Place = { Name : City; Location : Location option }
 open FSharp.Data
 
 [<Literal>]
-let connStr = """Data Source=.;Initial Catalog=Database1;Integrated Security=True;Connect Timeout=10"""
+let connStr = """Data Source=(LocalDB)\ProjectsV12;Initial Catalog=Database1;Integrated Security=True;Connect Timeout=10"""
 
 (*** define: sql-command-provider ***)
 type GetCityLocation = SqlCommandProvider<"
@@ -964,7 +943,7 @@ let workflow =
 (*** define: serialize ***)
 let serializePlace = function
     | { Place.Name = City name; Location = Some loc } ->
-        sprintf """{"name":"%s","location":{"latitude":%f,"longitude":%f}}""" name loc.Latitude loc.Longitude
+        sprintf """{"name":"%s","location":{"latitude":%f,"longitude":%f}}""" name (loc.Latitude/1.<degLat>) (loc.Longitude/1.<degLng>)
     | _ -> "null"
 
 let serializeResult place1 place2 distance =
@@ -972,7 +951,7 @@ let serializeResult place1 place2 distance =
     let place2' = serializePlace place2
     match distance with
     | Some d ->
-        sprintf """{"start":%s,"dest":%s,"distance":%f}""" place1' place2' d
+        sprintf """{"start":%s,"dest":%s,"distance":%f}""" place1' place2' (d/1.<ft>)
     | None -> sprintf """{"start":%s,"dest":%s}""" place1' place2'
 
 (*** define: distance-workflow ***)
@@ -1059,36 +1038,25 @@ let getHandler _ = freya {
     let! json = get
     return represent json }
 
-(*** define: http-config-defs ***)
-let en = [ LanguageTag.parse "en" ]
-let utf8 = [ Charset.Utf8 ]
-let supportedMethods = [GET; OPTIONS]
-let mediaTypes = [ MediaType.Html
-                   MediaType.JavaScript
-                   MediaType.Css
-                   MediaType.Json ]
-
-(*** define: http-config-cors ***)
-let corsOrigins = AccessControlAllowOriginRange.Any
-let corsHeaders = [ "accept"; "content-type" ]
-
 (*** define: http-config-common ***)
+let mediaTypes = [ MediaType.Html; MediaType.JavaScript
+                   MediaType.Css;  MediaType.Json ]
 let common =
     freyaMachine {
         using http
         using httpCors
-        charsetsSupported utf8
-        corsHeadersSupported corsHeaders
-        corsOriginsSupported corsOrigins
-        languagesSupported en
+        charsetsSupported Charset.Utf8
+        corsHeadersSupported [ "accept"; "content-type" ]
+        corsOriginsSupported AccessControlAllowOriginRange.Any
+        languagesSupported (LanguageTag.parse "en")
         mediaTypesSupported mediaTypes }
 
 (*** define: resource ***)
 let distanceCalculator =
     freyaMachine {
         including common
-        corsMethodsSupported supportedMethods
-        methodsSupported supportedMethods
+        corsMethodsSupported [GET; OPTIONS]
+        methodsSupported [GET; OPTIONS]
         handleOk getHandler }
 
 let app =
