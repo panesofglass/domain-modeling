@@ -47,3 +47,4 @@ tools/
 gh-pages
 output
 packages
+.fake/
