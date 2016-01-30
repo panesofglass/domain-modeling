@@ -4,4 +4,6 @@ nuget FAKE
 nuget FsReveal
 nuget Freya ~> 3.0.0-b
 nuget FSharp.Data.SqlClient
+nuget Microsoft.Owin.Host.HttpListener
+nuget Microsoft.Owin.Hosting
 nuget Suave
