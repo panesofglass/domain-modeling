@@ -42,14 +42,14 @@ type Place = { Name : City; Location : Location option }
 open FSharp.Data
 
 [<Literal>]
-let connStr = """Data Source=(LocalDB)\ProjectsV12;Initial Catalog=Database1;Integrated Security=True;Connect Timeout=10"""
+let ConnStr = """Data Source=(LocalDB)\ProjectsV12;Initial Catalog=Database1;Integrated Security=True;Connect Timeout=10"""
 
 (*** define: sql-command-provider ***)
 type GetCityLocation = SqlCommandProvider<"
     SELECT City, Latitude, Longitude
     FROM [dbo].[CityLocations]
     WHERE City = @city
-    ", connStr, SingleRow = true>
+    ", ConnStr, SingleRow = true>
 
 (*** hide ***)
 open System.Collections.Generic

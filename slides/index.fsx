@@ -10,6 +10,7 @@
 *)
 
 (*** hide ***)
+#r "System"
 #r "System.Device.dll"
 #I "../packages"
 #r "FSharp.Data.SqlClient/lib/net40/FSharp.Data.SqlClient.dll"
@@ -886,14 +887,14 @@ type Place = { Name : City; Location : Location option }
 open FSharp.Data
 
 [<Literal>]
-let connStr = """Data Source=(LocalDB)\v11.0;Initial Catalog=Database1;Integrated Security=True;Connect Timeout=10"""
+let ConnStr = """Data Source=(LocalDB)\ProjectsV12;Initial Catalog=Database1;Integrated Security=True;Connect Timeout=10"""
 
 (*** define: sql-command-provider ***)
 type GetCityLocation = SqlCommandProvider<"
     SELECT City, Latitude, Longitude
     FROM [dbo].[CityLocations]
     WHERE City = @city
-    ", connStr, SingleRow = true>
+    ", ConnStr, SingleRow = true>
 
 (*** define: workflow-process-types ***)
 type LookupLocations = City * City -> Place * Place
