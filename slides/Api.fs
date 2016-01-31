@@ -29,7 +29,8 @@ let inline represent (x : string) =
 
 (*** define: parse-query-string ***)
 let cities = freya {
-    let! qs = Freya.getLens Request.query
+    let! query = Freya.getLens Request.query_
+    let qs = query |> Query.Format
     let parts =
         qs.Split('&')
         |> Array.map (fun q ->
