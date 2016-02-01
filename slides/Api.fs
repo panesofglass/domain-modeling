@@ -28,15 +28,12 @@ let inline represent (x : string) =
       Data = Encoding.UTF8.GetBytes x }
 
 (*** define: parse-query-string ***)
+let inline urlDecode x =
+    System.Net.WebUtility.UrlDecode(x)
 let cities = freya {
-    let! query = Freya.getLens Request.query_
-    let qs = query |> Query.format
-    let parts =
-        qs.Split('&')
-        |> Array.map (fun q ->
-            let arr = q.Split('=')
-            System.Net.WebUtility.UrlDecode(arr.[1].Trim()))
-    return City.Create(parts.[0]), City.Create(parts.[1]) }
+    let! qs = Freya.Optic.get Request.query_
+    let (Some ["start", Some city1; "dest", Some city2]) = qs |> fst Query.pairs_
+    return City.Create(urlDecode city1), City.Create(urlDecode city2) }
 
 (*** define: get-handler ***)
 let get = freya {
@@ -48,39 +45,29 @@ let getHandler _ = freya {
     let! json = get
     return represent json }
 
-(*** define: http-config-defs ***)
-let en = Freya.init [ LanguageTag.parse "en" ]
-let utf8 = Freya.init [ Charset.Utf8 ]
-let supportedMethods = Freya.init [GET; OPTIONS]
-let mediaTypes = Freya.init [ MediaType.Html
-                              MediaType.JavaScript
-                              MediaType.Css
-                              MediaType.Json ]
-
-(*** define: http-config-cors ***)
-let corsOrigins = Freya.init AccessControlAllowOriginRange.Any
-let corsHeaders = Freya.init [ "accept"; "content-type" ]
-
 (*** define: http-config-common ***)
+let mediaTypes =
+    [ MediaType.Html; MediaType.Json
+      MediaType.Css; MediaType.JavaScript]
 let common =
     freyaMachine {
         using http
         using httpCors
-        charsetsSupported utf8
-        corsHeadersSupported corsHeaders
-        corsOriginsSupported corsOrigins
-        languagesSupported en
+        charsetsSupported Charset.Utf8
+        corsHeadersSupported [ "accept"; "content-type" ]
+        corsOriginsSupported AccessControlAllowOriginRange.Any
+        languagesSupported (LanguageTag.parse "en")
         mediaTypesSupported mediaTypes }
 
 (*** define: resource ***)
 let distanceCalculator =
     freyaMachine {
         including common
-        corsMethodsSupported supportedMethods
-        methodsSupported supportedMethods
-        handleOk getHandler } |> FreyaMachine.toPipeline
+        corsMethodsSupported [GET; OPTIONS]
+        methodsSupported [GET; OPTIONS]
+        handleOk getHandler }
 
 let app =
     freyaRouter {
-        resource (UriTemplate.parse "/calc") distanceCalculator
-    } |> FreyaRouter.toPipeline
+        resource "/calc{?start,dest}" distanceCalculator
+    }
