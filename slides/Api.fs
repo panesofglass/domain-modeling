@@ -24,13 +24,13 @@ let inline represent (x : string) =
         { Charset = Some Charset.Utf8
           Encodings = None
           MediaType = Some MediaType.Json
-          Languages = Some [ LanguageTag.Parse "en" ] }
+          Languages = Some [ LanguageTag.parse "en" ] }
       Data = Encoding.UTF8.GetBytes x }
 
 (*** define: parse-query-string ***)
 let cities = freya {
     let! query = Freya.getLens Request.query_
-    let qs = query |> Query.Format
+    let qs = query |> Query.format
     let parts =
         qs.Split('&')
         |> Array.map (fun q ->
@@ -49,7 +49,7 @@ let getHandler _ = freya {
     return represent json }
 
 (*** define: http-config-defs ***)
-let en = Freya.init [ LanguageTag.Parse "en" ]
+let en = Freya.init [ LanguageTag.parse "en" ]
 let utf8 = Freya.init [ Charset.Utf8 ]
 let supportedMethods = Freya.init [GET; OPTIONS]
 let mediaTypes = Freya.init [ MediaType.Html
@@ -82,5 +82,5 @@ let distanceCalculator =
 
 let app =
     freyaRouter {
-        resource (UriTemplate.Parse "/calc") distanceCalculator
+        resource (UriTemplate.parse "/calc") distanceCalculator
     } |> FreyaRouter.toPipeline

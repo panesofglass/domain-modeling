@@ -98,7 +98,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.6'">
       <ItemGroup>
         <Reference Include="Arachne.Core">
-          <HintPath>..\packages\Arachne.Core\lib\net45\Arachne.Core.dll</HintPath>
+          <HintPath>..\packages\Arachne.Core\lib\net40\Arachne.Core.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -109,7 +109,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.6'">
       <ItemGroup>
         <Reference Include="Arachne.Http">
-          <HintPath>..\packages\Arachne.Http\lib\net45\Arachne.Http.dll</HintPath>
+          <HintPath>..\packages\Arachne.Http\lib\net40\Arachne.Http.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -120,7 +120,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.6'">
       <ItemGroup>
         <Reference Include="Arachne.Http.Cors">
-          <HintPath>..\packages\Arachne.Http.Cors\lib\net45\Arachne.Http.Cors.dll</HintPath>
+          <HintPath>..\packages\Arachne.Http.Cors\lib\net40\Arachne.Http.Cors.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -131,7 +131,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.6'">
       <ItemGroup>
         <Reference Include="Arachne.Language">
-          <HintPath>..\packages\Arachne.Language\lib\net45\Arachne.Language.dll</HintPath>
+          <HintPath>..\packages\Arachne.Language\lib\net40\Arachne.Language.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -142,7 +142,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.6'">
       <ItemGroup>
         <Reference Include="Arachne.Uri">
-          <HintPath>..\packages\Arachne.Uri\lib\net45\Arachne.Uri.dll</HintPath>
+          <HintPath>..\packages\Arachne.Uri\lib\net40\Arachne.Uri.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -153,7 +153,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.6'">
       <ItemGroup>
         <Reference Include="Arachne.Uri.Template">
-          <HintPath>..\packages\Arachne.Uri.Template\lib\net45\Arachne.Uri.Template.dll</HintPath>
+          <HintPath>..\packages\Arachne.Uri.Template\lib\net40\Arachne.Uri.Template.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>
@@ -296,7 +296,7 @@
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And $(TargetFrameworkVersion) == 'v4.6'">
       <ItemGroup>
         <Reference Include="Hekate">
-          <HintPath>..\packages\Hekate\lib\net40\Hekate.dll</HintPath>
+          <HintPath>..\packages\Hekate\lib\net35\Hekate.dll</HintPath>
           <Private>True</Private>
           <Paket>True</Paket>
         </Reference>

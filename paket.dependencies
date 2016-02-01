@@ -5,15 +5,6 @@ nuget FAKE
 nuget FsReveal
 nuget Microsoft.Owin.Host.HttpListener
 nuget Microsoft.Owin.Hosting
-nuget Suave
-nuget Freya 3.0.0-b246
-nuget Freya.Core 3.0.0-b246
-nuget Freya.Lenses.Http 3.0.0-b246
-nuget Freya.Lenses.Http.Cors 3.0.0-b246
-nuget Freya.Machine 3.0.0-b246
-nuget Freya.Machine.Extensions.Http 3.0.0-b246
-nuget Freya.Machine.Extensions.Http.Cors 3.0.0-b246
-nuget Freya.Machine.Router 3.0.0-b246
-nuget Freya.Recorder 3.0.0-b246
-nuget Freya.Router 3.0.0-b246
+nuget Suave ~> 1.0
+nuget Freya ~> 3.0.0-b
 nuget FSharp.Data.SqlClient
