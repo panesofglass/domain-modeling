@@ -6,6 +6,7 @@
 #r "suave.dll"
 
 #load "fsreveal.fsx"
+#load "slides/index.fsx"
 
 // Git configuration (used for publishing documentation in gh-pages branch)
 // The profile where the project is posted
@@ -17,12 +18,14 @@ let gitProjectName = "domain-modeling"
 open FsReveal
 open Fake
 open Fake.Git
+open Freya.Core
 open System.IO
 open System.Diagnostics
 open Suave
 open Suave.Web
 open Suave.Http
 open Suave.Operators
+open Suave.Owin
 open Suave.Sockets
 open Suave.Sockets.Control
 open Suave.Sockets.AsyncSocket
@@ -119,6 +122,7 @@ let startWebServer () =
         }
     let app =
       choose [
+        OwinApp.ofAppFunc "/api" (OwinAppFunc.ofFreya Index.app)
         Filters.path "/websocket" >=> handShake socketHandler
         Writers.setHeader "Cache-Control" "no-cache, no-store, must-revalidate"
         >=> Writers.setHeader "Pragma" "no-cache"

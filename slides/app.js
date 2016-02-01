@@ -22,7 +22,7 @@
 
     function calculateDistance(start, dest) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://localhost:7000/api/calc?start=' + encodeURIComponent(start) + '&dest=' + encodeURIComponent(dest), true);
+        xhr.open('GET', '/api/calc?start=' + encodeURIComponent(start) + '&dest=' + encodeURIComponent(dest), true);
         xhr.setRequestHeader('Accept', 'application/json');
         xhr.onreadystatechange = function (e) {
             if (this.readyState === 4 && this.status === 200) {

@@ -1042,14 +1042,14 @@ let inline represent (x : string) =
           Languages = Some [ LanguageTag.parse "en" ] }
       Data = Encoding.UTF8.GetBytes x }
 
-(*** define: parse-query-string ***)
 let inline urlDecode x =
     System.Net.WebUtility.UrlDecode(x)
+
+(*** define: parse-query-string ***)
 let cities = freya {
     let! qs = Freya.Optic.get Request.query_
     let (Some [ "start", Some start
-                "dest",  Some dest ]) =
-        qs |> fst Query.pairs_
+                "dest",  Some dest ]) = qs |> fst Query.pairs_
     return City.Create(urlDecode start),
            City.Create(urlDecode dest) }
 
