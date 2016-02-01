@@ -15,13 +15,12 @@
         <button type="button" id="calculate">Calculate Distance</button>
     </form>
 
-    <section>
-        <header>
-            <h2>Result</h2>
-        </header>
-        <p id="result"></p>
-    </section>
+    <label for="show-result">Result</label>
+    <input type="text" id="show-result" name="show-result" readonly />
 
+    <div id="mapDiv"></div>
+
+    <script src="//dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
     <script src="app.js"></script>
 </body>
 </html>

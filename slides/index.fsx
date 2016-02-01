@@ -14,17 +14,16 @@
 #r "System.Device.dll"
 #I "../packages"
 #r "FSharp.Data.SqlClient/lib/net40/FSharp.Data.SqlClient.dll"
-#r "Aether/lib/net40/Aether.dll"
-#r "Hekate/lib/net40/Hekate.dll"
+#r "Aether/lib/net35/Aether.dll"
+#r "Hekate/lib/net35/Hekate.dll"
 #r "FParsec/lib/net40-client/FParsecCS.dll"
 #r "FParsec/lib/net40-client/FParsec.dll"
-#r "Chiron/lib/net45/Chiron.dll"
-#r "Arachne.Core/lib/net45/Arachne.Core.dll"
-#r "Arachne.Uri/lib/net45/Arachne.Uri.dll"
-#r "Arachne.Uri.Template/lib/net45/Arachne.Uri.Template.dll"
-#r "Arachne.Language/lib/net45/Arachne.Language.dll"
-#r "Arachne.Http/lib/net45/Arachne.Http.dll"
-#r "Arachne.Http.Cors/lib/net45/Arachne.Http.Cors.dll"
+#r "Arachne.Core/lib/net40/Arachne.Core.dll"
+#r "Arachne.Uri/lib/net40/Arachne.Uri.dll"
+#r "Arachne.Uri.Template/lib/net40/Arachne.Uri.Template.dll"
+#r "Arachne.Language/lib/net40/Arachne.Language.dll"
+#r "Arachne.Http/lib/net40/Arachne.Http.dll"
+#r "Arachne.Http.Cors/lib/net40/Arachne.Http.Cors.dll"
 #r "Freya.Core/lib/net45/Freya.Core.dll"
 #r "Freya.Lenses.Http/lib/net45/Freya.Lenses.Http.dll"
 #r "Freya.Lenses.Http.Cors/lib/net45/Freya.Lenses.Http.Cors.dll"
@@ -1040,18 +1039,19 @@ let inline represent (x : string) =
         { Charset = Some Charset.Utf8
           Encodings = None
           MediaType = Some MediaType.Json
-          Languages = Some [ LanguageTag.Parse "en" ] }
+          Languages = Some [ LanguageTag.parse "en" ] }
       Data = Encoding.UTF8.GetBytes x }
 
 (*** define: parse-query-string ***)
+let inline urlDecode x =
+    System.Net.WebUtility.UrlDecode(x)
 let cities = freya {
-    let! qs = Freya.getLens Request.query
-    let parts =
-        qs.Split('&')
-        |> Array.map (fun q ->
-            let arr = q.Split('=')
-            System.Net.WebUtility.UrlDecode(arr.[1].Trim()))
-    return City.Create(parts.[0]), City.Create(parts.[1]) }
+    let! qs = Freya.Optic.get Request.query_
+    let (Some [ "start", Some start
+                "dest",  Some dest ]) =
+        qs |> fst Query.pairs_
+    return City.Create(urlDecode start),
+           City.Create(urlDecode dest) }
 
 (*** define: get-handler ***)
 let get = freya {
@@ -1063,39 +1063,29 @@ let getHandler _ = freya {
     let! json = get
     return represent json }
 
-(*** define: http-config-defs ***)
-let en = Freya.init [ LanguageTag.Parse "en" ]
-let utf8 = Freya.init [ Charset.Utf8 ]
-let supportedMethods = Freya.init [GET; OPTIONS]
-let mediaTypes = Freya.init [ MediaType.Html
-                              MediaType.JavaScript
-                              MediaType.Css
-                              MediaType.Json ]
-
-(*** define: http-config-cors ***)
-let corsOrigins = Freya.init AccessControlAllowOriginRange.Any
-let corsHeaders = Freya.init [ "accept"; "content-type" ]
-
 (*** define: http-config-common ***)
+let mediaTypes =
+    [ MediaType.Html; MediaType.Json
+      MediaType.Css; MediaType.JavaScript]
 let common =
     freyaMachine {
         using http
         using httpCors
-        charsetsSupported utf8
-        corsHeadersSupported corsHeaders
-        corsOriginsSupported corsOrigins
-        languagesSupported en
+        charsetsSupported Charset.Utf8
+        corsHeadersSupported [ "accept"; "content-type" ]
+        corsOriginsSupported AccessControlAllowOriginRange.Any
+        languagesSupported (LanguageTag.parse "en")
         mediaTypesSupported mediaTypes }
 
 (*** define: resource ***)
 let distanceCalculator =
     freyaMachine {
         including common
-        corsMethodsSupported supportedMethods
-        methodsSupported supportedMethods
-        handleOk getHandler } |> FreyaMachine.toPipeline
+        corsMethodsSupported [GET; OPTIONS]
+        methodsSupported [GET; OPTIONS]
+        handleOk getHandler }
 
 let app =
     freyaRouter {
-        resource (UriTemplate.Parse "/calc") distanceCalculator
-    } |> FreyaRouter.toPipeline
+        resource "/calc{?start,dest}" distanceCalculator
+    }
