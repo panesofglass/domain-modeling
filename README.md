@@ -12,7 +12,7 @@ F# makes it easy to encode domain models within its type system such that it is 
 
 In addition to taking advantage of FsReveal's use of [Suave](https://suave.io/) for live reloading changes, this talk adds the [Freya](http://docs.freya.io/) demonstrated in the talk and implemented in the FsReveal slides to the Suave server. Not only are you seeing the code in the slides, the form uses the same implementation to make requests. You can do this with Suave or any other OWIN-compliant web framework:
 
-1. [Included app in FsReveal slides](https://github.com/panesofglass/domain-modeling/blob/master/slides/index.fsx#L1020-L1091)
+1. [Include app in FsReveal slides](https://github.com/panesofglass/domain-modeling/blob/master/slides/index.fsx#L1020-L1091)
 2. [Include FsReveal script in build.fsx](https://github.com/panesofglass/domain-modeling/blob/master/build.fsx#L9)
 3. [Mount OWIN app in Suave server](https://github.com/panesofglass/domain-modeling/blob/master/build.fsx#L125)
 
