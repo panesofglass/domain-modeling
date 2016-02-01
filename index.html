@@ -182,14 +182,14 @@
 <div class="tip" id="fs134">val distance : float&lt;m&gt; option</div>
 <div class="tip" id="fs135">namespace System.Text</div>
 <div class="tip" id="fs136">namespace Arachne</div>
-<div class="tip" id="fs137">namespace Arachne.Language</div>
+<div class="tip" id="fs137">module Language<br /><br />from Arachne</div>
 <div class="tip" id="fs138">namespace Arachne.Uri</div>
 <div class="tip" id="fs139">namespace Arachne.Http</div>
-<div class="tip" id="fs140">namespace Arachne.Http.Cors</div>
-<div class="tip" id="fs141">namespace Arachne.Uri.Template</div>
+<div class="tip" id="fs140">module Cors<br /><br />from Arachne.Http</div>
+<div class="tip" id="fs141">module Template<br /><br />from Arachne.Uri</div>
 <div class="tip" id="fs142">namespace Freya</div>
 <div class="tip" id="fs143">namespace Freya.Core</div>
-<div class="tip" id="fs144">Multiple items<br />module Freya<br /><br />from Freya.Core<br /><br />--------------------<br />namespace Freya<br /><br />--------------------<br />type Freya&lt;&#39;T&gt; = FreyaState -&gt; Async&lt;&#39;T * FreyaState&gt;<br /><br />Full name: Freya.Core.Freya&lt;_&gt;</div>
+<div class="tip" id="fs144">Multiple items<br />module Freya<br /><br />from Freya.Core<br /><br />--------------------<br />namespace Freya<br /><br />--------------------<br />type Freya&lt;&#39;T&gt; = FreyaState -&gt; Async&lt;&#39;T * FreyaState&gt;<br /><br />Full name: Freya.Core.Types.Freya&lt;_&gt;</div>
 <div class="tip" id="fs145">module Operators<br /><br />from Freya.Core</div>
 <div class="tip" id="fs146">namespace Freya.Lenses</div>
 <div class="tip" id="fs147">namespace Freya.Lenses.Http</div>
@@ -203,74 +203,64 @@
 <div class="tip" id="fs155">val represent : x:string -&gt; Representation<br /><br />Full name: Index.represent</div>
 <div class="tip" id="fs156">Multiple items<br />val string : value:&#39;T -&gt; string<br /><br />Full name: Microsoft.FSharp.Core.Operators.string<br /><br />--------------------<br />type string = String<br /><br />Full name: Microsoft.FSharp.Core.string</div>
 <div class="tip" id="fs157">type Description =<br />&#160;&#160;{Charset: Charset option;<br />&#160;&#160;&#160;Encodings: ContentCoding list option;<br />&#160;&#160;&#160;MediaType: MediaType option;<br />&#160;&#160;&#160;Languages: LanguageTag list option;}<br /><br />Full name: Freya.Machine.Extensions.Http.Types.Description</div>
-<div class="tip" id="fs158">Multiple items<br />union case Charset.Charset: string -&gt; Charset<br /><br />--------------------<br />type Charset =<br />&#160;&#160;| Charset of string<br />&#160;&#160;static member Iso88591 : Charset<br />&#160;&#160;static member Unicode : Charset<br />&#160;&#160;static member Utf8 : Charset<br /><br />Full name: Arachne.Http.Charset</div>
+<div class="tip" id="fs158">Multiple items<br />union case Charset.Charset: string -&gt; Charset<br /><br />--------------------<br />module Charset<br /><br />from Arachne.Http<br /><br />--------------------<br />type Charset =<br />&#160;&#160;| Charset of string<br />&#160;&#160;static member Iso88591 : Charset<br />&#160;&#160;static member Unicode : Charset<br />&#160;&#160;static member Utf8 : Charset<br /><br />Full name: Arachne.Http.Charset</div>
 <div class="tip" id="fs159">property Charset.Utf8: Charset</div>
-<div class="tip" id="fs160">Multiple items<br />union case MediaType.MediaType: Type * SubType * Parameters -&gt; MediaType<br /><br />--------------------<br />type MediaType =<br />&#160;&#160;| MediaType of Type * SubType * Parameters<br />&#160;&#160;override ToString : unit -&gt; string<br />&#160;&#160;static member Css : MediaType<br />&#160;&#160;static member Format : (MediaType -&gt; string)<br />&#160;&#160;static member Html : MediaType<br />&#160;&#160;static member JavaScript : MediaType<br />&#160;&#160;static member Json : MediaType<br />&#160;&#160;static member private Mapping : Mapping&lt;MediaType&gt;<br />&#160;&#160;static member ParametersLens : (MediaType -&gt; Parameters) * (Parameters -&gt; MediaType -&gt; MediaType)<br />&#160;&#160;static member Parse : (string -&gt; MediaType)<br />&#160;&#160;static member SubTypeLens : (MediaType -&gt; SubType) * (SubType -&gt; MediaType -&gt; MediaType)<br />&#160;&#160;static member Text : MediaType<br />&#160;&#160;static member TryParse : (string -&gt; MediaType option)<br />&#160;&#160;static member TypeLens : (MediaType -&gt; Type) * (Type -&gt; MediaType -&gt; MediaType)<br />&#160;&#160;static member Xml : MediaType<br /><br />Full name: Arachne.Http.MediaType</div>
+<div class="tip" id="fs160">Multiple items<br />union case MediaType.MediaType: Type * SubType * Parameters -&gt; MediaType<br /><br />--------------------<br />module MediaType<br /><br />from Arachne.Http<br /><br />--------------------<br />type MediaType =<br />&#160;&#160;| MediaType of Type * SubType * Parameters<br />&#160;&#160;override ToString : unit -&gt; string<br />&#160;&#160;static member Css : MediaType<br />&#160;&#160;static member Html : MediaType<br />&#160;&#160;static member JavaScript : MediaType<br />&#160;&#160;static member Json : MediaType<br />&#160;&#160;static member Mapping : Mapping&lt;MediaType&gt;<br />&#160;&#160;static member Text : MediaType<br />&#160;&#160;static member Xml : MediaType<br />&#160;&#160;static member format : (MediaType -&gt; string)<br />&#160;&#160;static member parameters_ : (MediaType -&gt; Parameters) * (Parameters -&gt; MediaType -&gt; MediaType)<br />&#160;&#160;static member parse : (string -&gt; MediaType)<br />&#160;&#160;static member subType_ : (MediaType -&gt; SubType) * (SubType -&gt; MediaType -&gt; MediaType)<br />&#160;&#160;static member tryParse : (string -&gt; Choice&lt;MediaType,string&gt;)<br />&#160;&#160;static member type_ : (MediaType -&gt; Type) * (Type -&gt; MediaType -&gt; MediaType)<br /><br />Full name: Arachne.Http.MediaType</div>
 <div class="tip" id="fs161">property MediaType.Json: MediaType</div>
-<div class="tip" id="fs162">Multiple items<br />union case LanguageTag.LanguageTag: Language * Script option * Region option * Variant -&gt; LanguageTag<br /><br />--------------------<br />type LanguageTag =<br />&#160;&#160;| LanguageTag of Language * Script option * Region option * Variant<br />&#160;&#160;override ToString : unit -&gt; string<br />&#160;&#160;static member Format : (LanguageTag -&gt; string)<br />&#160;&#160;static member private Mapping : Mapping&lt;LanguageTag&gt;<br />&#160;&#160;static member Parse : (string -&gt; LanguageTag)<br />&#160;&#160;static member TryParse : (string -&gt; LanguageTag option)<br /><br />Full name: Arachne.Language.LanguageTag</div>
-<div class="tip" id="fs163">property LanguageTag.Parse: string -&gt; LanguageTag</div>
+<div class="tip" id="fs162">Multiple items<br />union case LanguageTag.LanguageTag: Language * Script option * Region option * Variant -&gt; LanguageTag<br /><br />--------------------<br />type LanguageTag =<br />&#160;&#160;| LanguageTag of Language * Script option * Region option * Variant<br />&#160;&#160;override ToString : unit -&gt; string<br />&#160;&#160;static member Mapping : Mapping&lt;LanguageTag&gt;<br />&#160;&#160;static member format : (LanguageTag -&gt; string)<br />&#160;&#160;static member parse : (string -&gt; LanguageTag)<br />&#160;&#160;static member tryParse : (string -&gt; Choice&lt;LanguageTag,string&gt;)<br /><br />Full name: Arachne.Language.LanguageTag</div>
+<div class="tip" id="fs163">property LanguageTag.parse: string -&gt; LanguageTag</div>
 <div class="tip" id="fs164">Multiple items<br />namespace System.Data<br /><br />--------------------<br />namespace Microsoft.FSharp.Data</div>
 <div class="tip" id="fs165">type Encoding =<br />&#160;&#160;member BodyName : string<br />&#160;&#160;member Clone : unit -&gt; obj<br />&#160;&#160;member CodePage : int<br />&#160;&#160;member DecoderFallback : DecoderFallback with get, set<br />&#160;&#160;member EncoderFallback : EncoderFallback with get, set<br />&#160;&#160;member EncodingName : string<br />&#160;&#160;member Equals : value:obj -&gt; bool<br />&#160;&#160;member GetByteCount : chars:char[] -&gt; int + 3 overloads<br />&#160;&#160;member GetBytes : chars:char[] -&gt; byte[] + 5 overloads<br />&#160;&#160;member GetCharCount : bytes:byte[] -&gt; int + 2 overloads<br />&#160;&#160;...<br /><br />Full name: System.Text.Encoding</div>
 <div class="tip" id="fs166">property Encoding.UTF8: Encoding</div>
 <div class="tip" id="fs167">Encoding.GetBytes(s: string) : byte []<br />Encoding.GetBytes(chars: char []) : byte []<br />Encoding.GetBytes(chars: char [], index: int, count: int) : byte []<br />Encoding.GetBytes(chars: nativeptr&lt;char&gt;, charCount: int, bytes: nativeptr&lt;byte&gt;, byteCount: int) : int<br />Encoding.GetBytes(s: string, charIndex: int, charCount: int, bytes: byte [], byteIndex: int) : int<br />Encoding.GetBytes(chars: char [], charIndex: int, charCount: int, bytes: byte [], byteIndex: int) : int</div>
-<div class="tip" id="fs168">val cities : Freya&lt;City * City&gt;<br /><br />Full name: Index.cities</div>
-<div class="tip" id="fs169">val freya : FreyaBuilder<br /><br />Full name: Freya.Core.Builder.freya</div>
-<div class="tip" id="fs170">val qs : string</div>
-<div class="tip" id="fs171">val getLens : (FreyaState -&gt; &#39;a) * (&#39;a -&gt; FreyaState -&gt; FreyaState) -&gt; Freya&lt;&#39;a&gt;<br /><br />Full name: Freya.Core.Freya.getLens</div>
-<div class="tip" id="fs172">Multiple items<br />module Request<br /><br />from Freya.Lenses.Http.Cors.Lenses<br /><br />--------------------<br />module Request<br /><br />from Freya.Lenses.Http.Lenses</div>
-<div class="tip" id="fs173">val query : Aether.Lens&lt;FreyaState,string&gt;<br /><br />Full name: Freya.Lenses.Http.Lenses.Request.query</div>
-<div class="tip" id="fs174">val parts : string []</div>
-<div class="tip" id="fs175">String.Split([&lt;ParamArray&gt;] separator: char []) : string []<br />String.Split(separator: string [], options: StringSplitOptions) : string []<br />String.Split(separator: char [], options: StringSplitOptions) : string []<br />String.Split(separator: char [], count: int) : string []<br />String.Split(separator: string [], count: int, options: StringSplitOptions) : string []<br />String.Split(separator: char [], count: int, options: StringSplitOptions) : string []</div>
-<div class="tip" id="fs176">type Array =<br />&#160;&#160;member Clone : unit -&gt; obj<br />&#160;&#160;member CopyTo : array:Array * index:int -&gt; unit + 1 overload<br />&#160;&#160;member GetEnumerator : unit -&gt; IEnumerator<br />&#160;&#160;member GetLength : dimension:int -&gt; int<br />&#160;&#160;member GetLongLength : dimension:int -&gt; int64<br />&#160;&#160;member GetLowerBound : dimension:int -&gt; int<br />&#160;&#160;member GetUpperBound : dimension:int -&gt; int<br />&#160;&#160;member GetValue : [&lt;ParamArray&gt;] indices:int[] -&gt; obj + 7 overloads<br />&#160;&#160;member Initialize : unit -&gt; unit<br />&#160;&#160;member IsFixedSize : bool<br />&#160;&#160;...<br /><br />Full name: System.Array</div>
-<div class="tip" id="fs177">val map : mapping:(&#39;T -&gt; &#39;U) -&gt; array:&#39;T [] -&gt; &#39;U []<br /><br />Full name: Microsoft.FSharp.Collections.Array.map</div>
-<div class="tip" id="fs178">val q : string</div>
-<div class="tip" id="fs179">val arr : string []</div>
-<div class="tip" id="fs180">namespace System.Net</div>
-<div class="tip" id="fs181">type WebUtility =<br />&#160;&#160;static member HtmlDecode : value:string -&gt; string + 1 overload<br />&#160;&#160;static member HtmlEncode : value:string -&gt; string + 1 overload<br /><br />Full name: System.Net.WebUtility</div>
-<div class="tip" id="fs182">val get : Freya&lt;string&gt;<br /><br />Full name: Index.get</div>
-<div class="tip" id="fs183">val cities : City * City</div>
-<div class="tip" id="fs184">val stage : Stage</div>
-<div class="tip" id="fs185">val memo : m:Freya&lt;&#39;a&gt; -&gt; Freya&lt;&#39;a&gt;<br /><br />Full name: Freya.Core.Freya.memo</div>
-<div class="tip" id="fs186">val getHandler : &#39;a -&gt; Freya&lt;Representation&gt;<br /><br />Full name: Index.getHandler</div>
-<div class="tip" id="fs187">val json : string</div>
-<div class="tip" id="fs188">val en : Freya&lt;LanguageTag list&gt;<br /><br />Full name: Index.en</div>
-<div class="tip" id="fs189">val init : x:&#39;T -&gt; env:FreyaState -&gt; Async&lt;&#39;T * FreyaState&gt;<br /><br />Full name: Freya.Core.Freya.init</div>
-<div class="tip" id="fs190">val utf8 : Freya&lt;Charset list&gt;<br /><br />Full name: Index.utf8</div>
-<div class="tip" id="fs191">val supportedMethods : Freya&lt;Method list&gt;<br /><br />Full name: Index.supportedMethods</div>
-<div class="tip" id="fs192">union case Method.GET: Method</div>
-<div class="tip" id="fs193">union case Method.OPTIONS: Method</div>
-<div class="tip" id="fs194">val mediaTypes : Freya&lt;MediaType list&gt;<br /><br />Full name: Index.mediaTypes</div>
-<div class="tip" id="fs195">property MediaType.Html: MediaType</div>
-<div class="tip" id="fs196">property MediaType.JavaScript: MediaType</div>
-<div class="tip" id="fs197">property MediaType.Css: MediaType</div>
-<div class="tip" id="fs198">val corsOrigins : Freya&lt;AccessControlAllowOriginRange&gt;<br /><br />Full name: Index.corsOrigins</div>
-<div class="tip" id="fs199">type AccessControlAllowOriginRange =<br />&#160;&#160;| Origins of OriginListOrNull<br />&#160;&#160;| Any<br /><br />Full name: Arachne.Http.Cors.AccessControlAllowOriginRange</div>
-<div class="tip" id="fs200">union case AccessControlAllowOriginRange.Any: AccessControlAllowOriginRange</div>
-<div class="tip" id="fs201">val corsHeaders : Freya&lt;string list&gt;<br /><br />Full name: Index.corsHeaders</div>
-<div class="tip" id="fs202">val common : FreyaMachine<br /><br />Full name: Index.common</div>
-<div class="tip" id="fs203">val freyaMachine : FreyaMachineBuilder<br /><br />Full name: Freya.Machine.Builder.freyaMachine</div>
-<div class="tip" id="fs204">custom operation: using (FreyaMachineExtension)<br /><br />Calls FreyaMachineBuilder.Using </div>
-<div class="tip" id="fs205">val http : FreyaMachineExtension<br /><br />Full name: Freya.Machine.Extensions.Http.Extension.http</div>
-<div class="tip" id="fs206">val httpCors : FreyaMachineExtension<br /><br />Full name: Freya.Machine.Extensions.Http.Cors.Extension.httpCors</div>
-<div class="tip" id="fs207">custom operation: charsetsSupported (Freya&lt;Charset list&gt;)<br /><br />Calls FreyaMachineBuilder.CharsetsSupported </div>
-<div class="tip" id="fs208">custom operation: corsHeadersSupported (Freya&lt;string list&gt;)<br /><br />Calls FreyaMachineBuilder.CorsHeadersSupported </div>
-<div class="tip" id="fs209">custom operation: corsOriginsSupported (Freya&lt;AccessControlAllowOriginRange&gt;)<br /><br />Calls FreyaMachineBuilder.CorsOriginsSupported </div>
-<div class="tip" id="fs210">custom operation: languagesSupported (Freya&lt;LanguageTag list&gt;)<br /><br />Calls FreyaMachineBuilder.LanguagesSupported </div>
-<div class="tip" id="fs211">custom operation: mediaTypesSupported (Freya&lt;MediaType list&gt;)<br /><br />Calls FreyaMachineBuilder.MediaTypesSupported </div>
-<div class="tip" id="fs212">val distanceCalculator : FreyaPipeline<br /><br />Full name: Index.distanceCalculator</div>
-<div class="tip" id="fs213">custom operation: including (&#39;a -&gt; unit * FreyaMachineSpecification)<br /><br />Calls FreyaMachineBuilder.Including </div>
-<div class="tip" id="fs214">custom operation: corsMethodsSupported (Freya&lt;Method list&gt;)<br /><br />Calls FreyaMachineBuilder.CorsMethodsSupported </div>
-<div class="tip" id="fs215">custom operation: methodsSupported (Freya&lt;Method list&gt;)<br /><br />Calls FreyaMachineBuilder.MethodsSupported </div>
-<div class="tip" id="fs216">custom operation: handleOk (Specification -&gt; Freya&lt;Representation&gt;)<br /><br />Calls FreyaMachineBuilder.HandleOk </div>
-<div class="tip" id="fs217">Multiple items<br />module FreyaMachine<br /><br />from Freya.Machine<br /><br />--------------------<br />type FreyaMachine = FreyaMachineSpecification -&gt; unit * FreyaMachineSpecification<br /><br />Full name: Freya.Machine.Types.FreyaMachine</div>
-<div class="tip" id="fs218">val toPipeline : (FreyaMachine -&gt; FreyaPipeline)<br /><br />Full name: Freya.Machine.FreyaMachine.toPipeline</div>
-<div class="tip" id="fs219">val app : FreyaPipeline<br /><br />Full name: Index.app</div>
-<div class="tip" id="fs220">val freyaRouter : FreyaRouterBuilder<br /><br />Full name: Freya.Router.Builder.freyaRouter</div>
-<div class="tip" id="fs221">custom operation: resource (UriTemplate) (FreyaPipeline)<br /><br />Calls FreyaRouterBuilder.Resource </div>
-<div class="tip" id="fs222">Multiple items<br />union case UriTemplate.UriTemplate: UriTemplatePart list -&gt; UriTemplate<br /><br />--------------------<br />type UriTemplate =<br />&#160;&#160;| UriTemplate of UriTemplatePart list<br />&#160;&#160;member Match : uri:string -&gt; UriTemplateData<br />&#160;&#160;member Render : data:UriTemplateData -&gt; string<br />&#160;&#160;override ToString : unit -&gt; string<br />&#160;&#160;static member Format : (UriTemplate -&gt; string)<br />&#160;&#160;static member private Mapping : Mapping&lt;UriTemplate&gt;<br />&#160;&#160;static member Matching : Matching&lt;UriTemplate,UriTemplateData&gt;<br />&#160;&#160;static member Parse : (string -&gt; UriTemplate)<br />&#160;&#160;static member Rendering : Rendering&lt;UriTemplate&gt;<br />&#160;&#160;static member TryParse : (string -&gt; UriTemplate option)<br />&#160;&#160;static member ( + ) : UriTemplate * UriTemplate -&gt; UriTemplate<br /><br />Full name: Arachne.Uri.Template.UriTemplate</div>
-<div class="tip" id="fs223">property UriTemplate.Parse: string -&gt; UriTemplate</div>
-<div class="tip" id="fs224">Multiple items<br />module FreyaRouter<br /><br />from Freya.Router<br /><br />--------------------<br />type FreyaRouter = FreyaRoute list -&gt; unit * FreyaRoute list<br /><br />Full name: Freya.Router.Types.FreyaRouter</div>
-<div class="tip" id="fs225">val toPipeline : (FreyaRouter -&gt; FreyaPipeline)<br /><br />Full name: Freya.Router.FreyaRouter.toPipeline</div>
+<div class="tip" id="fs168">val urlDecode : x:&#39;a -&gt; &#39;b<br /><br />Full name: Index.urlDecode</div>
+<div class="tip" id="fs169">val x : &#39;a</div>
+<div class="tip" id="fs170">namespace System.Net</div>
+<div class="tip" id="fs171">type WebUtility =<br />&#160;&#160;static member HtmlDecode : value:string -&gt; string + 1 overload<br />&#160;&#160;static member HtmlEncode : value:string -&gt; string + 1 overload<br /><br />Full name: System.Net.WebUtility</div>
+<div class="tip" id="fs172">val cities : Freya&lt;City * City&gt;<br /><br />Full name: Index.cities</div>
+<div class="tip" id="fs173">val freya : FreyaBuilder<br /><br />Full name: Freya.Core.Syntax.freya</div>
+<div class="tip" id="fs174">val qs : Query</div>
+<div class="tip" id="fs175">module Optic<br /><br />from Freya.Core.Freya</div>
+<div class="tip" id="fs176">val get : o:&#39;c -&gt; Freya&lt;&#39;d&gt; (requires member ( ^. ))<br /><br />Full name: Freya.Core.Freya.Optic.get</div>
+<div class="tip" id="fs177">Multiple items<br />module Request<br /><br />from Freya.Lenses.Http.Cors.Lenses<br /><br />--------------------<br />module Request<br /><br />from Freya.Lenses.Http.Lenses</div>
+<div class="tip" id="fs178">val query_ : Aether.Lens&lt;FreyaState,Query&gt;<br /><br />Full name: Freya.Lenses.Http.Lenses.Request.query_</div>
+<div class="tip" id="fs179">val start : string</div>
+<div class="tip" id="fs180">val dest : string</div>
+<div class="tip" id="fs181">val fst : tuple:(&#39;T1 * &#39;T2) -&gt; &#39;T1<br /><br />Full name: Microsoft.FSharp.Core.Operators.fst</div>
+<div class="tip" id="fs182">Multiple items<br />union case OperatorLevel3.Query: OperatorLevel3<br /><br />--------------------<br />type Query =<br />&#160;&#160;| Query of string<br />&#160;&#160;override ToString : unit -&gt; string<br />&#160;&#160;static member private Predicate : i:int -&gt; bool<br />&#160;&#160;static member Mapping : Mapping&lt;Query&gt;<br />&#160;&#160;static member decoded_ : (Query -&gt; string) * (string -&gt; Query)<br />&#160;&#160;static member format : (Query -&gt; string)<br />&#160;&#160;static member pairs_ : (Query -&gt; (string * string option) list option) * ((string * string option) list -&gt; Query)<br />&#160;&#160;static member parse : (string -&gt; Query)<br />&#160;&#160;static member raw_ : (Query -&gt; string) * (string -&gt; Query)<br />&#160;&#160;static member tryParse : (string -&gt; Choice&lt;Query,string&gt;)<br /><br />Full name: Arachne.Uri.Query</div>
+<div class="tip" id="fs183">property Query.pairs_: (Query -&gt; (string * string option) list option) * ((string * string option) list -&gt; Query)</div>
+<div class="tip" id="fs184">val get : Freya&lt;string&gt;<br /><br />Full name: Index.get</div>
+<div class="tip" id="fs185">val cities : City * City</div>
+<div class="tip" id="fs186">val stage : Stage</div>
+<div class="tip" id="fs187">val memo : m:Freya&lt;&#39;a&gt; -&gt; Freya&lt;&#39;a&gt;<br /><br />Full name: Freya.Core.Freya.memo</div>
+<div class="tip" id="fs188">val getHandler : &#39;a -&gt; Freya&lt;Representation&gt;<br /><br />Full name: Index.getHandler</div>
+<div class="tip" id="fs189">val json : string</div>
+<div class="tip" id="fs190">val mediaTypes : MediaType list<br /><br />Full name: Index.mediaTypes</div>
+<div class="tip" id="fs191">property MediaType.Html: MediaType</div>
+<div class="tip" id="fs192">property MediaType.Css: MediaType</div>
+<div class="tip" id="fs193">property MediaType.JavaScript: MediaType</div>
+<div class="tip" id="fs194">val common : FreyaMachine<br /><br />Full name: Index.common</div>
+<div class="tip" id="fs195">val freyaMachine : FreyaMachineBuilder<br /><br />Full name: Freya.Machine.Syntax.freyaMachine</div>
+<div class="tip" id="fs196">custom operation: using (FreyaMachineExtension)<br /><br />Calls FreyaMachineBuilder.Using </div>
+<div class="tip" id="fs197">val http : FreyaMachineExtension<br /><br />Full name: Freya.Machine.Extensions.Http.Extension.http</div>
+<div class="tip" id="fs198">val httpCors : FreyaMachineExtension<br /><br />Full name: Freya.Machine.Extensions.Http.Cors.Extension.httpCors</div>
+<div class="tip" id="fs199">custom operation: charsetsSupported (&#39;a)<br /><br />Calls FreyaMachineBuilder.CharsetsSupported </div>
+<div class="tip" id="fs200">custom operation: corsHeadersSupported (&#39;a)<br /><br />Calls FreyaMachineBuilder.CorsHeadersSupported </div>
+<div class="tip" id="fs201">custom operation: corsOriginsSupported (&#39;a)<br /><br />Calls FreyaMachineBuilder.CorsOriginsSupported </div>
+<div class="tip" id="fs202">Multiple items<br />module AccessControlAllowOriginRange<br /><br />from Freya.Machine.Extensions.Http.Cors.Syntax<br /><br />--------------------<br />type AccessControlAllowOriginRange =<br />&#160;&#160;| Origins of OriginListOrNull<br />&#160;&#160;| Any<br /><br />Full name: Arachne.Http.Cors.AccessControlAllowOriginRange</div>
+<div class="tip" id="fs203">union case AccessControlAllowOriginRange.Any: AccessControlAllowOriginRange</div>
+<div class="tip" id="fs204">custom operation: languagesSupported (&#39;a)<br /><br />Calls FreyaMachineBuilder.LanguagesSupported </div>
+<div class="tip" id="fs205">custom operation: mediaTypesSupported (&#39;a)<br /><br />Calls FreyaMachineBuilder.MediaTypesSupported </div>
+<div class="tip" id="fs206">val distanceCalculator : FreyaMachine<br /><br />Full name: Index.distanceCalculator</div>
+<div class="tip" id="fs207">custom operation: including (FreyaMachine)<br /><br />Calls FreyaMachineBuilder.Including </div>
+<div class="tip" id="fs208">custom operation: corsMethodsSupported (&#39;a)<br /><br />Calls FreyaMachineBuilder.CorsMethodsSupported </div>
+<div class="tip" id="fs209">union case Method.GET: Method</div>
+<div class="tip" id="fs210">union case Method.OPTIONS: Method</div>
+<div class="tip" id="fs211">custom operation: methodsSupported (&#39;a)<br /><br />Calls FreyaMachineBuilder.MethodsSupported </div>
+<div class="tip" id="fs212">custom operation: handleOk (&#39;a)<br /><br />Calls FreyaMachineBuilder.HandleOk </div>
+<div class="tip" id="fs213">val app : FreyaRouter<br /><br />Full name: Index.app</div>
+<div class="tip" id="fs214">val freyaRouter : FreyaRouterBuilder<br /><br />Full name: Freya.Router.Syntax.freyaRouter</div>
+<div class="tip" id="fs215">custom operation: resource (&#39;a) (&#39;b)<br /><br />Calls FreyaRouterBuilder.Resource </div>
 
         <!-- Any section element inside of this container is displayed as a slide -->
         <div class="slides">
@@ -1188,42 +1178,48 @@ the same workflow.<br/>
 <span class="l">10: </span>
 <span class="l">11: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs212', 612)" onmouseover="showTip(event, 'fs212', 612)" class="f">distanceCalculator</span> <span class="o">=</span>
-    <span onmouseout="hideTip(event, 'fs203', 613)" onmouseover="showTip(event, 'fs203', 613)" class="i">freyaMachine</span> {
-        <span onmouseout="hideTip(event, 'fs213', 614)" onmouseover="showTip(event, 'fs213', 614)" class="k">including</span> <span onmouseout="hideTip(event, 'fs202', 615)" onmouseover="showTip(event, 'fs202', 615)" class="f">common</span>
-        <span onmouseout="hideTip(event, 'fs214', 616)" onmouseover="showTip(event, 'fs214', 616)" class="k">corsMethodsSupported</span> <span onmouseout="hideTip(event, 'fs191', 617)" onmouseover="showTip(event, 'fs191', 617)" class="f">supportedMethods</span>
-        <span onmouseout="hideTip(event, 'fs215', 618)" onmouseover="showTip(event, 'fs215', 618)" class="k">methodsSupported</span> <span onmouseout="hideTip(event, 'fs191', 619)" onmouseover="showTip(event, 'fs191', 619)" class="f">supportedMethods</span>
-        <span onmouseout="hideTip(event, 'fs216', 620)" onmouseover="showTip(event, 'fs216', 620)" class="k">handleOk</span> <span onmouseout="hideTip(event, 'fs186', 621)" onmouseover="showTip(event, 'fs186', 621)" class="f">getHandler</span> } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs217', 622)" onmouseover="showTip(event, 'fs217', 622)" class="t">FreyaMachine</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs218', 623)" onmouseover="showTip(event, 'fs218', 623)" class="f">toPipeline</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs206', 595)" onmouseover="showTip(event, 'fs206', 595)" class="i">distanceCalculator</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs195', 596)" onmouseover="showTip(event, 'fs195', 596)" class="i">freyaMachine</span> {
+        <span onmouseout="hideTip(event, 'fs207', 597)" onmouseover="showTip(event, 'fs207', 597)" class="k">including</span> <span onmouseout="hideTip(event, 'fs194', 598)" onmouseover="showTip(event, 'fs194', 598)" class="i">common</span>
+        <span onmouseout="hideTip(event, 'fs208', 599)" onmouseover="showTip(event, 'fs208', 599)" class="k">corsMethodsSupported</span> [<span onmouseout="hideTip(event, 'fs209', 600)" onmouseover="showTip(event, 'fs209', 600)" class="p">GET</span>; <span onmouseout="hideTip(event, 'fs210', 601)" onmouseover="showTip(event, 'fs210', 601)" class="p">OPTIONS</span>]
+        <span onmouseout="hideTip(event, 'fs211', 602)" onmouseover="showTip(event, 'fs211', 602)" class="k">methodsSupported</span> [<span onmouseout="hideTip(event, 'fs209', 603)" onmouseover="showTip(event, 'fs209', 603)" class="p">GET</span>; <span onmouseout="hideTip(event, 'fs210', 604)" onmouseover="showTip(event, 'fs210', 604)" class="p">OPTIONS</span>]
+        <span onmouseout="hideTip(event, 'fs212', 605)" onmouseover="showTip(event, 'fs212', 605)" class="k">handleOk</span> <span onmouseout="hideTip(event, 'fs188', 606)" onmouseover="showTip(event, 'fs188', 606)" class="f">getHandler</span> }
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs219', 624)" onmouseover="showTip(event, 'fs219', 624)" class="f">app</span> <span class="o">=</span>
-    <span onmouseout="hideTip(event, 'fs220', 625)" onmouseover="showTip(event, 'fs220', 625)" class="i">freyaRouter</span> {
-        <span onmouseout="hideTip(event, 'fs221', 626)" onmouseover="showTip(event, 'fs221', 626)" class="k">resource</span> (<span onmouseout="hideTip(event, 'fs222', 627)" onmouseover="showTip(event, 'fs222', 627)" class="t">UriTemplate</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs223', 628)" onmouseover="showTip(event, 'fs223', 628)" class="f">Parse</span> <span class="s">&quot;/calc&quot;</span>) <span onmouseout="hideTip(event, 'fs212', 629)" onmouseover="showTip(event, 'fs212', 629)" class="f">distanceCalculator</span>
-    } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs224', 630)" onmouseover="showTip(event, 'fs224', 630)" class="t">FreyaRouter</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs225', 631)" onmouseover="showTip(event, 'fs225', 631)" class="f">toPipeline</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs213', 607)" onmouseover="showTip(event, 'fs213', 607)" class="i">app</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs214', 608)" onmouseover="showTip(event, 'fs214', 608)" class="i">freyaRouter</span> {
+        <span onmouseout="hideTip(event, 'fs215', 609)" onmouseover="showTip(event, 'fs215', 609)" class="k">resource</span> <span class="s">&quot;/calc{?start,dest}&quot;</span> <span onmouseout="hideTip(event, 'fs206', 610)" onmouseover="showTip(event, 'fs206', 610)" class="i">distanceCalculator</span>
+    }
 </code></pre></td>
 </tr>
 </table>
 </section>
 <section >
 <h2>Machine Composition!</h2>
-<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l">1: </span>
-<span class="l">2: </span>
-<span class="l">3: </span>
-<span class="l">4: </span>
-<span class="l">5: </span>
-<span class="l">6: </span>
-<span class="l">7: </span>
-<span class="l">8: </span>
-<span class="l">9: </span>
+<table class="pre"><tr><td class="lines"><pre class="fssnip"><span class="l"> 1: </span>
+<span class="l"> 2: </span>
+<span class="l"> 3: </span>
+<span class="l"> 4: </span>
+<span class="l"> 5: </span>
+<span class="l"> 6: </span>
+<span class="l"> 7: </span>
+<span class="l"> 8: </span>
+<span class="l"> 9: </span>
+<span class="l">10: </span>
+<span class="l">11: </span>
+<span class="l">12: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs202', 596)" onmouseover="showTip(event, 'fs202', 596)" class="f">common</span> <span class="o">=</span>
-    <span onmouseout="hideTip(event, 'fs203', 597)" onmouseover="showTip(event, 'fs203', 597)" class="i">freyaMachine</span> {
-        <span onmouseout="hideTip(event, 'fs204', 598)" onmouseover="showTip(event, 'fs204', 598)" class="k">using</span> <span onmouseout="hideTip(event, 'fs205', 599)" onmouseover="showTip(event, 'fs205', 599)" class="i">http</span>
-        <span onmouseout="hideTip(event, 'fs204', 600)" onmouseover="showTip(event, 'fs204', 600)" class="k">using</span> <span onmouseout="hideTip(event, 'fs206', 601)" onmouseover="showTip(event, 'fs206', 601)" class="i">httpCors</span>
-        <span onmouseout="hideTip(event, 'fs207', 602)" onmouseover="showTip(event, 'fs207', 602)" class="k">charsetsSupported</span> <span onmouseout="hideTip(event, 'fs190', 603)" onmouseover="showTip(event, 'fs190', 603)" class="f">utf8</span>
-        <span onmouseout="hideTip(event, 'fs208', 604)" onmouseover="showTip(event, 'fs208', 604)" class="k">corsHeadersSupported</span> <span onmouseout="hideTip(event, 'fs201', 605)" onmouseover="showTip(event, 'fs201', 605)" class="f">corsHeaders</span>
-        <span onmouseout="hideTip(event, 'fs209', 606)" onmouseover="showTip(event, 'fs209', 606)" class="k">corsOriginsSupported</span> <span onmouseout="hideTip(event, 'fs198', 607)" onmouseover="showTip(event, 'fs198', 607)" class="f">corsOrigins</span>
-        <span onmouseout="hideTip(event, 'fs210', 608)" onmouseover="showTip(event, 'fs210', 608)" class="k">languagesSupported</span> <span onmouseout="hideTip(event, 'fs188', 609)" onmouseover="showTip(event, 'fs188', 609)" class="f">en</span>
-        <span onmouseout="hideTip(event, 'fs211', 610)" onmouseover="showTip(event, 'fs211', 610)" class="k">mediaTypesSupported</span> <span onmouseout="hideTip(event, 'fs194', 611)" onmouseover="showTip(event, 'fs194', 611)" class="f">mediaTypes</span> }
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs190', 568)" onmouseover="showTip(event, 'fs190', 568)" class="i">mediaTypes</span> <span class="o">=</span>
+    [ <span onmouseout="hideTip(event, 'fs160', 569)" onmouseover="showTip(event, 'fs160', 569)" class="t">MediaType</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs191', 570)" onmouseover="showTip(event, 'fs191', 570)" class="i">Html</span>; <span onmouseout="hideTip(event, 'fs160', 571)" onmouseover="showTip(event, 'fs160', 571)" class="t">MediaType</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs161', 572)" onmouseover="showTip(event, 'fs161', 572)" class="i">Json</span>
+      <span onmouseout="hideTip(event, 'fs160', 573)" onmouseover="showTip(event, 'fs160', 573)" class="t">MediaType</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs192', 574)" onmouseover="showTip(event, 'fs192', 574)" class="i">Css</span>; <span onmouseout="hideTip(event, 'fs160', 575)" onmouseover="showTip(event, 'fs160', 575)" class="t">MediaType</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs193', 576)" onmouseover="showTip(event, 'fs193', 576)" class="i">JavaScript</span>]
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs194', 577)" onmouseover="showTip(event, 'fs194', 577)" class="i">common</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs195', 578)" onmouseover="showTip(event, 'fs195', 578)" class="i">freyaMachine</span> {
+        <span onmouseout="hideTip(event, 'fs196', 579)" onmouseover="showTip(event, 'fs196', 579)" class="k">using</span> <span onmouseout="hideTip(event, 'fs197', 580)" onmouseover="showTip(event, 'fs197', 580)" class="i">http</span>
+        <span onmouseout="hideTip(event, 'fs196', 581)" onmouseover="showTip(event, 'fs196', 581)" class="k">using</span> <span onmouseout="hideTip(event, 'fs198', 582)" onmouseover="showTip(event, 'fs198', 582)" class="i">httpCors</span>
+        <span onmouseout="hideTip(event, 'fs199', 583)" onmouseover="showTip(event, 'fs199', 583)" class="k">charsetsSupported</span> <span onmouseout="hideTip(event, 'fs158', 584)" onmouseover="showTip(event, 'fs158', 584)" class="t">Charset</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs159', 585)" onmouseover="showTip(event, 'fs159', 585)" class="i">Utf8</span>
+        <span onmouseout="hideTip(event, 'fs200', 586)" onmouseover="showTip(event, 'fs200', 586)" class="k">corsHeadersSupported</span> [ <span class="s">&quot;accept&quot;</span>; <span class="s">&quot;content-type&quot;</span> ]
+        <span onmouseout="hideTip(event, 'fs201', 587)" onmouseover="showTip(event, 'fs201', 587)" class="k">corsOriginsSupported</span> <span onmouseout="hideTip(event, 'fs202', 588)" onmouseover="showTip(event, 'fs202', 588)" class="t">AccessControlAllowOriginRange</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs203', 589)" onmouseover="showTip(event, 'fs203', 589)" class="p">Any</span>
+        <span onmouseout="hideTip(event, 'fs204', 590)" onmouseover="showTip(event, 'fs204', 590)" class="k">languagesSupported</span> (<span onmouseout="hideTip(event, 'fs162', 591)" onmouseover="showTip(event, 'fs162', 591)" class="t">LanguageTag</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs163', 592)" onmouseover="showTip(event, 'fs163', 592)" class="f">parse</span> <span class="s">&quot;en&quot;</span>)
+        <span onmouseout="hideTip(event, 'fs205', 593)" onmouseover="showTip(event, 'fs205', 593)" class="k">mediaTypesSupported</span> <span onmouseout="hideTip(event, 'fs190', 594)" onmouseover="showTip(event, 'fs190', 594)" class="i">mediaTypes</span> }
 </code></pre></td>
 </tr>
 </table>
@@ -1246,17 +1242,13 @@ compiler to help us out!<br/>
 <span class="l">4: </span>
 <span class="l">5: </span>
 <span class="l">6: </span>
-<span class="l">7: </span>
-<span class="l">8: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs168', 521)" onmouseover="showTip(event, 'fs168', 521)" class="f">cities</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs169', 522)" onmouseover="showTip(event, 'fs169', 522)" class="i">freya</span> {
-    <span class="k">let!</span> <span onmouseout="hideTip(event, 'fs170', 523)" onmouseover="showTip(event, 'fs170', 523)" class="i">qs</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs144', 524)" onmouseover="showTip(event, 'fs144', 524)" class="t">Freya</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs171', 525)" onmouseover="showTip(event, 'fs171', 525)" class="f">getLens</span> <span onmouseout="hideTip(event, 'fs172', 526)" onmouseover="showTip(event, 'fs172', 526)" class="t">Request</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs173', 527)" onmouseover="showTip(event, 'fs173', 527)" class="i">query</span>
-    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs174', 528)" onmouseover="showTip(event, 'fs174', 528)" class="i">parts</span> <span class="o">=</span>
-        <span onmouseout="hideTip(event, 'fs170', 529)" onmouseover="showTip(event, 'fs170', 529)" class="i">qs</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs175', 530)" onmouseover="showTip(event, 'fs175', 530)" class="f">Split</span>(<span class="s">&#39;&amp;&#39;</span>)
-        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs176', 531)" onmouseover="showTip(event, 'fs176', 531)" class="t">Array</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs177', 532)" onmouseover="showTip(event, 'fs177', 532)" class="f">map</span> (<span class="k">fun</span> <span onmouseout="hideTip(event, 'fs178', 533)" onmouseover="showTip(event, 'fs178', 533)" class="i">q</span> <span class="k">-&gt;</span>
-            <span class="k">let</span> <span onmouseout="hideTip(event, 'fs179', 534)" onmouseover="showTip(event, 'fs179', 534)" class="i">arr</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs178', 535)" onmouseover="showTip(event, 'fs178', 535)" class="i">q</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs175', 536)" onmouseover="showTip(event, 'fs175', 536)" class="f">Split</span>(<span class="s">&#39;=&#39;</span>)
-            <span onmouseout="hideTip(event, 'fs91', 537)" onmouseover="showTip(event, 'fs91', 537)" class="i">System</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs180', 538)" onmouseover="showTip(event, 'fs180', 538)" class="i">Net</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs181', 539)" onmouseover="showTip(event, 'fs181', 539)" class="i">WebUtility</span><span class="o">.</span><span class="i">UrlDecode</span>(<span onmouseout="hideTip(event, 'fs179', 540)" onmouseover="showTip(event, 'fs179', 540)" class="i">arr</span><span class="o">.</span>[<span class="n">1</span>]<span class="o">.</span><span class="i">Trim</span>()))
-    <span class="k">return</span> <span onmouseout="hideTip(event, 'fs51', 541)" onmouseover="showTip(event, 'fs51', 541)" class="t">City</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs85', 542)" onmouseover="showTip(event, 'fs85', 542)" class="f">Create</span>(<span class="i">parts</span><span class="o">.</span>[<span class="n">0</span>]), <span onmouseout="hideTip(event, 'fs51', 543)" onmouseover="showTip(event, 'fs51', 543)" class="t">City</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs85', 544)" onmouseover="showTip(event, 'fs85', 544)" class="f">Create</span>(<span class="i">parts</span><span class="o">.</span>[<span class="n">1</span>]) }
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs172', 527)" onmouseover="showTip(event, 'fs172', 527)" class="f">cities</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs173', 528)" onmouseover="showTip(event, 'fs173', 528)" class="i">freya</span> {
+    <span class="k">let!</span> <span onmouseout="hideTip(event, 'fs174', 529)" onmouseover="showTip(event, 'fs174', 529)" class="i">qs</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs144', 530)" onmouseover="showTip(event, 'fs144', 530)" class="t">Freya</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs175', 531)" onmouseover="showTip(event, 'fs175', 531)" class="t">Optic</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs176', 532)" onmouseover="showTip(event, 'fs176', 532)" class="f">get</span> <span onmouseout="hideTip(event, 'fs177', 533)" onmouseover="showTip(event, 'fs177', 533)" class="t">Request</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs178', 534)" onmouseover="showTip(event, 'fs178', 534)" class="i">query_</span>
+    <span class="k">let</span> (<span onmouseout="hideTip(event, 'fs24', 535)" onmouseover="showTip(event, 'fs24', 535)" class="p">Some</span> [ <span class="s">&quot;start&quot;</span>, <span onmouseout="hideTip(event, 'fs24', 536)" onmouseover="showTip(event, 'fs24', 536)" class="p">Some</span> <span onmouseout="hideTip(event, 'fs179', 537)" onmouseover="showTip(event, 'fs179', 537)" class="i">start</span>
+                <span class="s">&quot;dest&quot;</span>,  <span onmouseout="hideTip(event, 'fs24', 538)" onmouseover="showTip(event, 'fs24', 538)" class="p">Some</span> <span onmouseout="hideTip(event, 'fs180', 539)" onmouseover="showTip(event, 'fs180', 539)" class="i">dest</span> ]) <span class="o">=</span> <span onmouseout="hideTip(event, 'fs174', 540)" onmouseover="showTip(event, 'fs174', 540)" class="i">qs</span> <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs181', 541)" onmouseover="showTip(event, 'fs181', 541)" class="f">fst</span> <span onmouseout="hideTip(event, 'fs182', 542)" onmouseover="showTip(event, 'fs182', 542)" class="t">Query</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs183', 543)" onmouseover="showTip(event, 'fs183', 543)" class="i">pairs_</span>
+    <span class="k">return</span> <span onmouseout="hideTip(event, 'fs51', 544)" onmouseover="showTip(event, 'fs51', 544)" class="t">City</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs85', 545)" onmouseover="showTip(event, 'fs85', 545)" class="f">Create</span>(<span onmouseout="hideTip(event, 'fs168', 546)" onmouseover="showTip(event, 'fs168', 546)" class="f">urlDecode</span> <span class="i">start</span>),
+           <span onmouseout="hideTip(event, 'fs51', 547)" onmouseover="showTip(event, 'fs51', 547)" class="t">City</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs85', 548)" onmouseover="showTip(event, 'fs85', 548)" class="f">Create</span>(<span onmouseout="hideTip(event, 'fs168', 549)" onmouseover="showTip(event, 'fs168', 549)" class="f">urlDecode</span> <span onmouseout="hideTip(event, 'fs180', 550)" onmouseover="showTip(event, 'fs180', 550)" class="i">dest</span>) }
 </code></pre></td>
 </tr>
 </table>
@@ -1272,14 +1264,14 @@ compiler to help us out!<br/>
 <span class="l">7: </span>
 <span class="l">8: </span>
 </pre></td>
-<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs182', 545)" onmouseover="showTip(event, 'fs182', 545)" class="f">get</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs169', 546)" onmouseover="showTip(event, 'fs169', 546)" class="i">freya</span> {
-    <span class="k">let!</span> <span onmouseout="hideTip(event, 'fs183', 547)" onmouseover="showTip(event, 'fs183', 547)" class="i">cities</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs183', 548)" onmouseover="showTip(event, 'fs183', 548)" class="f">cities</span>
-    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs184', 549)" onmouseover="showTip(event, 'fs184', 549)" class="i">stage</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs128', 550)" onmouseover="showTip(event, 'fs128', 550)" class="p">InputReceived</span> <span onmouseout="hideTip(event, 'fs183', 551)" onmouseover="showTip(event, 'fs183', 551)" class="i">cities</span>
-    <span class="k">return</span> <span onmouseout="hideTip(event, 'fs133', 552)" onmouseover="showTip(event, 'fs133', 552)" class="f">runWorkflow</span> <span onmouseout="hideTip(event, 'fs184', 553)" onmouseover="showTip(event, 'fs184', 553)" class="i">stage</span> } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs144', 554)" onmouseover="showTip(event, 'fs144', 554)" class="t">Freya</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs185', 555)" onmouseover="showTip(event, 'fs185', 555)" class="f">memo</span>
+<td class="snippet"><pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs184', 551)" onmouseover="showTip(event, 'fs184', 551)" class="f">get</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs173', 552)" onmouseover="showTip(event, 'fs173', 552)" class="i">freya</span> {
+    <span class="k">let!</span> <span onmouseout="hideTip(event, 'fs185', 553)" onmouseover="showTip(event, 'fs185', 553)" class="i">cities</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs185', 554)" onmouseover="showTip(event, 'fs185', 554)" class="f">cities</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs186', 555)" onmouseover="showTip(event, 'fs186', 555)" class="i">stage</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs128', 556)" onmouseover="showTip(event, 'fs128', 556)" class="p">InputReceived</span> <span onmouseout="hideTip(event, 'fs185', 557)" onmouseover="showTip(event, 'fs185', 557)" class="i">cities</span>
+    <span class="k">return</span> <span onmouseout="hideTip(event, 'fs133', 558)" onmouseover="showTip(event, 'fs133', 558)" class="f">runWorkflow</span> <span onmouseout="hideTip(event, 'fs186', 559)" onmouseover="showTip(event, 'fs186', 559)" class="i">stage</span> } <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs144', 560)" onmouseover="showTip(event, 'fs144', 560)" class="t">Freya</span><span class="o">.</span><span onmouseout="hideTip(event, 'fs187', 561)" onmouseover="showTip(event, 'fs187', 561)" class="f">memo</span>
 
-<span class="k">let</span> <span onmouseout="hideTip(event, 'fs186', 556)" onmouseover="showTip(event, 'fs186', 556)" class="f">getHandler</span> _ <span class="o">=</span> <span onmouseout="hideTip(event, 'fs169', 557)" onmouseover="showTip(event, 'fs169', 557)" class="i">freya</span> {
-    <span class="k">let!</span> <span onmouseout="hideTip(event, 'fs187', 558)" onmouseover="showTip(event, 'fs187', 558)" class="i">json</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs182', 559)" onmouseover="showTip(event, 'fs182', 559)" class="f">get</span>
-    <span class="k">return</span> <span onmouseout="hideTip(event, 'fs155', 560)" onmouseover="showTip(event, 'fs155', 560)" class="f">represent</span> <span onmouseout="hideTip(event, 'fs187', 561)" onmouseover="showTip(event, 'fs187', 561)" class="i">json</span> }
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs188', 562)" onmouseover="showTip(event, 'fs188', 562)" class="f">getHandler</span> _ <span class="o">=</span> <span onmouseout="hideTip(event, 'fs173', 563)" onmouseover="showTip(event, 'fs173', 563)" class="i">freya</span> {
+    <span class="k">let!</span> <span onmouseout="hideTip(event, 'fs189', 564)" onmouseover="showTip(event, 'fs189', 564)" class="i">json</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs184', 565)" onmouseover="showTip(event, 'fs184', 565)" class="f">get</span>
+    <span class="k">return</span> <span onmouseout="hideTip(event, 'fs155', 566)" onmouseover="showTip(event, 'fs155', 566)" class="f">represent</span> <span onmouseout="hideTip(event, 'fs189', 567)" onmouseover="showTip(event, 'fs189', 567)" class="i">json</span> }
 </code></pre></td>
 </tr>
 </table>
