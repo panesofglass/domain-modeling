@@ -58,7 +58,7 @@
 
 ***
 
-![F# logo](images/fssf.png)
+![Community for F# logo](images/c4fsharp.png)
 
 ***
 
@@ -127,9 +127,6 @@ module SingleCase =
     let city = City "Houston, TX"
     let cityName (City name) = name
     let result = cityName city
-
-(** Value of result: *)
-(*** include-value: result ***)
 
 (**
 ***
