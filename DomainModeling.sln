@@ -1,14 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DomainModeling", "slides\DomainModeling.fsproj", "{2BCDFDAE-5B31-47C3-836A-482C67514B72}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "project", "project", "{5F8FDEFE-63AF-4301-BEA5-6C0DBC8C268A}"
 	ProjectSection(SolutionItems) = preProject
 		build.fsx = build.fsx
+		build.ps1 = build.ps1
 		create-db.sql = create-db.sql
+		db.ps1 = db.ps1
 		paket.dependencies = paket.dependencies
 		paket.lock = paket.lock
 		README.md = README.md

@@ -4,9 +4,8 @@ F# makes it easy to encode domain models within its type system such that it is 
 
 ## Running Locally
 
-1. Run `create-db.sql` against your `(localdb)ProjectsV12` database instance, which should have been installed with Visual Studio 2015. (Once I figure out how to do this from the command line, I'll add it to the FAKE build.)
-2. Run `build.ps1` to generate and launch the [FsReveal](https://github.com/fsprojects/FsReveal) slides locally.
-3. When you get to the form to input cities, you should be able to submit requests as long as you have an internet connection for Bing Maps. You can find supported cities listed in `create-db.sql` or add your own list.
+1. Run `build.ps1` to create the local database and generate and launch the [FsReveal](https://github.com/fsprojects/FsReveal) slides locally.
+2. When you get to the form to input cities, you should be able to submit requests as long as you have an internet connection for Bing Maps. You can find supported cities listed in `create-db.sql` or add your own list.
 
 ## Cool Tricks!
 

@@ -886,7 +886,7 @@ type Place = { Name : City; Location : Location option }
 open FSharp.Data
 
 [<Literal>]
-let ConnStr = """Data Source=(LocalDB)\ProjectsV12;Initial Catalog=Database1;Integrated Security=True;Connect Timeout=10"""
+let ConnStr = """Data Source=(LocalDB)\v11.0;Initial Catalog=Database1;Integrated Security=True;Connect Timeout=10"""
 
 (*** define: sql-command-provider ***)
 type GetCityLocation = SqlCommandProvider<"

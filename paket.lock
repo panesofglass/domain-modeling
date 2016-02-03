@@ -2,7 +2,7 @@ FRAMEWORK: NET46
 NUGET
   remote: https://www.nuget.org/api/v2
   specs:
-    Aether (8.1.1)
+    Aether (8.1.2)
     Arachne.Core (3.0.0-b104)
       FParsec (>= 1.0.0 < 2.0.0)
     Arachne.Http (3.0.0-b104)
