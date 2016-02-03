@@ -965,7 +965,8 @@ let workflow =
 (*** define: serialize ***)
 let serializePlace = function
     | { Place.Name = City name; Location = Some loc } ->
-        sprintf """{"name":"%s","location":{"latitude":%f,"longitude":%f}}""" name loc.Latitude loc.Longitude
+        sprintf """{"name":"%s","location":{"latitude":%f,"longitude":%f}}"""
+                name (loc.Latitude/1.<degLat>) (loc.Longitude/1.<degLng>)
     | _ -> "null"
 
 let serializeResult place1 place2 distance =
@@ -973,7 +974,7 @@ let serializeResult place1 place2 distance =
     let place2' = serializePlace place2
     match distance with
     | Some d ->
-        sprintf """{"start":%s,"dest":%s,"distance":%f}""" place1' place2' d
+        sprintf """{"start":%s,"dest":%s,"distance":%f}""" place1' place2' (d/1.<ft>)
     | None -> sprintf """{"start":%s,"dest":%s}""" place1' place2'
 
 (*** define: distance-workflow ***)
