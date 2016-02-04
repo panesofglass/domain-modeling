@@ -19,6 +19,7 @@ open FsReveal
 open Fake
 open Fake.Git
 open Freya.Core
+open System
 open System.IO
 open System.Diagnostics
 open Suave
@@ -164,7 +165,32 @@ Target "ReleaseSlides" (fun _ ->
     Branches.push tempDocsDir
 )
 
+let sqlcmd ex =
+    ExecProcess (fun i ->
+        i.FileName <- "sqlcmd"
+        i.Arguments <- sprintf "-S '(localdb)\v11.0' -d 'master' %s" ex)
+        (TimeSpan.FromMinutes 5.)
+
+Target "DropDB" (fun _ ->
+    sqlcmd "-Q 'alter database $database set single_user with rollback immediate'" |> ignore
+    sqlcmd "-Q 'use master; drop database $database'" |> ignore
+)
+    
+Target "CreateDB" (fun _ ->
+    sqlcmd "-i 'create-db.sql'" |> ignore
+)
+
+Target "RecreateDB" DoNothing
+
+"DropDB"
+  ==> "Clean"
+
+"DropDB"
+  ==> "CreateDB"
+  ==> "RecreateDB"
+
 "Clean"
+  ==> "CreateDB"
   ==> "GenerateSlides"
   ==> "KeepRunning"
 
