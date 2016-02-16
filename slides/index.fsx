@@ -127,6 +127,26 @@ module SingleCase =
     let city = City "Houston, TX"
     let cityName (City name) = name
     let result = cityName city
+    // > "Houston, TX"
+
+(**
+---
+
+### "Long-form" to better explain:
+*)
+
+module BreakDown =
+    type City =
+        | CityName of string
+
+    let city : City =
+        CityName "Houston, TX"
+
+    let cityName (input:City) =
+        match input with CityName x -> x
+
+    let result = cityName city
+    //> "Houston, TX"
 
 (**
 ***
@@ -215,6 +235,34 @@ Examples:
         }
     }
 
+---
+
+## Usage:
+
+    [lang=cs]
+    var houston = new Place
+    {
+        Name = "Houston, TX",
+        Latitude = 29.75293,
+        // Oops! C# doesn't require all props
+        //Longitude = -95.34876
+    };
+    houston.GetLocation();
+    //> null
+
+---
+
+## Usage for a fictional place:
+
+    [lang=cs]
+    var camelot = new Place
+    {
+        Name = "Camelot",
+        // Convenient to not have to specify values
+    };
+    camelot.GetLocation();
+    //> null
+
 ***
 
 ## F# `Place` with optional `ILocatable`
@@ -234,6 +282,39 @@ module OptionalLocation =
                     member this.Latitude = lat
                     member this.Longitude = lng } |> Some
             | _ -> None
+
+(**
+
+---
+
+## Usage:
+*)
+
+    let houston : Place =
+        {
+            Name = "Houston, TX"
+            Latitude = Some 29.75293
+            // must provide a value
+            Longitude = Some -95.34876
+        }
+    houston.GetLocation()
+    //> Some ILocatable...
+
+(**
+---
+
+## Usage for fictional place:
+*)
+
+    let camelot =
+        {
+            Name = "Camelot"
+            // must provide values always
+            Latitude = None
+            Longitude = None
+        }
+    camelot.GetLocation()
+    //> None
 
 (**
 ***
@@ -269,6 +350,37 @@ module OptionalLocation =
         public Location Location { get; set; }
     }
 
+---
+
+## Usage:
+
+    [lang=cs]
+    var houston = new Place
+    {
+        Name = "Houston, TX",
+        Location = new Location
+        {
+            Latitude = 29.75293,
+            // Oops! C# doesn't require all props
+            //Longitude = -95.34876
+        }
+    };
+    houston.Location
+    //> Non-null Location with null field that is invalid!
+
+---
+
+## Usage for a fictional place:
+
+    [lang=cs]
+    var camelot = new Place
+    {
+        Name = "Camelot",
+        Location = null
+    };
+    camelot.Location
+    //> null
+
 ***
 
 ## Note: "optional" indicated by a `null`
@@ -284,6 +396,39 @@ module Revised =
     type Location = { Latitude : float; Longitude : float }
 
     type Place = { Name : string; Location : Location option }
+
+(**
+---
+
+## Usage:
+*)
+
+    let houston =
+        {
+            Name = "Houston, TX"
+            Location =
+                Some {
+                    Latitude = 29.75293
+                    // Requires a value
+                    Longitude = -95.34876
+                }
+        }
+    houston.Location
+    //> { Name = "Houston, TX"; Location = Some ... }
+
+(**
+---
+
+## Usage for a fictional place:
+*)
+
+    let camelot =
+        {
+            Name = "Camelot"
+            Location = None
+        }
+    camelot.Location
+    //> None
 
 (**
 ***
@@ -880,6 +1025,7 @@ type Place = { Name : City; Location : Location option }
 [<Measure>] type ft
 
 (*** hide ***)
+[<Measure>] type mi
 open FSharp.Data
 
 [<Literal>]
@@ -946,6 +1092,10 @@ let tryFindDistance : TryFindDistance = function
 (*** define: meters-to-feet ***)
 let metersToFeet (input: float<m>) =
     input * 3.2808399<ft/m>
+
+(*** hide ***)
+let feetToMiles (input: float<ft>) =
+    input / 5280.<ft/mi>
     
 (*** define: distance-calculator-pipeline ***)
 let workflow =
