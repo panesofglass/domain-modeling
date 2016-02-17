@@ -280,7 +280,8 @@ module OptionalLocation =
             | Some lat, Some lng ->
                 { new ILocatable with
                     member this.Latitude = lat
-                    member this.Longitude = lng } |> Some
+                    member this.Longitude = lng
+                } |> Some
             | _ -> None
 
 (**
@@ -306,7 +307,7 @@ module OptionalLocation =
 ## Usage for fictional place:
 *)
 
-    let camelot =
+    let camelot : Place =
         {
             Name = "Camelot"
             // must provide values always
@@ -403,7 +404,7 @@ module Revised =
 ## Usage:
 *)
 
-    let houston =
+    let houston : Place =
         {
             Name = "Houston, TX"
             Location =
@@ -422,7 +423,7 @@ module Revised =
 ## Usage for a fictional place:
 *)
 
-    let camelot =
+    let camelot : Place =
         {
             Name = "Camelot"
             Location = None
@@ -537,12 +538,14 @@ module Revised =
 
 ***
 
-## Further study: Contracts and Dependent Types
+## Further study
 
+* [Property-based testing (FsCheck)](https://fscheck.github.io/FsCheck/)
 * [Code Contracts](http://research.microsoft.com/en-us/projects/contracts/)
-* [F*](https://fstar-lang.org/)
-* [TS*](http://research.microsoft.com/en-us/um/people/nswamy/papers/tstar.pdf)
-* [Idris](http://www.idris-lang.org/)
+* Dependent Types
+  * [F*](https://fstar-lang.org/)
+  * [TS*](http://research.microsoft.com/en-us/um/people/nswamy/papers/tstar.pdf)
+  * [Idris](http://www.idris-lang.org/)
 
 ' We have seen that the F# type system can
 ' get us pretty far along our way. 
